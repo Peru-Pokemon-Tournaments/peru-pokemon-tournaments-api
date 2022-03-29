@@ -21,7 +21,7 @@ trait FailedValidationResponse
         $errors = $validator->errors();
 
         $response = response()->json([
-            'message' => 'Invalid data',
+            'message' => 'Datos inválidos',
             'errors' => $errors->messages(),
         ], Response::HTTP_UNPROCESSABLE_ENTITY);
 
