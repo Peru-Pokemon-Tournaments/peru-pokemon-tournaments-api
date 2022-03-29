@@ -16,6 +16,12 @@ class ServiceDomainServiceProvider extends ServiceProvider
         $this->app->bind(
             \App\Services\User\CreateCompleteUserService::class,
             \App\Services\User\CreateCompleteUserService::class);
+        $this->app->bind(
+            \App\Services\User\GetUserByEmailService::class,
+            \App\Services\User\GetUserByEmailService::class);
+        $this->app->bind(
+            \App\Services\User\LoginUserService::class,
+            \App\Services\User\LoginUserService::class);
     }
 
     /**
