@@ -29,4 +29,16 @@ final class UserRepository implements UserRepositoryContract
     {
         return User::find($id);
     }
+
+    /**
+     * Find one user by email
+     *
+     * @param  string $email
+     * @param  string $relationships
+     * @return \App\Models\User
+     */
+    public function findOneByEmail(string &$email, array $relationships = [])
+    {
+        return User::with($relationships)->where('email', '=', $email)->first();
+    }
 }
