@@ -58,7 +58,7 @@ class CreateCompleteUserService
      */
     public function __invoke(array $data)
     {
-        $person = $this->createPerson();
+        $person = $this->createPerson($data);
 
         $user = $this->createUser($data, $person);
 
@@ -72,9 +72,12 @@ class CreateCompleteUserService
      *
      * @return \App\Models\Person
      */
-    private function createPerson()
+    private function createPerson($data)
     {
         $person = new Person();
+
+        $person->first_name = $data['first_name'];
+        $person->last_name = $data['last_name'];
 
         $this->personRepository->save($person);
 

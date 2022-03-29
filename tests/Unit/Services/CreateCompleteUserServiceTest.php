@@ -26,6 +26,8 @@ class CreateCompleteUserServiceTest extends TestCase
         );
 
         $data = [
+            'first_name' => 'Ignacio',
+            'last_name' => 'Rueda Boada',
             'name' => 'ignacior',
             'email' => 'ignacior@example.test',
             'password' => 'somepassword2022',
@@ -33,6 +35,8 @@ class CreateCompleteUserServiceTest extends TestCase
 
         $user = call_user_func($service, $data);
 
+        $this->assertEquals($data['first_name'], $user->person->first_name);
+        $this->assertEquals($data['last_name'], $user->person->last_name);
         $this->assertEquals($data['name'], $user->name);
         $this->assertEquals($data['email'], $user->email);
         $this->assertNotEmpty($user->password);
