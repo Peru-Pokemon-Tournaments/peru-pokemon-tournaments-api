@@ -23,6 +23,9 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Contracts\Repositories\ExternalBracketRepository::class,
             \App\Repositories\ExternalBracketRepository::class);
         $this->app->bind(
+            \App\Contracts\Repositories\FileRepository::class,
+            \App\Repositories\GoogleDriveFileRepository::class);
+        $this->app->bind(
             \App\Contracts\Repositories\GameGenerationRepository::class,
             \App\Repositories\GameGenerationRepository::class);
         $this->app->bind(
