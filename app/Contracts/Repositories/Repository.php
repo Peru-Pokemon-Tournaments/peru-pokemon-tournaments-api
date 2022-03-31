@@ -44,4 +44,12 @@ interface Repository
      * @return \Illuminate\Database\Eloquent\Model
      */
     public function findOne(string &$id);
+
+    /**
+     * Find many models by ids
+     *
+     * @param  array $ids
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function findMany(array $ids);
 }
