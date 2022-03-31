@@ -29,4 +29,15 @@ final class TournamentRuleRepository implements TournamentRuleRepositoryContract
     {
         return TournamentRule::find($id);
     }
+
+    /**
+     * Find many models by ids
+     *
+     * @param  array $ids
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function findMany(array $ids)
+    {
+        return TournamentRule::findMany($ids);
+    }
 }

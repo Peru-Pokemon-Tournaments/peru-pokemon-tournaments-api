@@ -29,4 +29,15 @@ final class TournamentPriceRepository implements TournamentPriceRepositoryContra
     {
         return TournamentPrice::find($id);
     }
+
+    /**
+     * Find many models by ids
+     *
+     * @param  array $ids
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function findMany(array $ids)
+    {
+        return TournamentPrice::findMany($ids);
+    }
 }

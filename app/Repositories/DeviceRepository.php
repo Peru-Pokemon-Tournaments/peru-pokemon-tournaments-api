@@ -29,4 +29,15 @@ final class DeviceRepository implements DeviceRepositoryContract
     {
         return Device::find($id);
     }
+
+    /**
+     * Find many models by ids
+     *
+     * @param  array $ids
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function findMany(array $ids)
+    {
+        return Device::findMany($ids);
+    }
 }

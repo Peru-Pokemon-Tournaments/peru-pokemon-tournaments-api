@@ -29,4 +29,15 @@ final class GameRepository implements GameRepositoryContract
     {
         return Game::find($id);
     }
+
+    /**
+     * Find many models by ids
+     *
+     * @param  array $ids
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function findMany(array $ids)
+    {
+        return GameRepository::findMany($ids);
+    }
 }

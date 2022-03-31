@@ -29,4 +29,15 @@ final class PersonRepository implements PersonRepositoryContract
     {
         return Person::find($id);
     }
+
+    /**
+     * Find many models by ids
+     *
+     * @param  array $ids
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function findMany(array $ids)
+    {
+        return PersonRepository::findMany($ids);
+    }
 }

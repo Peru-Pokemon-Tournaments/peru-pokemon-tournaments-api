@@ -31,6 +31,17 @@ final class UserRepository implements UserRepositoryContract
     }
 
     /**
+     * Find many models by ids
+     *
+     * @param  array $ids
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function findMany(array $ids)
+    {
+        return User::findMany($ids);
+    }
+
+    /**
      * Find one user by email
      *
      * @param  string $email

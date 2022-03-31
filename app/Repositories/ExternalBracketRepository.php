@@ -29,4 +29,15 @@ final class ExternalBracketRepository implements ExternalBracketRepositoryContra
     {
         return ExternalBracket::find($id);
     }
+
+    /**
+     * Find many models by ids
+     *
+     * @param  array $ids
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function findMany(array $ids)
+    {
+        return ExternalBracket::findMany($ids);
+    }
 }

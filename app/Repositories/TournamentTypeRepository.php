@@ -29,4 +29,15 @@ final class TournamentTypeRepository implements TournamentTypeRepositoryContract
     {
         return TournamentType::find($id);
     }
+
+    /**
+     * Find many models by ids
+     *
+     * @param  array $ids
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function findMany(array $ids)
+    {
+        return TournamentType::findMany($ids);
+    }
 }
