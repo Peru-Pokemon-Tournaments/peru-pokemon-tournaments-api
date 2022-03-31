@@ -177,7 +177,7 @@ return [
         App\Providers\RepositoryServiceProvider::class,
         App\Providers\ServiceDomainServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
-
+        App\Providers\GoogleDriveServiceProvider::class,
     ],
 
     /*
