@@ -14,7 +14,13 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            UserPersonCompetitorSeeder::class,
+            //UserPersonCompetitorSeeder::class,
+            BaseDevicesSeeder::class,
+            BaseGameGenerationsAndGamesSeeder::class,
+            BaseTournamentFormatsSeeder::class,
+            BaseTournamentRulesSeeder::class,
+            BaseTournamentSystemsSeeder::class,
+            BaseTournamentTypesSeeder::class,
         ]);
     }
 }

@@ -16,14 +16,14 @@ class UserPersonCompetitorSeeder extends Seeder
      */
     public function run()
     {
-        $person = Person::factory(1)->create()->first();
+        $person = Person::factory()->create()->first();
 
-        $user = User::factory(1)->create([
+        $user = User::factory()->create([
             'password' => 'somepassword2022',
             'person_id' => $person->id,
         ])->first();
 
-        Competitor::factory(1)->create([
+        Competitor::factory()->create([
             'nick_name' => $user->name,
             'user_id' => $user->id,
         ]);
