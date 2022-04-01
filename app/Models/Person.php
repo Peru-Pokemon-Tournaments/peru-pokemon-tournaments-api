@@ -63,4 +63,14 @@ class Person extends Model
     {
         return $this->hasMany(User::class, 'person_id', 'id');
     }
+
+    /**
+     * The tournaments of the person
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tournaments()
+    {
+        return $this->hasMany(Tournament::class, 'created_by_person_id', 'id');
+    }
 }
