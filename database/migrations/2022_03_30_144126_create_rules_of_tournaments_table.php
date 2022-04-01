@@ -14,8 +14,8 @@ class CreateRulesOfTournamentsTable extends Migration
     public function up()
     {
         Schema::create('rules_of_tournaments', function (Blueprint $table) {
-            $table->uuid('rule_id');
-            $table->foreign('rule_id')
+            $table->uuid('tournament_rule_id');
+            $table->foreign('tournament_rule_id')
                 ->references('id')
                 ->on('tournament_rules')
                 ->onDelete('cascade');
