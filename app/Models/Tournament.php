@@ -36,6 +36,7 @@ class Tournament extends Model
         'title',
         'description',
         'place',
+        'created_by_person_id',
         'tournament_type_id',
         'image_id',
         'tournament_format_id',
@@ -51,6 +52,16 @@ class Tournament extends Model
     protected static function newFactory()
     {
         return TournamentFactory::new();
+    }
+
+    /**
+     * The creator of the tournament
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function createdBy()
+    {
+        return $this->belongsTo(Person::class, 'created_by_person_id', 'id');
     }
 
     /**
@@ -108,9 +119,9 @@ class Tournament extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function price()
+    public function tournamentPrice()
     {
-        return $this->hasOne(Price::class, 'tournament_id', 'id');
+        return $this->hasOne(TournamentPrice::class, 'tournament_id', 'id');
     }
 
     /**
@@ -118,9 +129,9 @@ class Tournament extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function prizes()
+    public function tournamentPrizes()
     {
-        return $this->hasMany(Prize::class, 'tournament_id', 'id');
+        return $this->hasMany(TournamentPrize::class, 'tournament_id', 'id');
     }
 
     /**
@@ -128,7 +139,7 @@ class Tournament extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function rules()
+    public function tournamentRules()
     {
         return $this->belongsToMany(TournamentRule::class, 'rules_of_tournaments');
     }
