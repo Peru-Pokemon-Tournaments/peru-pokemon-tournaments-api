@@ -13,7 +13,7 @@ class CreateTournamentPricesTable extends Migration
      */
     public function up()
     {
-        Schema::create('prices', function (Blueprint $table) {
+        Schema::create('tournament_prices', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('symbol', 10)->default('S/.');
             $table->float('amount');
