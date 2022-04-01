@@ -18,6 +18,11 @@ class CreateTournamentsTable extends Migration
             $table->string('title', 150);
             $table->text('description');
             $table->string('place')->nullable();
+            $table->uuid('created_by_person_id')->nullable();
+            $table->foreign('created_by_person_id')
+                ->references('id')
+                ->on('people')
+                ->onDelete('set null');
             $table->uuid('tournament_type_id')->nullable();
             $table->foreign('tournament_type_id')
                 ->references('id')
