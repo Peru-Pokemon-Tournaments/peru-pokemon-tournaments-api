@@ -14,7 +14,7 @@ class CreateTournamentSystemsOfTournamentsTable extends Migration
     public function up()
     {
         Schema::create('tournament_systems_of_tournaments', function (Blueprint $table) {
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->uuid('tournament_system_id');
             $table->foreign('tournament_system_id')
                 ->references('id')

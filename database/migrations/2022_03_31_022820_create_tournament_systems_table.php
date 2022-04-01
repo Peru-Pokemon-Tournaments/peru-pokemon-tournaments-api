@@ -16,7 +16,7 @@ class CreateTournamentSystemsTable extends Migration
         Schema::create('tournament_systems', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name', 150);
-            $table->string('description');
+            $table->text('description');
             $table->timestamps();
             $table->softDeletes();
         });

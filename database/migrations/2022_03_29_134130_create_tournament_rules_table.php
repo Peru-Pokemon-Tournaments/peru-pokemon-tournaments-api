@@ -16,7 +16,7 @@ class CreateTournamentRulesTable extends Migration
         Schema::create('tournament_rules', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name', 150);
-            $table->string('description');
+            $table->text('description');
             $table->timestamps();
             $table->softDeletes();
         });

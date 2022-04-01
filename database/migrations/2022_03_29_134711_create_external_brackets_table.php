@@ -16,7 +16,7 @@ class CreateExternalBracketsTable extends Migration
         Schema::create('external_brackets', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('reference', 150);
-            $table->string('url');
+            $table->text('url');
             $table->uuid('tournament_id');
             $table->foreign('tournament_id')
                 ->references('id')

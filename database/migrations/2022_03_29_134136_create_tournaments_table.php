@@ -16,23 +16,13 @@ class CreateTournamentsTable extends Migration
         Schema::create('tournaments', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('title', 150);
-            $table->string('description');
+            $table->text('description');
             $table->string('place')->nullable();
             $table->uuid('tournament_type_id')->nullable();
             $table->foreign('tournament_type_id')
                 ->references('id')
                 ->on('tournament_types')
                 ->onDelete('set null');
-            /**$table->uuid('device_id')->nullable();
-            $table->foreign('device_id')
-                ->references('id')
-                ->on('devices')
-                ->onDelete('set null');**/
-            /**$table->uuid('game_id')->nullable();
-            $table->foreign('game_id')
-                ->references('id')
-                ->on('games')
-                ->onDelete('set null');**/
             $table->uuid('image_id')->nullable();
             $table->foreign('image_id')
                 ->references('id')

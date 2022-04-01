@@ -16,7 +16,7 @@ class CreateGameGenerationsTable extends Migration
         Schema::create('game_generations', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('generation', 2);
-            $table->string('description');
+            $table->text('description');
             $table->timestamps();
             $table->softDeletes();
         });

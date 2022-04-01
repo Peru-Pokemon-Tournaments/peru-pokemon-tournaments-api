@@ -16,7 +16,7 @@ class CreateTournamentPrizesTable extends Migration
         Schema::create('tournament_prizes', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('title', 150);
-            $table->string('description');
+            $table->text('description');
             $table->uuid('tournament_id');
             $table->foreign('tournament_id')
                 ->references('id')
