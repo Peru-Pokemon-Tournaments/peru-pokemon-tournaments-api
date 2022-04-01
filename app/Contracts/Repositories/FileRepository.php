@@ -11,7 +11,7 @@ interface FileRepository
      * @param   ?string $name
      * @return  string|null
      */
-    public function save(mixed $file, ?string $name = null);
+    public function save($file, ?string $name = null);
 
 
     /**

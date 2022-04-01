@@ -21,7 +21,7 @@ final class GoogleDriveFileRepository implements FileRepository
      * @param   ?string $name
      * @return  string|null
      */
-    public function save(mixed $file, ?string $filename = null)
+    public function save($file, ?string $filename = null)
     {
         if (is_null($filename)) {
             $filename = $file->getFilename();
