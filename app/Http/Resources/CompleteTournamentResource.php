@@ -33,6 +33,7 @@ class CompleteTournamentResource extends JsonResource
                 'tournament_prizes' => $this->resource->tournamentPrizes,
                 'tournament_rules' => $this->resource->tournamentRules,
                 'tournament_systems' => $this->resource->tournamentSystems,
+                'created_by' => $this->resource->createdBy,
                 'external_bracket' => $this->resource->externalBracket,
             ],
         );
