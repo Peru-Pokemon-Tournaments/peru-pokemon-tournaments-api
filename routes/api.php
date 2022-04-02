@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Tournament\CreateCompleteTournamentController;
+use App\Http\Controllers\Tournament\GetCompleteTournamentController;
 use App\Http\Controllers\User\LoginUserController;
 use App\Http\Controllers\User\RegisterUserController;
 use Illuminate\Support\Facades\Route;
@@ -19,4 +20,6 @@ use Illuminate\Support\Facades\Route;
 Route::post('/register', RegisterUserController::class);
 Route::post('/login', LoginUserController::class);
 
-Route::post('/tournaments', CreateCompleteTournamentController::class);
+Route::prefix('tournaments')->group(function () {
+    Route::post('/', CreateCompleteTournamentController::class);
+});
