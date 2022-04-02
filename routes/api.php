@@ -21,5 +21,10 @@ Route::post('/register', RegisterUserController::class);
 Route::post('/login', LoginUserController::class);
 
 Route::prefix('tournaments')->group(function () {
+
+    Route::prefix('{tournament}')->group(function () {
+        Route::get('/', GetCompleteTournamentController::class);
+    });
+
     Route::post('/', CreateCompleteTournamentController::class);
 });
