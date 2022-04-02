@@ -1,8 +1,7 @@
 <?php
 
-namespace Tests\Unit\Services;
+namespace Tests\Unit\Services\Tournament;
 
-use App\Contracts\Repositories\FileRepository;
 use App\Models\Device;
 use App\Models\Game;
 use App\Models\GameGeneration;
@@ -11,20 +10,14 @@ use App\Models\TournamentFormat;
 use App\Models\TournamentRule;
 use App\Models\TournamentSystem;
 use App\Models\TournamentType;
-use App\Repositories\CompetitorRepository;
 use App\Repositories\ExternalBracketRepository;
 use App\Repositories\GoogleDriveFileRepository;
 use App\Repositories\ImageRepository;
-use App\Repositories\PersonRepository;
-use App\Repositories\TournamentFormatRepository;
 use App\Repositories\TournamentPriceRepository;
 use App\Repositories\TournamentPrizeRepository;
 use App\Repositories\TournamentRepository;
-use App\Repositories\TournamentTypeRepository;
-use App\Repositories\UserRepository;
 use App\Services\Tournament\CreateCompleteTournamentService;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Arr;
 use Tests\TestCase;
 

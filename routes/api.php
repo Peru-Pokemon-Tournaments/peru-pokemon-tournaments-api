@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Tournament\CreateCompleteTournamentController;
 use App\Http\Controllers\Tournament\GetCompleteTournamentController;
+use App\Http\Controllers\Tournament\GetTournamentsController;
 use App\Http\Controllers\User\LoginUserController;
 use App\Http\Controllers\User\RegisterUserController;
 use Illuminate\Support\Facades\Route;
@@ -26,5 +27,6 @@ Route::prefix('tournaments')->group(function () {
         Route::get('/', GetCompleteTournamentController::class);
     });
 
+    Route::get('/', GetTournamentsController::class);
     Route::post('/', CreateCompleteTournamentController::class);
 });
