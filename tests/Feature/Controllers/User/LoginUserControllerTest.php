@@ -35,16 +35,15 @@ class LoginUserControllerTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertJson(fn (AssertableJson $json) =>
-            $json->has('data')
-                ->has('data.token')
-                ->has('data.message')
-                ->has('data.user')
-                ->has('data.user.person')
-                ->where('data.user.person.first_name', $person->first_name)
-                ->where('data.user.person.last_name', $person->last_name)
-                ->where('data.user.name', $user->name)
-                ->where('data.user.email', $user->email)
-                ->missing('data.user.password')
+            $json->has('token')
+                ->has('message')
+                ->has('user')
+                ->has('user.person')
+                ->where('user.person.first_name', $person->first_name)
+                ->where('user.person.last_name', $person->last_name)
+                ->where('user.name', $user->name)
+                ->where('user.email', $user->email)
+                ->missing('user.password')
                 ->missing('errors')
         );
     }
@@ -74,10 +73,9 @@ class LoginUserControllerTest extends TestCase
 
         $response->assertStatus(401);
         $response->assertJson(fn (AssertableJson $json) =>
-            $json->has('data')
-                ->has('data.message')
-                ->missing('data.token')
-                ->missing('data.user')
+            $json->has('message')
+                ->missing('token')
+                ->missing('user')
         );
     }
 }

@@ -27,15 +27,14 @@ class RegisterUserControllerTest extends TestCase
 
         $response->assertStatus(201);
         $response->assertJson(fn (AssertableJson $json) =>
-            $json->has('data')
-                ->has('data.message')
-                ->has('data.user')
-                ->has('data.user.person')
-                ->where('data.user.person.first_name', $data['first_name'])
-                ->where('data.user.person.last_name', $data['last_name'])
-                ->where('data.user.name', $data['name'])
-                ->where('data.user.email', $data['email'])
-                ->missing('data.user.password')
+            $json->has('message')
+                ->has('user')
+                ->has('user.person')
+                ->where('user.person.first_name', $data['first_name'])
+                ->where('user.person.last_name', $data['last_name'])
+                ->where('user.name', $data['name'])
+                ->where('user.email', $data['email'])
+                ->missing('user.password')
                 ->missing('errors')
         );
     }
