@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCompleteTournamentRequest;
 use App\Http\Resources\CompleteTournamentResource;
 use App\Services\Tournament\CreateCompleteTournamentService;
+use Illuminate\Http\Response;
 
 class CreateCompleteTournamentController extends Controller
 {
@@ -33,7 +34,7 @@ class CreateCompleteTournamentController extends Controller
      * Create complete tournament
      *
      * @param  CreateCompleteTournamentRequest $request
-     * @return \Illuminate\Http\Resources\Json\JsonResource
+     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Routing\ResponseFactory
      */
     public function __invoke(CreateCompleteTournamentRequest $request)
     {
@@ -46,6 +47,12 @@ class CreateCompleteTournamentController extends Controller
 
         $tournament = ($this->createCompleteTournamentService)($data);
 
-        return new CompleteTournamentResource($tournament);
+        return response(
+            [
+                'message' => 'Torneo creado',
+                'tournament' => CompleteTournamentResource::make($tournament),
+            ],
+            Response::HTTP_CREATED,
+        );
     }
 }

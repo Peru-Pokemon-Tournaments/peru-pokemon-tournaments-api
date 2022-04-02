@@ -8,6 +8,7 @@ use App\Http\Resources\FailedAuthResource;
 use App\Http\Resources\SuccessAuthResource;
 use App\Services\User\GetUserByEmailService;
 use App\Services\User\LoginUserService;
+use Illuminate\Http\Response;
 
 class LoginUserController extends Controller
 {
@@ -53,14 +54,20 @@ class LoginUserController extends Controller
 
         if (!$tokenOrFalse)
         {
-            return new FailedAuthResource($request);
+            return response()->json(
+                FailedAuthResource::make($request),
+                Response::HTTP_UNAUTHORIZED
+            );
         }
 
         $user = ($this->getUserByEmailService)($request->input('email'));
 
-        return new SuccessAuthResource([
-            'token' => $tokenOrFalse,
-            'user' => $user,
-        ]);
+        return response(
+            SuccessAuthResource::make([
+                'token' => $tokenOrFalse,
+                'user' => $user,
+            ]),
+            Response::HTTP_OK
+        );
     }
 }

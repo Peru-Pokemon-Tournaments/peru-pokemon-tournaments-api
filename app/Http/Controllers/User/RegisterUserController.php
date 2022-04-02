@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterUserRequest;
 use App\Http\Resources\UserResource;
 use App\Services\User\CreateCompleteUserService;
+use Illuminate\Http\Response;
 
 class RegisterUserController extends Controller
 {
@@ -38,6 +39,12 @@ class RegisterUserController extends Controller
     {
         $user = ($this->createCompleteUserService)($request->input());
 
-        return new UserResource($user);
+        return response(
+            [
+                'message' => 'Registrado satisfactoriamente',
+                'user' => UserResource::make($user),
+            ],
+            Response::HTTP_CREATED
+        );
     }
 }
