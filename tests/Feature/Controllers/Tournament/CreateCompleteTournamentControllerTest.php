@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Controllers\User;
+namespace Tests\Feature\Controllers\Tournament;
 
 use App\Models\Device;
 use App\Models\Game;
