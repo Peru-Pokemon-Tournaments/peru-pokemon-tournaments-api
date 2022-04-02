@@ -3,7 +3,6 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Http\Response;
 
 class SuccessAuthResource extends JsonResource
 {
@@ -17,20 +16,8 @@ class SuccessAuthResource extends JsonResource
     {
         return [
             'token' => $this->resource['token'],
-            'user' => $this->resource['user'],
+            'user' => UserResource::make($this->resource['user']),
             'message' => 'Ok',
         ];
-    }
-
-    /**
-     * Customize the outgoing response for the resource.
-     *
-     * @param  \Illuminate\Http\Request
-     * @param  \Illuminate\Http\Response
-     * @return void
-     */
-    public function withResponse($request, $response)
-    {
-        $response->setStatusCode(Response::HTTP_OK);
     }
 }

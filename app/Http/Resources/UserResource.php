@@ -3,7 +3,6 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Http\Response;
 
 class UserResource extends JsonResource
 {
@@ -15,21 +14,6 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
-            'message' => 'Ok',
-            'user' => $this->resource,
-        ];
-    }
-
-    /**
-     * Customize the outgoing response for the resource.
-     *
-     * @param  \Illuminate\Http\Request
-     * @param  \Illuminate\Http\Response
-     * @return void
-     */
-    public function withResponse($request, $response)
-    {
-        $response->setStatusCode(Response::HTTP_CREATED);
+        return $this->resource;
     }
 }
