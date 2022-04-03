@@ -37,6 +37,24 @@ class Competitor extends Model
     ];
 
     /**
+     * The model's attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'full_name',
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'full_name',
+    ];
+
+    /**
      * Create a new factory instance for the model.
      *
      * @return \Illuminate\Database\Eloquent\Factories\Factory
@@ -44,6 +62,16 @@ class Competitor extends Model
     protected static function newFactory()
     {
         return CompetitorFactory::new();
+    }
+
+    /**
+     * Retrieve the fullname of the competitor person
+     *
+     * @return string
+     */
+    public function getFullNameAttribute()
+    {
+        return $this->user->person->fullName;
     }
 
     /**
