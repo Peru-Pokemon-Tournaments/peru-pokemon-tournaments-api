@@ -37,15 +37,6 @@ class Competitor extends Model
     ];
 
     /**
-     * The model's attributes.
-     *
-     * @var array
-     */
-    protected $attributes = [
-        'full_name',
-    ];
-
-    /**
      * The accessors to append to the model's array form.
      *
      * @var array
