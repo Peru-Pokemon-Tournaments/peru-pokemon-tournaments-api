@@ -40,4 +40,19 @@ final class TournamentInscriptionRepository implements TournamentInscriptionRepo
     {
         return TournamentInscription::findMany($ids);
     }
+
+    /**
+     * Find one model by tournamenId and competitorId
+     *
+     * @param  string $tournamentId
+     * @param  string $competitorId
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function findOneByTournamentAndCompetitor(string $tournamentId, string $competitorId)
+    {
+        return TournamentInscription::where('tournament_id', $tournamentId)
+            ->where('competitor_id', $competitorId)
+            ->get()
+            ->first();
+    }
 }
