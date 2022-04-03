@@ -8,6 +8,7 @@ use App\Http\Controllers\TournamentInscription\CreateCompleteTournamentInscripti
 use App\Http\Controllers\TournamentInscription\DeleteTournamentInscriptionController;
 use App\Http\Controllers\TournamentInscription\GetTournamentInscriptionController;
 use App\Http\Controllers\TournamentInscription\IsCompetitorEnrolledToTournamentController;
+use App\Http\Controllers\TournamentInscription\UpdateTournamentInscriptionController;
 use App\Http\Controllers\User\LoginUserController;
 use App\Http\Controllers\User\RegisterUserController;
 use Illuminate\Support\Facades\Route;
@@ -53,5 +54,6 @@ Route::prefix('inscriptions')->group(function () {
     Route::prefix('{tournamentInscription}')->group(function() {
         Route::get('/', GetTournamentInscriptionController::class);
         Route::delete('/', DeleteTournamentInscriptionController::class);
+        Route::patch('/', UpdateTournamentInscriptionController::class);
     });
 });
