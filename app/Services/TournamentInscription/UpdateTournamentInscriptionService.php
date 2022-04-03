@@ -4,6 +4,7 @@ namespace App\Services\TournamentInscription;
 
 use App\Contracts\Repositories\PokemonShowdownTeamRepository;
 use App\Contracts\Repositories\TournamentInscriptionRepository;
+use App\Models\TournamentInscription;
 
 class UpdateTournamentInscriptionService
 {
@@ -56,6 +57,10 @@ class UpdateTournamentInscriptionService
         $pokemonShowdownTeam->team = $team;
 
         $this->pokemonShowdownTeamRepository->save($pokemonShowdownTeam);
+
+        $tournamentInscription->status = TournamentInscription::PENDING;
+
+        $this->tournamentInscriptionRepository->save($tournamentInscription);
 
         return $tournamentInscription;
     }
