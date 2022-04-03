@@ -21,6 +21,9 @@ class EventServiceProvider extends ServiceProvider
         \App\Events\TournamentInscriptionCreated::class => [
             \App\Listeners\SendTournamentCreatedEmailNotification::class,
         ],
+        \App\Events\TournamentInscriptionUpdated::class => [
+            \App\Listeners\SendTournamentUpdatedEmailNotification::class,
+        ],
     ];
 
     /**
