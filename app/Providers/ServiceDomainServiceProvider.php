@@ -29,6 +29,9 @@ class ServiceDomainServiceProvider extends ServiceProvider
             \App\Services\Tournament\GetTournamentCompetitorsService::class,
             \App\Services\Tournament\GetTournamentCompetitorsService::class);
         $this->app->bind(
+            \App\Services\TournamentInscription\DeleteTournamentInscriptionService::class,
+            \App\Services\TournamentInscription\DeleteTournamentInscriptionService::class);
+        $this->app->bind(
             \App\Services\TournamentInscription\CreateCompleteTournamentInscriptionService::class,
             \App\Services\TournamentInscription\CreateCompleteTournamentInscriptionService::class);
     }
