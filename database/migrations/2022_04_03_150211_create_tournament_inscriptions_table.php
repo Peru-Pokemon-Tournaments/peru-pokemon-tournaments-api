@@ -25,6 +25,11 @@ class CreateTournamentInscriptionsTable extends Migration
                 ->references('id')
                 ->on('competitors')
                 ->onDelete('cascade');
+            $table->uuid('pokemon_showdown_team_id');
+            $table->foreign('pokemon_showdown_team_id')
+                ->references('id')
+                ->on('pokemon_showdown_teams')
+                ->onDelete('cascade');
             $table->enum('status', [
                 'accepted',
                 'pending',
