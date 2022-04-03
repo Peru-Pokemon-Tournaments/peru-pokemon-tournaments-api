@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\Uuid;
+use Carbon\Carbon;
 use Database\Factories\TournamentFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,6 +12,10 @@ class Tournament extends Model
 {
     use HasFactory;
     use Uuid;
+
+    private const NOT_STARTED = 'NOT_STARTED';
+    private const IN_PROGRESS = 'IN_PROGRESS';
+    private const ENDED = 'ENDED';
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -43,6 +48,48 @@ class Tournament extends Model
         'start_date',
         'end_date',
     ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'status',
+        'total_competitors',
+    ];
+
+    /**
+     * Retrieve the status of the tournament
+     *
+     * @return string
+     */
+    public function getStatusAttribute()
+    {
+        $now = Carbon::now();
+
+        if ($now->lte($this->start_date))
+        {
+            return self::NOT_STARTED;
+        }
+
+        if ($now->lte($this->end_date))
+        {
+            return self::IN_PROGRESS;
+        }
+
+        return self::ENDED;
+    }
+
+    /**
+     * Retrieve the total of competitors enrolled in the tournament
+     *
+     * @return int
+     */
+    public function getTotalCompetitorsAttribute()
+    {
+        return TournamentInscription::where('tournament_id', $this->id)->count();
+    }
 
     /**
      * Create a new factory instance for the model.
