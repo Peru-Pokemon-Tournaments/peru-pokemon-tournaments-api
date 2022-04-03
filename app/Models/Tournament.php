@@ -163,4 +163,14 @@ class Tournament extends Model
     {
         return $this->belongsTo(ExternalBracket::class, 'tournament_id', 'id');
     }
+
+    /**
+     * The inscriptions of the tournament
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tournamentInscriptions()
+    {
+        return $this->hasMany(TournamentInscription::class, 'tournament_id', 'id');
+    }
 }
