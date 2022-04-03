@@ -13,6 +13,27 @@ class TournamentInscription extends Model
     use Uuid;
 
     /**
+     * Accepted status
+     *
+     * @var string
+     */
+    public const ACCEPTED = 'accepted';
+
+    /**
+     * Pending status
+     *
+     * @var string
+     */
+    public const PENDING = 'pending';
+
+    /**
+     * Rejected status
+     *
+     * @var string
+     */
+    public const REJECTED = 'rejected';
+
+    /**
      * Indicates if the IDs are auto-incrementing.
      *
      * @var bool
@@ -72,7 +93,7 @@ class TournamentInscription extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function tournaments()
+    public function tournament()
     {
         return $this->belongsTo(Tournament::class, 'tournament_id', 'id');
     }
