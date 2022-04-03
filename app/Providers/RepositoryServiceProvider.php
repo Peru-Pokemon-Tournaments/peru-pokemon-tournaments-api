@@ -38,8 +38,14 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Contracts\Repositories\PersonRepository::class,
             \App\Repositories\PersonRepository::class);
         $this->app->bind(
+            \App\Contracts\Repositories\PokemonShowdownTeamRepository::class,
+            \App\Repositories\PokemonShowdownTeamRepository::class);
+        $this->app->bind(
             \App\Contracts\Repositories\TournamentFormatRepository::class,
             \App\Repositories\TournamentFormatRepository::class);
+        $this->app->bind(
+            \App\Contracts\Repositories\TournamentInscriptionRepository::class,
+            \App\Repositories\TournamentInscriptionRepository::class);
         $this->app->bind(
             \App\Contracts\Repositories\TournamentPriceRepository::class,
             \App\Repositories\TournamentPriceRepository::class);
@@ -49,6 +55,9 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             \App\Contracts\Repositories\TournamentRepository::class,
             \App\Repositories\TournamentRepository::class);
+        $this->app->bind(
+            \App\Contracts\Repositories\TournamentResultRepository::class,
+            \App\Repositories\TournamentResultRepository::class);
         $this->app->bind(
             \App\Contracts\Repositories\TournamentRuleRepository::class,
             \App\Repositories\TournamentRuleRepository::class);
