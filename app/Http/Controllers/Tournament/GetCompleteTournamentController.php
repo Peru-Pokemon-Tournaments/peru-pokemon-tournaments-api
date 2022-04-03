@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Tournament;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CompleteTournamentResource;
 use App\Models\Tournament;
-use App\Services\Tournament\GetCompleteTournamentService;
 use Illuminate\Http\Response;
 
 class GetCompleteTournamentController extends Controller
