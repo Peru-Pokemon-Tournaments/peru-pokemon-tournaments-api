@@ -17,7 +17,7 @@ class SuccessAuthResource extends JsonResource
         return [
             'token' => $this->resource['token'],
             'user' => UserResource::make($this->resource['user']),
-            'message' => 'Ok',
+            'message' => 'Has ingresado a Perú Pokémon Tournaments',
         ];
     }
 }
