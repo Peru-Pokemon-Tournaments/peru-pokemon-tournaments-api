@@ -136,4 +136,5 @@ return [
             'min' => 'La :attribute debe contener más de :min caracteres',
         ],
     ],
+    'competitor_enrolled' => 'El competidor ya está registrado en el torneo',
 ];

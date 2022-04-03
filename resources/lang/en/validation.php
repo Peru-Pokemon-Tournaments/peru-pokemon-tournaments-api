@@ -160,4 +160,5 @@ return [
 
     'attributes' => [],
 
+    'competitor_enrolled' => 'The competitor has been registered on the tournament',
 ];
