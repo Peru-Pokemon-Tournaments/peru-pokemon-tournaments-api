@@ -6,6 +6,7 @@ use App\Http\Controllers\Tournament\GetTournamentCompetitorsController;
 use App\Http\Controllers\Tournament\GetTournamentsController;
 use App\Http\Controllers\TournamentInscription\CreateCompleteTournamentInscriptionController;
 use App\Http\Controllers\TournamentInscription\GetTournamentInscriptionController;
+use App\Http\Controllers\TournamentInscription\IsCompetitorEnrolledToTournamentController;
 use App\Http\Controllers\User\LoginUserController;
 use App\Http\Controllers\User\RegisterUserController;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,14 @@ Route::prefix('tournaments')->group(function () {
 
     Route::prefix('{tournament}')->group(function () {
         Route::get('/', GetCompleteTournamentController::class);
+
+        Route::prefix('competitors')->group(function () {
+            Route::prefix('{competitor}')->group(function () {
+
+                Route::get('/is-enrolled', IsCompetitorEnrolledToTournamentController::class);
+
+            });
+        });
 
         Route::prefix('inscriptions')->group(function () {
             Route::get('/', GetTournamentCompetitorsController::class);
