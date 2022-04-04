@@ -5,6 +5,7 @@ use App\Http\Controllers\Tournament\GetCompleteTournamentController;
 use App\Http\Controllers\Tournament\GetTournamentCompetitorsController;
 use App\Http\Controllers\Tournament\GetTournamentsController;
 use App\Http\Controllers\TournamentInscription\CreateCompleteTournamentInscriptionController;
+use App\Http\Controllers\TournamentInscription\DeleteCompetitorTournamentInscriptionController;
 use App\Http\Controllers\TournamentInscription\DeleteTournamentInscriptionController;
 use App\Http\Controllers\TournamentInscription\GetCompetitorTournamentInscriptionController;
 use App\Http\Controllers\TournamentInscription\GetTournamentInscriptionController;
@@ -38,7 +39,12 @@ Route::prefix('tournaments')->group(function () {
             Route::prefix('{competitor}')->group(function () {
 
                 Route::get('/is-enrolled', IsCompetitorEnrolledToTournamentController::class);
-                Route::get('/inscription', GetCompetitorTournamentInscriptionController::class);
+                Route::prefix('/inscription')->group(function () {
+
+                    Route::get('/', GetCompetitorTournamentInscriptionController::class);
+                    Route::delete('/', DeleteCompetitorTournamentInscriptionController::class);
+
+                });
 
             });
         });
