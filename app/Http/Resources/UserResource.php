@@ -14,6 +14,12 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
-        return $this->resource;
+        return array_merge(
+            $this->resource->toArray(),
+            [
+                'person' => $this->resource->person,
+                'competitor' => $this->resource->competitor,
+            ],
+        );
     }
 }
