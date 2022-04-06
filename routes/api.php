@@ -32,40 +32,60 @@ Route::post('/login', LoginUserController::class);
 
 Route::prefix('tournaments')->group(function () {
 
+    Route::get('/', GetTournamentsController::class);
+
     Route::prefix('{tournament}')->group(function () {
         Route::get('/', GetCompleteTournamentController::class);
 
         Route::prefix('competitors')->group(function () {
             Route::prefix('{competitor}')->group(function () {
-
-                Route::get('/is-enrolled', IsCompetitorEnrolledToTournamentController::class);
                 Route::prefix('/inscription')->group(function () {
-
                     Route::get('/', GetCompetitorTournamentInscriptionController::class);
-                    Route::delete('/', DeleteCompetitorTournamentInscriptionController::class);
+                });
+            });
+        });
+    });
+
+});
+
+Route::group(['middleware' => ['jwt.verify']], function() {
+
+    Route::prefix('tournaments')->group(function () {
+
+        Route::post('/', CreateCompleteTournamentController::class);
+
+        Route::prefix('{tournament}')->group(function () {
+
+            Route::prefix('competitors')->group(function () {
+                Route::prefix('{competitor}')->group(function () {
+
+                    Route::get('/is-enrolled', IsCompetitorEnrolledToTournamentController::class);
+                    Route::prefix('/inscription')->group(function () {
+
+                        Route::delete('/', DeleteCompetitorTournamentInscriptionController::class);
+
+                    });
 
                 });
+            });
 
+            Route::prefix('inscriptions')->group(function () {
+                Route::get('/', GetTournamentCompetitorsController::class);
+                Route::post('/', CreateCompleteTournamentInscriptionController::class);
             });
         });
 
-        Route::prefix('inscriptions')->group(function () {
-            Route::get('/', GetTournamentCompetitorsController::class);
-            Route::post('/', CreateCompleteTournamentInscriptionController::class);
+    });
+
+    Route::prefix('inscriptions')->group(function () {
+        Route::prefix('{tournamentInscription}')->group(function() {
+            Route::get('/', GetTournamentInscriptionController::class);
+            Route::delete('/', DeleteTournamentInscriptionController::class);
+            Route::patch('/', UpdateTournamentInscriptionController::class);
+
+            Route::put('/status', UpdateTournamentInscriptionStatusController::class);
+
         });
     });
 
-    Route::get('/', GetTournamentsController::class);
-    Route::post('/', CreateCompleteTournamentController::class);
-});
-
-Route::prefix('inscriptions')->group(function () {
-    Route::prefix('{tournamentInscription}')->group(function() {
-        Route::get('/', GetTournamentInscriptionController::class);
-        Route::delete('/', DeleteTournamentInscriptionController::class);
-        Route::patch('/', UpdateTournamentInscriptionController::class);
-
-        Route::put('/status', UpdateTournamentInscriptionStatusController::class);
-
-    });
 });
