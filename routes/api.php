@@ -44,6 +44,10 @@ Route::prefix('tournaments')->group(function () {
                 });
             });
         });
+
+        Route::prefix('inscriptions')->group(function () {
+            Route::get('/', GetTournamentCompetitorsController::class);
+        });
     });
 
 });
@@ -70,7 +74,6 @@ Route::group(['middleware' => ['jwt.verify']], function() {
             });
 
             Route::prefix('inscriptions')->group(function () {
-                Route::get('/', GetTournamentCompetitorsController::class);
                 Route::post('/', CreateCompleteTournamentInscriptionController::class);
             });
         });
