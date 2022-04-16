@@ -208,7 +208,7 @@ class Tournament extends Model
      */
     public function externalBracket()
     {
-        return $this->belongsTo(ExternalBracket::class, 'tournament_id', 'id');
+        return $this->hasOne(ExternalBracket::class, 'tournament_id', 'id');
     }
 
     /**
