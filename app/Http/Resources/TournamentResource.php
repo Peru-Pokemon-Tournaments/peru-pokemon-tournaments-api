@@ -31,6 +31,7 @@ class TournamentResource extends JsonResource
                 'tournament_format' => $this->resource->tournamentFormat,
                 'tournament_price' => $this->resource->tournamentPrice,
                 'tournament_systems' => $this->resource->tournamentSystems,
+                'external_bracket' => $this->resource->externalBracket,
             ],
         );
     }
