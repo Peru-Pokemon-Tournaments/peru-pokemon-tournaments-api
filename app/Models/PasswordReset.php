@@ -2,16 +2,26 @@
 
 namespace App\Models;
 
+use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Model;
 
 class PasswordReset extends Model
 {
+    use Uuid;
+
     /**
-     * The primary key for the model.
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = false;
+
+    /**
+     * The "type" of the primary key ID.
      *
      * @var string
      */
-    protected $primaryKey = 'user_id';
+    protected $keyType = 'uuid';
 
     /**
      * The attributes that are mass assignable.
