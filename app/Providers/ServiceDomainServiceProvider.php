@@ -43,6 +43,12 @@ class ServiceDomainServiceProvider extends ServiceProvider
         $this->app->bind(
             \App\Services\TournamentInscription\GetTournamentInscriptionByCompetitorTournamentService::class,
             \App\Services\TournamentInscription\GetTournamentInscriptionByCompetitorTournamentService::class);
+        $this->app->bind(
+            \App\Services\User\Password\CreateOrUpdatePasswordResetService::class,
+            \App\Services\User\Password\CreateOrUpdatePasswordResetService::class);
+        $this->app->bind(
+            \App\Services\User\Password\ResetPasswordService::class,
+            \App\Services\User\Password\ResetPasswordService::class);
     }
 
     /**

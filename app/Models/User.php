@@ -92,6 +92,16 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
+     * The password reset of the user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function passwordReset()
+    {
+        return $this->hasOne(PasswordReset::class);
+    }
+
+    /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
      * @return mixed

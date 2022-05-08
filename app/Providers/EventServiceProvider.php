@@ -18,6 +18,9 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        \App\Events\PasswordResetCreated::class => [
+            \App\Listeners\SendPasswordResetCreatedEmail::class,
+        ],
         \App\Events\TournamentInscriptionCreated::class => [
             \App\Listeners\SendTournamentCreatedEmailNotification::class,
         ],
