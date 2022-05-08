@@ -65,6 +65,6 @@ class FrontendResetUrlBuilder implements ResetUrlBuilder
             $parts[] = 'email=' . $this->email;
         }
 
-        return config('frontend.main_app.url') . '?' . implode('&', $parts);
+        return config('frontend.main_app.url') . '/reset-password?' . implode('&', $parts);
     }
 }
