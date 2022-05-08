@@ -14,6 +14,7 @@ use App\Http\Controllers\TournamentInscription\UpdateTournamentInscriptionContro
 use App\Http\Controllers\TournamentInscription\UpdateTournamentInscriptionStatusController;
 use App\Http\Controllers\User\LoginUserController;
 use App\Http\Controllers\User\Password\CreatePasswordResetController;
+use App\Http\Controllers\User\Password\ResetPasswordController;
 use App\Http\Controllers\User\RegisterUserController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,7 +36,7 @@ Route::prefix('/users')->group(function () {
 
     Route::prefix('/password')->group(function () {
 
-        Route::put('/');
+        Route::put('/', ResetPasswordController::class);
         Route::post('/reset', CreatePasswordResetController::class);
 
     });
