@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class PasswordReset extends Model
 {
     /**
+     * The primary key for the model.
+     *
+     * @var string
+     */
+    protected $primaryKey = 'user_id';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
