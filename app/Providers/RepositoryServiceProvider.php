@@ -35,6 +35,9 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Contracts\Repositories\ImageRepository::class,
             \App\Repositories\ImageRepository::class);
         $this->app->bind(
+            \App\Contracts\Repositories\PasswordResetRepository::class,
+            \App\Repositories\PasswordResetRepository::class);
+        $this->app->bind(
             \App\Contracts\Repositories\PersonRepository::class,
             \App\Repositories\PersonRepository::class);
         $this->app->bind(
