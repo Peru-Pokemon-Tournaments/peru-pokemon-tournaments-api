@@ -13,6 +13,7 @@ use App\Http\Controllers\TournamentInscription\IsCompetitorEnrolledToTournamentC
 use App\Http\Controllers\TournamentInscription\UpdateTournamentInscriptionController;
 use App\Http\Controllers\TournamentInscription\UpdateTournamentInscriptionStatusController;
 use App\Http\Controllers\User\LoginUserController;
+use App\Http\Controllers\User\Password\CreatePasswordResetController;
 use App\Http\Controllers\User\RegisterUserController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +30,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/register', RegisterUserController::class);
 Route::post('/login', LoginUserController::class);
+
+Route::prefix('/users')->group(function () {
+
+    Route::prefix('/password')->group(function () {
+
+        Route::put('/');
+        Route::post('/reset', CreatePasswordResetController::class);
+
+    });
+
+});
 
 Route::prefix('tournaments')->group(function () {
 
