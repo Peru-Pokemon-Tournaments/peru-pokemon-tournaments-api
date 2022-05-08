@@ -72,6 +72,10 @@ class CreateOrUpdatePasswordResetService
             return $passwordReset;
         }
 
+        $passwordReset->user_id = $attributes['user_id'];
+        $passwordReset->token = $attributes['token'];
+        $passwordReset->expires_at = $attributes['expires_at'];
+
         $this->passwordResetRepository->update($userId, $attributes);
 
         return $passwordReset;
