@@ -179,6 +179,7 @@ return [
         App\Providers\ServiceDomainServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         App\Providers\GoogleDriveServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
     ],
 
     /*
