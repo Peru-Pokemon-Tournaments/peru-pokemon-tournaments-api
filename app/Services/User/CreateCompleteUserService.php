@@ -4,6 +4,7 @@ namespace App\Services\User;
 
 use App\Contracts\Repositories\CompetitorRepository;
 use App\Contracts\Repositories\PersonRepository;
+use App\Contracts\Repositories\RoleRepository;
 use App\Contracts\Repositories\UserRepository;
 use App\Models\Competitor;
 use App\Models\Person;
@@ -34,20 +35,32 @@ class CreateCompleteUserService
     private PersonRepository $personRepository;
 
     /**
+     * Role Repository
+     *
+     * @var App\Contracts\Repositories\RoleRepository
+     */
+    private RoleRepository $roleRepository;
+
+    /**
      * Create a new CreateUserService instance.
      *
-     * @param  UserRepository $userRepository
+     * @param CompetitorRepository $competitorRepository
+     * @param PersonRepository $personRepository
+     * @param UserRepository $userRepository
+     * @param RoleRepository $roleRepository
      * @return void
      */
     public function __construct(
         CompetitorRepository $competitorRepository,
         PersonRepository $personRepository,
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        RoleRepository $roleRepository
     )
     {
         $this->competitorRepository = $competitorRepository;
         $this->personRepository = $personRepository;
         $this->userRepository = $userRepository;
+        $this->roleRepository = $roleRepository;
     }
 
     /**
@@ -61,6 +74,8 @@ class CreateCompleteUserService
         $person = $this->createPerson($data);
 
         $user = $this->createUser($data, $person);
+
+        $user->assignRole($this->roleRepository->getCompetitorRole())->save();
 
         $this->createCompetitor($data, $user);
 

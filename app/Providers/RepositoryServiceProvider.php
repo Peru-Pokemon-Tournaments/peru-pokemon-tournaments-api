@@ -44,6 +44,9 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Contracts\Repositories\PokemonShowdownTeamRepository::class,
             \App\Repositories\PokemonShowdownTeamRepository::class);
         $this->app->bind(
+            \App\Contracts\Repositories\RoleRepository::class,
+            \App\Repositories\RoleRepository::class);
+        $this->app->bind(
             \App\Contracts\Repositories\TournamentFormatRepository::class,
             \App\Repositories\TournamentFormatRepository::class);
         $this->app->bind(
