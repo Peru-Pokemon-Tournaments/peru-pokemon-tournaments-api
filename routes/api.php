@@ -12,6 +12,7 @@ use App\Http\Controllers\TournamentInscription\GetTournamentInscriptionControlle
 use App\Http\Controllers\TournamentInscription\IsCompetitorEnrolledToTournamentController;
 use App\Http\Controllers\TournamentInscription\UpdateTournamentInscriptionController;
 use App\Http\Controllers\TournamentInscription\UpdateTournamentInscriptionStatusController;
+use App\Http\Controllers\User\AdminLoginUserController;
 use App\Http\Controllers\User\LoginUserController;
 use App\Http\Controllers\User\Password\CreatePasswordResetController;
 use App\Http\Controllers\User\Password\ResetPasswordController;
@@ -31,6 +32,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/register', RegisterUserController::class);
 Route::post('/login', LoginUserController::class);
+Route::post('/admin/login', AdminLoginUserController::class);
 
 Route::prefix('/users')->group(function () {
 
