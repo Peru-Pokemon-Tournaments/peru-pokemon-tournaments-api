@@ -19,7 +19,7 @@ class CompetitorFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'nick_name' => $this->faker->userName(),

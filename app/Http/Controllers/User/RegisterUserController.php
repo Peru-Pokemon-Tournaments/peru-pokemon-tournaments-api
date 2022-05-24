@@ -11,31 +11,30 @@ use Illuminate\Http\Response;
 class RegisterUserController extends Controller
 {
     /**
-     * Create complete user service
+     * Create complete user service.
      *
-     * @var App\Services\User\CreateCompleteUserService
+     * @var CreateCompleteUserService
      */
     private CreateCompleteUserService $createCompleteUserService;
 
     /**
-     * Create a new instance of RegisterUserController
+     * Create a new instance of RegisterUserController.
      *
-     * @return void
+     * @param CreateCompleteUserService $createCompleteUserService
      */
     public function __construct(
         CreateCompleteUserService $createCompleteUserService
-    )
-    {
+    ) {
         $this->createCompleteUserService = $createCompleteUserService;
     }
 
     /**
-     * Create a new complete user
+     * Create a new complete user.
      *
-     * @param App\Http\Requests\RegisterUserRequest $request
-     * @return App\Http\Resources\UserResource
+     * @param RegisterUserRequest $request
+     * @return Response
      */
-    public function __invoke(RegisterUserRequest $request)
+    public function __invoke(RegisterUserRequest $request): Response
     {
         $user = ($this->createCompleteUserService)($request->input());
 

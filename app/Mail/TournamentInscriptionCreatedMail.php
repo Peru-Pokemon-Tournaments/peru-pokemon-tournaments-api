@@ -12,7 +12,7 @@ class TournamentInscriptionCreatedMail extends Mailable
     use Queueable, SerializesModels;
 
     /**
-     * The tournament inscription
+     * The tournament inscription.
      *
      * @var TournamentInscription
      */
@@ -34,7 +34,7 @@ class TournamentInscriptionCreatedMail extends Mailable
      *
      * @return $this
      */
-    public function build()
+    public function build(): self
     {
         $competitorName = $this->tournamentInscription->competitor->fullName;
         $tournamentTitle = $this->tournamentInscription->tournament->title;

@@ -13,37 +13,35 @@ use Illuminate\Http\Response;
 class UpdateTournamentInscriptionStatusController extends Controller
 {
     /**
-     * The CreateCompleteTournamentInscriptionService
+     * The CreateCompleteTournamentInscriptionService.
      *
      * @var UpdateTournamentInscriptionStatusService
      */
     private UpdateTournamentInscriptionStatusService $updateTournamentInscriptionStatusService;
 
     /**
-     * Create a new instance of UpdateTournamentInscriptionStatusController
+     * Create a new instance of UpdateTournamentInscriptionStatusController.
      *
      * @param   UpdateTournamentInscriptionStatusService $updateTournamentInscriptionStatusService
      * @return  void
      */
     public function __construct(
         UpdateTournamentInscriptionStatusService $updateTournamentInscriptionStatusService
-    )
-    {
+    ) {
         $this->updateTournamentInscriptionStatusService = $updateTournamentInscriptionStatusService;
     }
 
     /**
-     * Create complete tournament inscription
+     * Create complete tournament inscription.
      *
      * @param  TournamentInscription $tournamentInscription
      * @param  UpdateTournamentInscriptionStatusRequest $request
-     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Routing\ResponseFactory
+     * @return Response
      */
     public function __invoke(
         TournamentInscription $tournamentInscription,
         UpdateTournamentInscriptionStatusRequest $request
-    )
-    {
+    ): Response {
         $tournamentInscription = ($this->updateTournamentInscriptionStatusService)(
             $tournamentInscription->id,
             $request->input('status'),
@@ -54,8 +52,7 @@ class UpdateTournamentInscriptionStatusController extends Controller
         return response(
             [
                 'message' => 'Estado de inscripción actualizada',
-                'tournament_inscription' =>
-                    TournamentInscriptionResource::make($tournamentInscription),
+                'tournament_inscription' => TournamentInscriptionResource::make($tournamentInscription),
             ],
             Response::HTTP_OK,
         );

@@ -12,16 +12,16 @@ class PasswordResetCreated
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
-     * The password reset
+     * The password reset.
      *
-     * @var App\Models\PasswordReset
+     * @var PasswordReset
      */
     public PasswordReset $passwordReset;
 
     /**
      * Create a new event instance.
      *
-     * @param  App\Models\PasswordReset
+     * @param PasswordReset $passwordReset
      * @return void
      */
     public function __construct(PasswordReset $passwordReset)

@@ -11,10 +11,10 @@ trait FailedValidationResponse
     /**
      * Handle a failed validation attempt.
      *
-     * @param  \Illuminate\Contracts\Validation\Validator  $validator
+     * @param Validator $validator
      * @return void
      *
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws HttpResponseException
      */
     public function failedValidation(Validator $validator)
     {

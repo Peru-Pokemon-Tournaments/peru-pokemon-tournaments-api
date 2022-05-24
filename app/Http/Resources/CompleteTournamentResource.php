@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Tournament;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CompleteTournamentResource extends JsonResource
@@ -9,17 +11,17 @@ class CompleteTournamentResource extends JsonResource
     /**
      * The resource instance.
      *
-     * @var \App\Models\Tournament
+     * @var Tournament
      */
     public $resource;
 
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
+     * @param Request $request
+     * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         return array_merge(
             $this->resource->toArray(),

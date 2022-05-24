@@ -11,31 +11,31 @@ use Illuminate\Http\Response;
 class GetTournamentCompetitorsController extends Controller
 {
     /**
-     * The GetTournamentCompetitorsService
-     * @var     GetTournamentCompetitorsService
+     * The GetTournamentCompetitorsService.
+     *
+     * @var GetTournamentCompetitorsService
      */
     private GetTournamentCompetitorsService $getTournamentCompetitorsService;
 
     /**
-     * Create a new instance of GetTournamentCompetitors
+     * Create a new instance of GetTournamentCompetitors.
      *
-     * @param   GetTournamentCompetitorsService $getTournamentCompetitorsService
-     * @return  void
+     * @param GetTournamentCompetitorsService $getTournamentCompetitorsService
+     * @return void
      */
     public function __construct(
         GetTournamentCompetitorsService $getTournamentCompetitorsService
-    )
-    {
+    ) {
         $this->getTournamentCompetitorsService = $getTournamentCompetitorsService;
     }
 
     /**
-     * Retreive competitors in tournament
+     * Retrieve competitors in tournament.
      *
-     * @param  \App\Models\Tournament $tournament
-     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Routing\ResponseFactory
+     * @param Tournament $tournament
+     * @return Response
      */
-    public function __invoke(Tournament $tournament)
+    public function __invoke(Tournament $tournament): Response
     {
         $competitors = ($this->getTournamentCompetitorsService)($tournament->id);
 

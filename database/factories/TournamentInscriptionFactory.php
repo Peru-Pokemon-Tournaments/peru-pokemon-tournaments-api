@@ -2,8 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Device;
-use App\Models\PokemonShowdownTeam;
 use App\Models\TournamentInscription;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -21,7 +19,7 @@ class TournamentInscriptionFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'status' => 'pending',

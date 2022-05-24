@@ -9,22 +9,30 @@ use Illuminate\Http\Response;
 
 class GetTournamentsController extends Controller
 {
+    /**
+     * The GetTournamentsService.
+     *
+     * @var GetTournamentsService
+     */
     private GetTournamentsService $getTournamentsService;
 
+    /**
+     * Creates a new GetTournamentsController.
+     *
+     * @param GetTournamentsService $getTournamentsService
+     */
     public function __construct(
         GetTournamentsService $getTournamentsService
-    )
-    {
-        $this->getTournamentsService = $getTournamentsService;;
+    ) {
+        $this->getTournamentsService = $getTournamentsService;
     }
 
     /**
-     * Get complete tournament
+     * Get complete tournament.
      *
-     * @param  \App\Models\Tournament $tournament
-     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Routing\ResponseFactory
+     * @return Response
      */
-    public function __invoke()
+    public function __invoke(): Response
     {
         $tournaments = ($this->getTournamentsService)();
 

@@ -2,14 +2,16 @@
 
 namespace App\Contracts\Repositories;
 
+use App\Models\TournamentInscription;
+
 interface TournamentInscriptionRepository extends Repository
 {
     /**
-     * Find one model by tournamenId and competitorId
+     * Find one model by tournamentId and competitorId.
      *
      * @param  string $tournamentId
      * @param  string $competitorId
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return TournamentInscription|null
      */
-    public function findOneByTournamentAndCompetitor(string $tournamentId, string $competitorId);
+    public function findOneByTournamentAndCompetitor(string $tournamentId, string $competitorId): ?TournamentInscription;
 }

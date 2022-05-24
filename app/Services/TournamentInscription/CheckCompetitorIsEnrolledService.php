@@ -7,27 +7,26 @@ use App\Contracts\Repositories\TournamentInscriptionRepository;
 class CheckCompetitorIsEnrolledService
 {
     /**
-     * Tournament Inscription Repository
+     * Tournament Inscription Repository.
      *
-     * @var App\Contracts\Repositories\TournamentInscriptionRepository
+     * @var TournamentInscriptionRepository
      */
     private TournamentInscriptionRepository $tournamentInscriptionRepository;
 
     /**
      * Create a new CheckCompetitorIsEnrolledService instance.
      *
-     * @param   TournamentInscriptionRepository $tournamentInscriptionRepository
+     * @param TournamentInscriptionRepository $tournamentInscriptionRepository
      * @return void
      */
     public function __construct(
         TournamentInscriptionRepository $tournamentInscriptionRepository
-    )
-    {
+    ) {
         $this->tournamentInscriptionRepository = $tournamentInscriptionRepository;
     }
 
     /**
-     * Create a tournament inscription
+     * Create a tournament inscription.
      *
      * @param string $tournamentId
      * @param string $competitorId
@@ -36,8 +35,7 @@ class CheckCompetitorIsEnrolledService
     public function __invoke(
         string $tournamentId,
         string $competitorId
-    )
-    {
+    ): bool {
         $tournamentInscription = $this->tournamentInscriptionRepository->findOneByTournamentAndCompetitor(
             $tournamentId,
             $competitorId,

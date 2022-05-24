@@ -4,30 +4,52 @@ namespace App\Models;
 
 use App\Traits\Uuid;
 use Database\Factories\TournamentInscriptionFactory;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Carbon;
 
+/**
+ * @mixin Builder
+ * @property string $id
+ * @property string $status
+ * @property string $tournament_id
+ * @property string $competitor_id
+ * @property string $pokemon_showdown_team_id
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property Competitor|null $competitor
+ * @property PokemonShowdownTeam|null $pokemonShowdownTeam
+ * @property Tournament|null $tournament
+ * @property TournamentResult|null $tournamentResult
+ * @property Collection|Tournament[] $tournaments
+ */
 class TournamentInscription extends Model
 {
     use HasFactory;
     use Uuid;
 
     /**
-     * Accepted status
+     * Accepted status.
      *
      * @var string
      */
     public const ACCEPTED = 'accepted';
 
     /**
-     * Pending status
+     * Pending status.
      *
      * @var string
      */
     public const PENDING = 'pending';
 
     /**
-     * Rejected status
+     * Rejected status.
      *
      * @var string
      */
@@ -71,49 +93,49 @@ class TournamentInscription extends Model
     /**
      * Create a new factory instance for the model.
      *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     * @return Factory
      */
-    protected static function newFactory()
+    protected static function newFactory(): Factory
     {
         return TournamentInscriptionFactory::new();
     }
 
     /**
-     * The competitor has inscripted
+     * The competitor has signed up.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function competitor()
+    public function competitor(): BelongsTo
     {
         return $this->belongsTo(Competitor::class, 'competitor_id', 'id');
     }
 
     /**
-     * The tournament belongs to the inscription
+     * The tournament belongs to the inscription.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function tournament()
+    public function tournament(): BelongsTo
     {
         return $this->belongsTo(Tournament::class, 'tournament_id', 'id');
     }
 
     /**
-     * The team of the inscription
+     * The team of the inscription.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function pokemonShowdownTeam()
+    public function pokemonShowdownTeam(): BelongsTo
     {
         return $this->belongsTo(PokemonShowdownTeam::class, 'pokemon_showdown_team_id', 'id');
     }
 
     /**
-     * The result of the inscription and tournament
+     * The result of the inscription and tournament.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
-    public function tournamentResult()
+    public function tournamentResult(): HasOne
     {
         return $this->hasOne(TournamentResult::class, 'tournament_inscription_id', 'id');
     }

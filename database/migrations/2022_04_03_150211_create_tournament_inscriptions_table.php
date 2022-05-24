@@ -33,7 +33,7 @@ class CreateTournamentInscriptionsTable extends Migration
             $table->enum('status', [
                 'accepted',
                 'pending',
-                'rejected'
+                'rejected',
             ]);
             $table->timestamps();
             $table->softDeletes();

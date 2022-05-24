@@ -21,10 +21,10 @@ class SendTournamentStatusUpdatedEmailNotification
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param TournamentInscriptionStatusUpdated $event
      * @return void
      */
-    public function handle(TournamentInscriptionStatusUpdated $event)
+    public function handle(TournamentInscriptionStatusUpdated $event): void
     {
         $email = $event->tournamentInscription->competitor->user->email;
 

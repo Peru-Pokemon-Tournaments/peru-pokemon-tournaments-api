@@ -12,7 +12,7 @@ class BaseTournamentSystemsSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         TournamentSystem::factory()->createMany([
             [
@@ -21,8 +21,8 @@ class BaseTournamentSystemsSeeder extends Seeder
             ],
             [
                 'name' => 'Rondas Eliminatorias',
-                'description' => 'Consiste en que el perdedor de un encuentro queda inmediatamente eliminado de la competición, mientras que el ganador avanza a la siguiente fase.'
-            ]
+                'description' => 'Consiste en que el perdedor de un encuentro queda inmediatamente eliminado de la competición, mientras que el ganador avanza a la siguiente fase.',
+            ],
         ]);
     }
 }

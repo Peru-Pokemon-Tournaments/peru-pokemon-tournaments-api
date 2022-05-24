@@ -5,38 +5,39 @@ namespace App\Repositories;
 use App\Contracts\Repositories\TournamentPrizeRepository as TournamentPrizeRepositoryContract;
 use App\Models\TournamentPrize;
 use App\Traits\Repositories\CommonMethods;
+use Illuminate\Database\Eloquent\Collection;
 
 final class TournamentPrizeRepository implements TournamentPrizeRepositoryContract
 {
     use CommonMethods;
 
     /**
-     * Retrieves all models
+     * Retrieves all models.
      *
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection<TournamentPrize>|TournamentPrize[]
      */
-    public function getAll()
+    public function getAll(): Collection
     {
         return TournamentPrize::all();
     }
 
     /**
-     * Find one model by id
+     * Find one model by id.
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return TournamentPrize
      */
-    public function findOne(string &$id)
+    public function findOne(string &$id): TournamentPrize
     {
         return TournamentPrize::find($id);
     }
 
     /**
-     * Find many models by ids
+     * Find many models by ids.
      *
      * @param  array $ids
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection<TournamentPrize>|TournamentPrize[]
      */
-    public function findMany(array $ids)
+    public function findMany(array $ids): Collection
     {
         return TournamentPrize::findMany($ids);
     }

@@ -13,48 +13,48 @@ use Illuminate\Http\Response;
 class LoginUserController extends Controller
 {
     /**
-     * Login user service
+     * Login user service.
      *
-     * @var App\Services\User\LoginUserService
+     * @var LoginUserService
      */
     private LoginUserService $loginUserService;
 
     /**
-     * GetUserByEmail service
+     * GetUserByEmail service.
      *
-     * @var App\Services\User\GetUserByEmail
+     * @var GetUserByEmailService
      */
     private GetUserByEmailService $getUserByEmailService;
 
     /**
-     * Create a new instance of LoginUserController
+     * Create a new instance of LoginUserController.
      *
-     * @return void
+     * @param LoginUserService $loginUserService
+     * @param GetUserByEmailService $getUserByEmailService
      */
     public function __construct(
         LoginUserService $loginUserService,
         GetUserByEmailService $getUserByEmailService
-    )
-    {
+    ) {
         $this->loginUserService = $loginUserService;
         $this->getUserByEmailService = $getUserByEmailService;
     }
 
     /**
-     * Login user
+     * Login user.
      *
-     * @param App\Http\Requests\RegisterUserRequest $request
-     * @return App\Http\Resources\UserResource
+     * @param LoginUserRequest $request
+     * @return Response
      */
-    public function __invoke(LoginUserRequest $request)
+    public function __invoke(LoginUserRequest $request): Response
     {
         $tokenOrFalse = ($this->loginUserService)(
             $request->input('email'),
-            $request->input('password'));
+            $request->input('password')
+        );
 
-        if (!$tokenOrFalse)
-        {
-            return response()->json(
+        if (!$tokenOrFalse) {
+            return response(
                 FailedAuthResource::make($request),
                 Response::HTTP_UNAUTHORIZED
             );

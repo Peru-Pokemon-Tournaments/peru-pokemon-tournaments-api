@@ -5,50 +5,52 @@ namespace App\Repositories;
 use App\Contracts\Repositories\UserRepository as UserRepositoryContract;
 use App\Models\User;
 use App\Traits\Repositories\CommonMethods;
+use Illuminate\Database\Eloquent\Collection;
 
 final class UserRepository implements UserRepositoryContract
 {
     use CommonMethods;
 
     /**
-     * Retrieves all models
+     * Retrieves all models.
      *
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection<User>|User[]
      */
-    public function getAll()
+    public function getAll(): Collection
     {
         return User::all();
     }
 
     /**
-     * Find one model by id
+     * Find one model by id.
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @param string $id
+     * @return User
      */
-    public function findOne(string &$id)
+    public function findOne(string &$id): User
     {
         return User::find($id);
     }
 
     /**
-     * Find many models by ids
+     * Find many models by ids.
      *
      * @param  array $ids
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection<User>|User[]
      */
-    public function findMany(array $ids)
+    public function findMany(array $ids): Collection
     {
         return User::findMany($ids);
     }
 
     /**
-     * Find one user by email
+     * Find one user by email.
      *
-     * @param  string $email
-     * @param  string $relationships
-     * @return \App\Models\User
+     * @param string $email
+     * @param array $relationships
+     * @return User|null
      */
-    public function findOneByEmail(string &$email, array $relationships = [])
+    public function findOneByEmail(string &$email, array $relationships = []): ?User
     {
         return User::with($relationships)->where('email', '=', $email)->first();
     }

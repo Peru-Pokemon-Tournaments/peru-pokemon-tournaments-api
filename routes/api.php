@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-include('api/no-auth.php');
+include 'api/no-auth.php';
 
-Route::group(['middleware' => ['jwt.verify']], function() {
-    include('api/auth.php');
+Route::group(['middleware' => ['jwt.verify']], function () {
+    include 'api/auth.php';
 });

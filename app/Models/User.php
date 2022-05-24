@@ -4,13 +4,38 @@ namespace App\Models;
 
 use App\Traits\Uuid;
 use Database\Factories\UserFactory;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
+/**
+ * @mixin Builder
+ * @property string $id
+ * @property string $name
+ * @property string $email
+ * @property Carbon|null $email_verified_at
+ * @property string $password
+ * @property string $person_id
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property Person|null $person
+ * @property Competitor|null $competitor
+ * @property PasswordReset|null $passwordReset
+ * @property Collection|\Spatie\Permission\Models\Role[] $roles
+ * @property Collection|\Spatie\Permission\Models\Permission[] $permissions
+ * @method static Builder|User role($roles, $guard = null)
+ * @method static Builder|User permission($permissions)
+ */
 class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens;
@@ -18,6 +43,13 @@ class User extends Authenticatable implements JWTSubject
     use HasRoles;
     use Notifiable;
     use Uuid;
+
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'users';
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -66,39 +98,39 @@ class User extends Authenticatable implements JWTSubject
     /**
      * Create a new factory instance for the model.
      *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     * @return Factory
      */
-    protected static function newFactory()
+    protected static function newFactory(): Factory
     {
         return UserFactory::new();
     }
 
     /**
-     * The user person
+     * The user person.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function person()
+    public function person(): BelongsTo
     {
         return $this->belongsTo(Person::class, 'person_id', 'id');
     }
 
     /**
-     * The competitor of the user
+     * The competitor of the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
-    public function competitor()
+    public function competitor(): HasOne
     {
         return $this->hasOne(Competitor::class);
     }
 
     /**
-     * The password reset of the user
+     * The password reset of the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
-    public function passwordReset()
+    public function passwordReset(): HasOne
     {
         return $this->hasOne(PasswordReset::class);
     }
@@ -118,7 +150,7 @@ class User extends Authenticatable implements JWTSubject
      *
      * @return array
      */
-    public function getJWTCustomClaims()
+    public function getJWTCustomClaims(): array
     {
         return [];
     }

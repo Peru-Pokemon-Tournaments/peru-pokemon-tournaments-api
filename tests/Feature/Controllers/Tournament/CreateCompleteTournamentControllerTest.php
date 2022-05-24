@@ -68,7 +68,7 @@ class CreateCompleteTournamentControllerTest extends TestCase
             ],
             'external_bracket' => [
                 'reference' => 'challonge',
-                'url' => 'https://test.com.pe/1234'
+                'url' => 'https://test.com.pe/1234',
             ],
             'games' => $games->toArray(),
             'devices' => $devices->toArray(),
@@ -79,8 +79,8 @@ class CreateCompleteTournamentControllerTest extends TestCase
         $response = $this->post('/api/tournaments', $data);
 
         $response->assertStatus(201);
-        $response->assertJson(fn (AssertableJson $json) =>
-            $json->has('message')
+        $response->assertJson(
+            fn (AssertableJson $json) => $json->has('message')
                 ->has('tournament')
                 ->has('tournament.id')
                 ->has('tournament.title')

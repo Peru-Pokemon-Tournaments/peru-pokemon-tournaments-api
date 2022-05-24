@@ -17,21 +17,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('tournaments')->group(function () {
-
     Route::post('/', CreateCompleteTournamentController::class);
 
     Route::prefix('{tournament}')->group(function () {
-
         Route::prefix('competitors')->group(function () {
             Route::prefix('{competitor}')->group(function () {
-
                 Route::get('/is-enrolled', IsCompetitorEnrolledToTournamentController::class);
                 Route::prefix('/inscription')->group(function () {
-
                     Route::delete('/', DeleteCompetitorTournamentInscriptionController::class);
-
                 });
-
             });
         });
 
@@ -39,5 +33,4 @@ Route::prefix('tournaments')->group(function () {
             Route::post('/', CreateCompleteTournamentInscriptionController::class);
         });
     });
-
 });

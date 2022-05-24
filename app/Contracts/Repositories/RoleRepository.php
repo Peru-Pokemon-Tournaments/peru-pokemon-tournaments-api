@@ -2,19 +2,21 @@
 
 namespace App\Contracts\Repositories;
 
+use App\Models\Role;
+
 interface RoleRepository extends Repository
 {
     /**
-     * Find super admin role
+     * Find super admin role.
      *
-     * @return \App\Models\Role
+     * @return Role
      */
-    public function getSuperAdminRole();
+    public function getSuperAdminRole(): Role;
 
     /**
-     * Find competitor role
+     * Find competitor role.
      *
-     * @return \App\Models\Role
+     * @return Role
      */
-    public function getCompetitorRole();
+    public function getCompetitorRole(): Role;
 }

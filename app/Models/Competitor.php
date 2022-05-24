@@ -4,13 +4,35 @@ namespace App\Models;
 
 use App\Traits\Uuid;
 use Database\Factories\CompetitorFactory;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
+/**
+ * @mixin Builder
+ * @property string $id
+ * @property string $nick_name
+ * @property string $user_id
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property string $full_name
+ * @property User|null $user
+ */
 class Competitor extends Model
 {
     use HasFactory;
     use Uuid;
+
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'competitors';
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -48,29 +70,29 @@ class Competitor extends Model
     /**
      * Create a new factory instance for the model.
      *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     * @return Factory
      */
-    protected static function newFactory()
+    protected static function newFactory(): Factory
     {
         return CompetitorFactory::new();
     }
 
     /**
-     * Retrieve the fullname of the competitor person
+     * Retrieve the fullName of the competitor person.
      *
      * @return string
      */
-    public function getFullNameAttribute()
+    public function getFullNameAttribute(): string
     {
         return $this->user->person->fullName;
     }
 
     /**
-     * The user of the competitor
+     * The user of the competitor.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }

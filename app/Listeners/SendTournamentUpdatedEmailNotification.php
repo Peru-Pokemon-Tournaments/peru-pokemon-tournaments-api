@@ -22,10 +22,10 @@ class SendTournamentUpdatedEmailNotification
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param TournamentInscriptionUpdated $event
      * @return void
      */
-    public function handle(TournamentInscriptionUpdated $event)
+    public function handle(TournamentInscriptionUpdated $event): void
     {
         $emails = Arr::pluck($event->tournamentInscription->tournament->createdBy->users->toArray(), 'email');
         Mail::to($emails)->send(new TournamentInscriptionUpdatedMail($event->tournamentInscription));

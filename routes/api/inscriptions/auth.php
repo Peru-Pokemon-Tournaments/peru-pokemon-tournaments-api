@@ -17,12 +17,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('inscriptions')->group(function () {
-    Route::prefix('{tournamentInscription}')->group(function() {
+    Route::prefix('{tournamentInscription}')->group(function () {
         Route::get('/', GetTournamentInscriptionController::class);
         Route::delete('/', DeleteTournamentInscriptionController::class);
         Route::patch('/', UpdateTournamentInscriptionController::class);
 
         Route::put('/status', UpdateTournamentInscriptionStatusController::class);
-
     });
 });

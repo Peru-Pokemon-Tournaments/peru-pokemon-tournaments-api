@@ -10,34 +10,39 @@ use Illuminate\Http\Response;
 class ResetPasswordController extends Controller
 {
     /**
-     * @var \App\Services\User\Password\ResetPasswordService
+     * The ResetPasswordService.
+     *
+     * @var ResetPasswordService
      */
     private ResetPasswordService $resetPasswordService;
 
     /**
-     * Create a new ResetPasswordController instance
+     * Create a new ResetPasswordController instance.
      *
-     * @param \App\Services\User\Password\ResetPasswordService $resetPasswordService
+     * @param ResetPasswordService $resetPasswordService
      * @return void
      */
     public function __construct(
         ResetPasswordService $resetPasswordService
-    )
-    {
+    ) {
         $this->resetPasswordService = $resetPasswordService;
     }
 
-    public function __invoke(ResetPasswordRequest $request)
+    /**
+     * Reset password forget.
+     *
+     * @param ResetPasswordRequest $request
+     * @return Response
+     */
+    public function __invoke(ResetPasswordRequest $request): Response
     {
-
         $isResseted = ($this->resetPasswordService)(
             $request->input('email'),
             $request->input('token'),
             $request->input('new_password'),
         );
 
-        if (!$isResseted)
-        {
+        if (!$isResseted) {
             return response(
                 [
                     'message' => 'No se pudo actualizar la contraseña',

@@ -10,49 +10,47 @@ use App\Models\TournamentInscription;
 class CreateCompleteTournamentInscriptionService
 {
     /**
-     * Tournament Inscription Repository
+     * Tournament Inscription Repository.
      *
-     * @var App\Contracts\Repositories\TournamentInscriptionRepository
+     * @var TournamentInscriptionRepository
      */
     private TournamentInscriptionRepository $tournamentInscriptionRepository;
 
     /**
-     * Pokemon Showdown Team Repository
+     * Pokémon Showdown Team Repository.
      *
-     * @var App\Contracts\Repositories\PokemonShowdownTeamRepository
+     * @var PokemonShowdownTeamRepository
      */
     private PokemonShowdownTeamRepository $pokemonShowdownTeamRepository;
 
     /**
      * Create a new CreateCompleteTournamentInscriptionService instance.
      *
-     * @param   TournamentInscriptionRepository $tournamentInscriptionRepository
-     * @param   PokemonShowdownTeamRepository $pokemonShowdownTeamRepository
+     * @param TournamentInscriptionRepository $tournamentInscriptionRepository
+     * @param PokemonShowdownTeamRepository $pokemonShowdownTeamRepository
      * @return void
      */
     public function __construct(
         TournamentInscriptionRepository $tournamentInscriptionRepository,
         PokemonShowdownTeamRepository $pokemonShowdownTeamRepository
-    )
-    {
+    ) {
         $this->tournamentInscriptionRepository = $tournamentInscriptionRepository;
         $this->pokemonShowdownTeamRepository = $pokemonShowdownTeamRepository;
     }
 
     /**
-     * Create a tournament inscription
+     * Create a tournament inscription.
      *
-     * @param string $tournament
-     * @param string $competitor
+     * @param string $tournamentId
+     * @param string $competitorId
      * @param string $team
-     * @return \App\Models\TournamentInscription
+     * @return TournamentInscription
      */
     public function __invoke(
         string $tournamentId,
         string $competitorId,
         string $team
-    )
-    {
+    ): TournamentInscription {
         $pokemonShowdownTeam = new PokemonShowdownTeam();
 
         $pokemonShowdownTeam->team = $team;

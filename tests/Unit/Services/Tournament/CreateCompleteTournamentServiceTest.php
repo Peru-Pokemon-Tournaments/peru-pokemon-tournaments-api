@@ -85,7 +85,7 @@ class CreateCompleteTournamentServiceTest extends TestCase
             ],
             'external_bracket' => [
                 'reference' => 'challonge',
-                'url' => 'https://test.com.pe/1234'
+                'url' => 'https://test.com.pe/1234',
             ],
             'tournament_image_file' => null,
             'games' => $games->toArray(),

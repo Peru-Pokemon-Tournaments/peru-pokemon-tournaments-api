@@ -5,58 +5,60 @@ namespace App\Repositories;
 use App\Contracts\Repositories\RoleRepository as RoleRepositoryContract;
 use App\Models\Role;
 use App\Traits\Repositories\CommonMethods;
+use Illuminate\Database\Eloquent\Collection;
 
 final class RoleRepository implements RoleRepositoryContract
 {
     use CommonMethods;
 
     /**
-     * Retrieves all models
+     * Retrieves all models.
      *
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection<Role>|Role[]
      */
-    public function getAll()
+    public function getAll(): Collection
     {
         return Role::all();
     }
 
     /**
-     * Find one model by id
+     * Find one model by id.
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @param string $id
+     * @return Role
      */
-    public function findOne(string &$id)
+    public function findOne(string &$id): Role
     {
         return Role::find($id);
     }
 
     /**
-     * Find many models by ids
+     * Find many models by ids.
      *
      * @param  array $ids
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection<Role>|Role[]
      */
-    public function findMany(array $ids)
+    public function findMany(array $ids): Collection
     {
         return Role::findMany($ids);
     }
 
     /**
-     * Find super admin role
+     * Find super admin role.
      *
-     * @return \App\Models\Role
+     * @return Role
      */
-    public function getSuperAdminRole()
+    public function getSuperAdminRole(): Role
     {
         return Role::superAdminRole();
     }
 
     /**
-     * Find competitor role
+     * Find competitor role.
      *
-     * @return \App\Models\Role
+     * @return Role
      */
-    public function getCompetitorRole()
+    public function getCompetitorRole(): Role
     {
         return Role::competitorRole();
     }

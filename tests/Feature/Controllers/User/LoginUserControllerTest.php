@@ -34,8 +34,8 @@ class LoginUserControllerTest extends TestCase
         $response = $this->post('/api/login', $data);
 
         $response->assertStatus(200);
-        $response->assertJson(fn (AssertableJson $json) =>
-            $json->has('token')
+        $response->assertJson(
+            fn (AssertableJson $json) => $json->has('token')
                 ->has('message')
                 ->has('user')
                 ->has('user.person')
@@ -72,8 +72,8 @@ class LoginUserControllerTest extends TestCase
         ]);
 
         $response->assertStatus(401);
-        $response->assertJson(fn (AssertableJson $json) =>
-            $json->has('message')
+        $response->assertJson(
+            fn (AssertableJson $json) => $json->has('message')
                 ->missing('token')
                 ->missing('user')
         );

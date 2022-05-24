@@ -5,39 +5,41 @@ namespace App\Repositories;
 use App\Contracts\Repositories\ImageRepository as ImageRepositoryContract;
 use App\Models\Image;
 use App\Traits\Repositories\CommonMethods;
+use Illuminate\Database\Eloquent\Collection;
 
 final class ImageRepository implements ImageRepositoryContract
 {
     use CommonMethods;
 
     /**
-     * Retrieves all models
+     * Retrieves all models.
      *
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection<Image>|Image[]
      */
-    public function getAll()
+    public function getAll(): Collection
     {
         return Image::all();
     }
 
     /**
-     * Find one model by id
+     * Find one model by id.
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @param string $id
+     * @return Image
      */
-    public function findOne(string &$id)
+    public function findOne(string &$id): Image
     {
         return Image::find($id);
     }
 
     /**
-     * Find many models by ids
+     * Find many models by ids.
      *
      * @param  array $ids
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection<Image>|Image[]
      */
-    public function findMany(array $ids)
+    public function findMany(array $ids): Collection
     {
-        return ImageRepository::findMany($ids);
+        return Image::findMany($ids);
     }
 }

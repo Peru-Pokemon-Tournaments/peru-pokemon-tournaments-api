@@ -6,55 +6,56 @@ use App\Contracts\Repositories\CompetitorRepository as CompetitorRepositoryContr
 use App\Models\Competitor;
 use App\Models\TournamentInscription;
 use App\Traits\Repositories\CommonMethods;
+use Illuminate\Database\Eloquent\Collection;
 
 final class CompetitorRepository implements CompetitorRepositoryContract
 {
     use CommonMethods;
 
     /**
-     * Retrieves all models
+     * Retrieves all models.
      *
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection|Competitor[]
      */
-    public function getAll()
+    public function getAll(): Collection
     {
         return Competitor::all();
     }
 
     /**
-     * Find one model by id
+     * Find one model by id.
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @param string $id
+     * @return Competitor
      */
-    public function findOne(string &$id)
+    public function findOne(string &$id): Competitor
     {
         return Competitor::find($id);
     }
 
     /**
-     * Find many models by ids
+     * Find many models by ids.
      *
      * @param  array $ids
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection<Competitor>|Competitor[]
      */
-    public function findMany(array $ids)
+    public function findMany(array $ids): Collection
     {
         return Competitor::findMany($ids);
     }
 
     /**
-     * Retrieves all competitors enrolled in that tournament
+     * Retrieves all competitors enrolled in that tournament.
      *
      * @param  string $tournamentId
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection<Competitor>|Competitor[]
      */
-    public function findManyEnrolledToTournament(string $tournamentId)
+    public function findManyEnrolledToTournament(string $tournamentId): Collection
     {
         return TournamentInscription::where('tournament_id', $tournamentId)
             ->get()
             ->map(function (TournamentInscription $tournamentInscription) {
                 return $tournamentInscription->competitor;
-            })
-            ->collect();
+            });
     }
 }

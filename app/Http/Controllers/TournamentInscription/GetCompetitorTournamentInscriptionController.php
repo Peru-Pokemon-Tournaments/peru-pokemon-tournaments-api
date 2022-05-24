@@ -12,38 +12,36 @@ use Illuminate\Http\Response;
 class GetCompetitorTournamentInscriptionController extends Controller
 {
     /**
-     * The GetCompetitorTournamentInscriptionController
+     * The GetCompetitorTournamentInscriptionController.
      *
-     * @var GetCompetitorTournamentInscriptionController
+     * @var GetTournamentInscriptionByCompetitorTournamentService
      */
     private GetTournamentInscriptionByCompetitorTournamentService $getInscriptionService;
 
     /**
-     * Create a new instance of GetCompetitorTournamentInscriptionController
+     * Create a new instance of GetCompetitorTournamentInscriptionController.
      *
-     * @param   GetTournamentInscriptionByCompetitorTournamentService $getInscriptionService
-     * @return  void
+     * @param GetTournamentInscriptionByCompetitorTournamentService $getInscriptionService
+     * @return void
      */
     public function __construct(
         GetTournamentInscriptionByCompetitorTournamentService $getInscriptionService
-    )
-    {
+    ) {
         $this->getInscriptionService = $getInscriptionService;
     }
 
     /**
-     * Get tournament inscription
+     * Get tournament inscription.
      *
-     * @param  \App\Models\Tournament $tournament
-     * @param  \App\Models\Competitor $competitor
-     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Routing\ResponseFactory
+     * @param Tournament $tournament
+     * @param Competitor $competitor
+     * @return Response
      */
     public function __invoke(
         Tournament $tournament,
         Competitor $competitor
-    )
-    {
-        $tournamnentInscription = ($this->getInscriptionService)(
+    ): Response {
+        $tournamentInscription = ($this->getInscriptionService)(
             $competitor->id,
             $tournament->id
         );
@@ -51,8 +49,7 @@ class GetCompetitorTournamentInscriptionController extends Controller
         return response(
             [
                 'message' => 'Inscripción encontrada',
-                'tournament_inscription' =>
-                    TournamentInscriptionResource::make($tournamnentInscription),
+                'tournament_inscription' => TournamentInscriptionResource::make($tournamentInscription),
             ],
             Response::HTTP_OK,
         );

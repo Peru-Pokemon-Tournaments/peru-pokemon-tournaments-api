@@ -12,16 +12,16 @@ class TournamentInscriptionCreated
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
-     * The tournament inscription
+     * The tournament inscription.
      *
-     * @var App\Models\TournamentInscription
+     * @var TournamentInscription
      */
     public TournamentInscription $tournamentInscription;
 
     /**
      * Create a new event instance.
      *
-     * @param  App\Models\TournamentInscription
+     * @param TournamentInscription $tournamentInscription
      * @return void
      */
     public function __construct(TournamentInscription $tournamentInscription)

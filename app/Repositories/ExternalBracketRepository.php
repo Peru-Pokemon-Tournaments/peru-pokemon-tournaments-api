@@ -5,38 +5,40 @@ namespace App\Repositories;
 use App\Contracts\Repositories\ExternalBracketRepository as ExternalBracketRepositoryContract;
 use App\Models\ExternalBracket;
 use App\Traits\Repositories\CommonMethods;
+use Illuminate\Database\Eloquent\Collection;
 
 final class ExternalBracketRepository implements ExternalBracketRepositoryContract
 {
     use CommonMethods;
 
     /**
-     * Retrieves all models
+     * Retrieves all models.
      *
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection<ExternalBracket>|ExternalBracket[]
      */
-    public function getAll()
+    public function getAll(): Collection
     {
         return ExternalBracket::all();
     }
 
     /**
-     * Find one model by id
+     * Find one model by id.
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @param string $id
+     * @return ExternalBracket
      */
-    public function findOne(string &$id)
+    public function findOne(string &$id): ExternalBracket
     {
         return ExternalBracket::find($id);
     }
 
     /**
-     * Find many models by ids
+     * Find many models by ids.
      *
      * @param  array $ids
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection<ExternalBracket>|ExternalBracket[]
      */
-    public function findMany(array $ids)
+    public function findMany(array $ids): Collection
     {
         return ExternalBracket::findMany($ids);
     }

@@ -12,21 +12,21 @@ use Illuminate\Http\Response;
 class DeleteCompetitorTournamentInscriptionController extends Controller
 {
     /**
-     * The DeleteTournamentInscriptionService
+     * The DeleteTournamentInscriptionService.
      *
      * @var DeleteTournamentInscriptionService
      */
     private DeleteTournamentInscriptionService $deleteInscriptionService;
 
     /**
-     * The GetCompetitorTournamentInscriptionController
+     * The GetCompetitorTournamentInscriptionController.
      *
      * @var GetTournamentInscriptionByCompetitorTournamentService
      */
     private GetTournamentInscriptionByCompetitorTournamentService $getInscriptionService;
 
     /**
-     * Create a new instance of DeleteTournamentInscriptionController
+     * Create a new instance of DeleteTournamentInscriptionController.
      *
      * @param   DeleteTournamentInscriptionService $deleteInscriptionService
      * @param   GetTournamentInscriptionByCompetitorTournamentService $getInscriptionService
@@ -35,23 +35,22 @@ class DeleteCompetitorTournamentInscriptionController extends Controller
     public function __construct(
         DeleteTournamentInscriptionService $deleteInscriptionService,
         GetTournamentInscriptionByCompetitorTournamentService $getInscriptionService
-    )
-    {
+    ) {
         $this->deleteInscriptionService = $deleteInscriptionService;
         $this->getInscriptionService = $getInscriptionService;
     }
 
     /**
-     * Delete tournament inscription
+     * Delete tournament inscription.
      *
-     * @param  \App\Models\TournamentInscription $tournamentInscription
-     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Routing\ResponseFactory
+     * @param Tournament $tournament
+     * @param Competitor $competitor
+     * @return Response
      */
     public function __invoke(
         Tournament $tournament,
         Competitor $competitor
-    )
-    {
+    ): Response {
         $tournamentInscription = ($this->getInscriptionService)(
             $competitor->id,
             $tournament->id
@@ -64,8 +63,8 @@ class DeleteCompetitorTournamentInscriptionController extends Controller
         return response(
             [
                 'message' => ($isDeleted
-                    ?  'Se eliminó la inscripción'
-                    : 'No se eliminó la inscripción')
+                    ? 'Se eliminó la inscripción'
+                    : 'No se eliminó la inscripción'),
             ],
             Response::HTTP_OK,
         );

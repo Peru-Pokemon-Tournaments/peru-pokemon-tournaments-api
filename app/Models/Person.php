@@ -4,9 +4,26 @@ namespace App\Models;
 
 use App\Traits\Uuid;
 use Database\Factories\PersonFactory;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
+/**
+ * @mixin Builder
+ * @property string $id
+ * @property string|null $first_name
+ * @property string|null $last_name
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property string $fullName
+ * @property Collection|User[] $users
+ * @property Collection|Tournament[] $tournaments
+ */
 class Person extends Model
 {
     use HasFactory;
@@ -54,11 +71,11 @@ class Person extends Model
     ];
 
     /**
-     * Retrieve the fullname of the person
+     * Retrieve the fullName of the person.
      *
      * @return string
      */
-    public function getFullNameAttribute()
+    public function getFullNameAttribute(): string
     {
         return $this->first_name . ' ' . $this->last_name;
     }
@@ -66,29 +83,29 @@ class Person extends Model
     /**
      * Create a new factory instance for the model.
      *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     * @return Factory
      */
-    protected static function newFactory()
+    protected static function newFactory(): Factory
     {
         return PersonFactory::new();
     }
 
     /**
-     * The users of the person
+     * The users of the person.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function users()
+    public function users(): HasMany
     {
         return $this->hasMany(User::class, 'person_id', 'id');
     }
 
     /**
-     * The tournaments of the person
+     * The tournaments of the person.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function tournaments()
+    public function tournaments(): HasMany
     {
         return $this->hasMany(Tournament::class, 'created_by_person_id', 'id');
     }

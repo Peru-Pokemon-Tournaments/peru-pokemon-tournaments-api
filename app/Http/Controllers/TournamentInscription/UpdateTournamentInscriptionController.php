@@ -4,7 +4,6 @@ namespace App\Http\Controllers\TournamentInscription;
 
 use App\Events\TournamentInscriptionUpdated;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateCompleteTournamentInscriptionRequest;
 use App\Http\Requests\UpdateTournamentInscriptionRequest;
 use App\Http\Resources\TournamentInscriptionResource;
 use App\Models\Tournament;
@@ -15,37 +14,35 @@ use Illuminate\Http\Response;
 class UpdateTournamentInscriptionController extends Controller
 {
     /**
-     * The CreateCompleteTournamentInscriptionService
+     * The CreateCompleteTournamentInscriptionService.
      *
      * @var UpdateTournamentInscriptionService
      */
     private UpdateTournamentInscriptionService $updateTournamentInscriptionService;
 
     /**
-     * Create a new instance of UpdateTournamentInscriptionController
+     * Create a new instance of UpdateTournamentInscriptionController.
      *
-     * @param   UpdateTournamentInscriptionService $updateTournamentInscriptionService
-     * @return  void
+     * @param UpdateTournamentInscriptionService $updateTournamentInscriptionService
+     * @return void
      */
     public function __construct(
         UpdateTournamentInscriptionService $updateTournamentInscriptionService
-    )
-    {
+    ) {
         $this->updateTournamentInscriptionService = $updateTournamentInscriptionService;
     }
 
     /**
-     * Create complete tournament inscription
+     * Create complete tournament inscription.
      *
-     * @param  Tournament $tournament
-     * @param  CreateCompleteTournamentInscriptionRequest $request
-     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Routing\ResponseFactory
+     * @param TournamentInscription $tournamentInscription
+     * @param UpdateTournamentInscriptionRequest $request
+     * @return Response
      */
     public function __invoke(
         TournamentInscription $tournamentInscription,
         UpdateTournamentInscriptionRequest $request
-    )
-    {
+    ): Response {
         $tournamentInscription = ($this->updateTournamentInscriptionService)(
             $tournamentInscription->id,
             $request->input('pokemon_showdown_team_export'),
@@ -56,8 +53,7 @@ class UpdateTournamentInscriptionController extends Controller
         return response(
             [
                 'message' => 'Inscripción actualizada',
-                'tournament_inscription' =>
-                    TournamentInscriptionResource::make($tournamentInscription),
+                'tournament_inscription' => TournamentInscriptionResource::make($tournamentInscription),
             ],
             Response::HTTP_OK,
         );
