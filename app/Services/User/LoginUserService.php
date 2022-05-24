@@ -9,13 +9,19 @@ class LoginUserService
      *
      * @param string $email
      * @param string $password
-     * @return bool
+     * @return bool|string
      */
-    public function __invoke(string $email, string $password): bool
+    public function __invoke(string $email, string $password)
     {
-        return auth()->attempt([
+        $tokenOrFalse = auth()->attempt([
             'email' => $email,
             'password' => $password,
         ]);
+
+        if (gettype($tokenOrFalse) == 'string') {
+            return (string) $tokenOrFalse;
+        }
+
+        return (bool) $tokenOrFalse;
     }
 }
