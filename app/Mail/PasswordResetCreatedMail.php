@@ -11,7 +11,7 @@ class PasswordResetCreatedMail extends Mailable
     use Queueable, SerializesModels;
 
     /**
-     * The password reset url
+     * The password reset url.
      *
      * @var string
      */
@@ -25,8 +25,7 @@ class PasswordResetCreatedMail extends Mailable
      */
     public function __construct(
         string $resetUrl
-    )
-    {
+    ) {
         $this->resetUrl = $resetUrl;
     }
 
@@ -35,7 +34,7 @@ class PasswordResetCreatedMail extends Mailable
      *
      * @return $this
      */
-    public function build()
+    public function build(): self
     {
         return $this->view('mails.password-reset-created')
                     ->subject('Enlace para cambio de contraseña');

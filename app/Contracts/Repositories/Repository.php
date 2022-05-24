@@ -2,54 +2,56 @@
 
 namespace App\Contracts\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 interface Repository
 {
     /**
-     * Save the model
+     * Save the model.
      *
-     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param Model $model
      * @return bool
      */
-    public function save(Model &$model);
+    public function save(Model &$model): bool;
 
     /**
-     * Update the model
+     * Update the model.
      *
      * @param string $id
      * @param array $attributes
      * @return bool
      */
-    public function update(string &$id, array &$attributes);
+    public function update(string &$id, array &$attributes): bool;
 
     /**
-     * Delete the model
+     * Delete the model.
      *
      * @param string $id
      * @return bool
      */
-    public function delete(string &$id);
+    public function delete(string &$id): bool;
 
     /**
-     * Retrieves all models
+     * Retrieves all models.
      *
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection
      */
-    public function getAll();
+    public function getAll(): Collection;
 
     /**
-     * Find one model by id
+     * Find one model by id.
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @param string $id
+     * @return Model
      */
-    public function findOne(string &$id);
+    public function findOne(string &$id): Model;
 
     /**
-     * Find many models by ids
+     * Find many models by ids.
      *
      * @param  array $ids
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection
      */
-    public function findMany(array $ids);
+    public function findMany(array $ids): Collection;
 }

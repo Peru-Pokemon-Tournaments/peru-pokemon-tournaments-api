@@ -14,7 +14,7 @@ class UserPersonCompetitorSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         $person = Person::factory()->create()->first();
 

@@ -9,7 +9,7 @@ use App\Services\User\GetUserByEmailService;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
-class GetUserByEmailTest extends TestCase
+class GetUserByEmailServiceTest extends TestCase
 {
     use DatabaseTransactions;
 

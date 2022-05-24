@@ -3,39 +3,38 @@
 namespace App\Services\Tournament;
 
 use App\Contracts\Repositories\TournamentRepository;
+use App\Models\Tournament;
+use Illuminate\Support\Collection;
 
 class GetTournamentsService
 {
     /**
-     * The tournament repository
+     * The tournament repository.
      *
      * @var TournamentRepository
      */
     private TournamentRepository $tournamentRepository;
 
-
     /**
-     * Create new GetTournamentsService
+     * Create new GetTournamentsService.
      *
      * @param   TournamentRepository $tournamentRepository
      * @return  void
      */
     public function __construct(
         TournamentRepository $tournamentRepository
-    )
-    {
+    ) {
         $this->tournamentRepository = $tournamentRepository;
     }
 
     /**
-     * Retrieve tournaments
+     * Retrieve tournaments.
      *
      * @param
-     * @return  \Illuminate\Support\Collection
+     * @return  Collection|Tournament[]
      */
-    public function __invoke()
+    public function __invoke(): Collection
     {
         return $this->tournamentRepository->getAll();
     }
-
 }

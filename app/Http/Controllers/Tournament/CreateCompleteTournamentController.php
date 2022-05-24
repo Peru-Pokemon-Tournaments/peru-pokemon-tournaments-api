@@ -11,37 +11,35 @@ use Illuminate\Http\Response;
 class CreateCompleteTournamentController extends Controller
 {
     /**
-     * The CreateCompleteTournamentService
+     * The CreateCompleteTournamentService.
      *
      * @var CreateCompleteTournamentService
      */
     private CreateCompleteTournamentService $createCompleteTournamentService;
 
     /**
-     * Create a new instance of CreateCompleteTournamentController
+     * Create a new instance of CreateCompleteTournamentController.
      *
      * @param   CreateCompleteTournamentService $createCompleteTournamentService
      * @return  void
      */
     public function __construct(
         CreateCompleteTournamentService $createCompleteTournamentService
-    )
-    {
+    ) {
         $this->createCompleteTournamentService = $createCompleteTournamentService;
     }
 
     /**
-     * Create complete tournament
+     * Create complete tournament.
      *
      * @param  CreateCompleteTournamentRequest $request
-     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Routing\ResponseFactory
+     * @return Response
      */
-    public function __invoke(CreateCompleteTournamentRequest $request)
+    public function __invoke(CreateCompleteTournamentRequest $request): Response
     {
         $data = $request->input();
 
-        if ($request->has('tournament_image_file'))
-        {
+        if ($request->has('tournament_image_file')) {
             $data['tournament_image_file'] = $request->file('tournament_image_file');
         }
 

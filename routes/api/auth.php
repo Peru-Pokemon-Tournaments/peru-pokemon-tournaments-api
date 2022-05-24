@@ -10,7 +10,7 @@
 |
 */
 
-include('auth/auth.php');
-include('inscriptions/auth.php');
-include('tournaments/auth.php');
-include('users/auth.php');
+include 'auth/auth.php';
+include 'inscriptions/auth.php';
+include 'tournaments/auth.php';
+include 'users/auth.php';

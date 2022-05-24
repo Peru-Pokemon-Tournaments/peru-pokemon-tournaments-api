@@ -10,12 +10,12 @@ use Illuminate\Http\Response;
 class GetCompleteTournamentController extends Controller
 {
     /**
-     * Get complete tournament
+     * Get complete tournament.
      *
-     * @param  \App\Models\Tournament $tournament
-     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Routing\ResponseFactory
+     * @param Tournament $tournament
+     * @return Response
      */
-    public function __invoke(Tournament $tournament)
+    public function __invoke(Tournament $tournament): Response
     {
         return response(
             [

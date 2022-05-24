@@ -6,45 +6,45 @@ use App\Contracts\Repositories\PasswordResetRepository;
 use App\Contracts\Repositories\UserRepository;
 use App\Models\PasswordReset;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class CreateOrUpdatePasswordResetService
 {
     /**
-     * User Repository
+     * User Repository.
      *
-     * @var \App\Contracts\Repositories\UserRepository
+     * @var UserRepository
      */
     private UserRepository $userRepository;
 
     /**
-     * Password Reset Repository
+     * Password Reset Repository.
      *
-     * @var \App\Contracts\Repositories\PasswordResetRepository
+     * @var PasswordResetRepository
      */
     private PasswordResetRepository $passwordResetRepository;
 
     /**
      * Create a new CreateOrUpdatePasswordResetService instance.
      *
-     * @param  \App\Contracts\Repositories\UserRepository $userRepository
-     * @param  \App\Contracts\Repositories\PasswordResetRepository $passwordResetRepository
+     * @param UserRepository $userRepository
+     * @param PasswordResetRepository $passwordResetRepository
      * @return void
      */
     public function __construct(
         UserRepository $userRepository,
         PasswordResetRepository $passwordResetRepository
-    )
-    {
+    ) {
         $this->passwordResetRepository = $passwordResetRepository;
         $this->userRepository = $userRepository;
     }
 
     /**
-     * Creates a new Password Reset
+     * Creates a new Password Reset.
      *
-     * @param   string $email
-     * @return  \App\Models\PasswordReset
+     * @param string $email
+     * @return PasswordReset|Model
      */
     public function __invoke(string $email)
     {
@@ -60,8 +60,7 @@ class CreateOrUpdatePasswordResetService
             'expires_at' => Carbon::now()->addDay(),
         ];
 
-        if (!$passwordReset)
-        {
+        if (!$passwordReset) {
             $passwordReset = new PasswordReset();
 
             $passwordReset->user_id = $attributes['user_id'];
@@ -69,6 +68,7 @@ class CreateOrUpdatePasswordResetService
             $passwordReset->expires_at = $attributes['expires_at'];
 
             $this->passwordResetRepository->save($passwordReset);
+
             return $passwordReset;
         }
 

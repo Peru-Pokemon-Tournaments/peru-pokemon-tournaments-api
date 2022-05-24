@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Role;
+use Illuminate\Database\Seeder;
 
 class BaseRolesSeeder extends Seeder
 {
@@ -12,7 +12,7 @@ class BaseRolesSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         Role::create(['name' => 'super admin']);
         Role::create(['name' => 'competitor']);

@@ -15,12 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('/users')->group(function () {
-
     Route::prefix('/password')->group(function () {
-
         Route::put('/', ResetPasswordController::class);
         Route::post('/reset', CreatePasswordResetController::class);
-
     });
-
 });

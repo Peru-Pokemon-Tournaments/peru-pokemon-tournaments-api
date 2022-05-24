@@ -26,8 +26,8 @@ class RegisterUserControllerTest extends TestCase
         $response = $this->post('/api/register', $data);
 
         $response->assertStatus(201);
-        $response->assertJson(fn (AssertableJson $json) =>
-            $json->has('message')
+        $response->assertJson(
+            fn (AssertableJson $json) => $json->has('message')
                 ->has('user')
                 ->has('user.person')
                 ->where('user.person.first_name', $data['first_name'])

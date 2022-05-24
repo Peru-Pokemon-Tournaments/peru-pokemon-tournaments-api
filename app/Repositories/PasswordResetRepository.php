@@ -4,45 +4,45 @@ namespace App\Repositories;
 
 use App\Contracts\Repositories\PasswordResetRepository as PasswordResetRepositoryContract;
 use App\Models\PasswordReset;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 final class PasswordResetRepository implements PasswordResetRepositoryContract
 {
     /**
-     * Save the model
+     * Save the model.
      *
-     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param PasswordReset $model
      * @return bool
      */
-    public function save(Model &$model)
+    public function save(Model &$model): bool
     {
         return $model->save();
     }
 
     /**
-     * Update the model
+     * Update the model.
      *
      * @param string $id
      * @param array $attributes
      * @return bool
      */
-    public function update(string &$id, array &$attributes)
+    public function update(string &$id, array &$attributes): bool
     {
         return PasswordReset::where('user_id', $id)->update($attributes);
     }
 
     /**
-     * Delete the model
+     * Delete the model.
      *
      * @param string $id
      * @return bool
      */
-    public function delete(string &$id)
+    public function delete(string &$id): bool
     {
         $model = PasswordReset::where('user_id', $id)->first();
 
-        if (!$model)
-        {
+        if (!$model) {
             return false;
         }
 
@@ -50,32 +50,33 @@ final class PasswordResetRepository implements PasswordResetRepositoryContract
     }
 
     /**
-     * Retrieves all models
+     * Retrieves all models.
      *
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection<PasswordReset>|PasswordReset[]
      */
-    public function getAll()
+    public function getAll(): Collection
     {
         return PasswordReset::all();
     }
 
     /**
-     * Find one model by id
+     * Find one model by id.
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @param string $id
+     * @return PasswordReset
      */
-    public function findOne(string &$id)
+    public function findOne(string &$id): PasswordReset
     {
         return PasswordReset::where('user_id', $id)->first();
     }
 
     /**
-     * Find many models by ids
+     * Find many models by ids.
      *
      * @param  array $ids
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection<PasswordReset>|PasswordReset[]
      */
-    public function findMany(array $ids)
+    public function findMany(array $ids): Collection
     {
         return PasswordReset::whereIn('user_id', $ids)->get();
     }

@@ -21,8 +21,8 @@ class GetCompleteTournamentControllerTest extends TestCase
         $response = $this->get('/api/tournaments/' . $tournament->id);
 
         $response->assertStatus(200);
-        $response->assertJson(fn (AssertableJson $json) =>
-            $json->has('message')
+        $response->assertJson(
+            fn (AssertableJson $json) => $json->has('message')
                 ->has('tournament')
                 ->where('tournament.id', $tournament->id)
                 ->missing('errors')

@@ -4,13 +4,37 @@ namespace App\Models;
 
 use App\Traits\Uuid;
 use Database\Factories\GameFactory;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Carbon;
 
+/**
+ * @mixin Builder
+ * @property string $id
+ * @property string $name
+ * @property string $game_generation_id
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property GameGeneration|null $gameGeneration
+ * @property Collection|Tournament[] $tournaments
+ */
 class Game extends Model
 {
     use HasFactory;
     use Uuid;
+
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'games';
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -40,29 +64,29 @@ class Game extends Model
     /**
      * Create a new factory instance for the model.
      *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     * @return Factory
      */
-    protected static function newFactory()
+    protected static function newFactory(): Factory
     {
         return GameFactory::new();
     }
 
     /**
-     * The game generation of the game
+     * The game generation of the game.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function gameGeneration()
+    public function gameGeneration(): BelongsTo
     {
         return $this->belongsTo(GameGeneration::class, 'game_generation_id', 'id');
     }
 
     /**
-     * The tournaments of the game
+     * The tournaments of the game.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
-    public function tournaments()
+    public function tournaments(): BelongsToMany
     {
         return $this->belongsToMany(Tournament::class, 'games_of_tournaments');
     }

@@ -5,7 +5,6 @@ namespace Tests\Unit\Services;
 use App\Models\Person;
 use App\Models\User;
 use App\Repositories\UserRepository;
-use App\Services\User\CreateCompleteUserService;
 use App\Services\User\LoginUserService;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Hash;

@@ -12,7 +12,7 @@ class BaseTournamentTypesSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         TournamentType::factory()->createMany([
             [

@@ -12,7 +12,7 @@ class BaseDevicesSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         Device::factory()->createMany([
             [

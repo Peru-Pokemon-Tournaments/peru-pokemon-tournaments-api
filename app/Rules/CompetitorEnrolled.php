@@ -2,7 +2,6 @@
 
 namespace App\Rules;
 
-use App\Models\Tournament;
 use App\Services\TournamentInscription\CheckCompetitorIsEnrolledService;
 use Illuminate\Contracts\Validation\DataAwareRule;
 use Illuminate\Contracts\Validation\Rule;
@@ -10,16 +9,16 @@ use Illuminate\Contracts\Validation\Rule;
 class CompetitorEnrolled implements Rule, DataAwareRule
 {
     /**
-     * The CheckCompetitorIsEnrolledService
+     * The CheckCompetitorIsEnrolledService.
      */
     private CheckCompetitorIsEnrolledService $checkCompetitorIsEnrolledService;
 
     /**
-     * All of the data under validation.
+     * All the data under validation.
      *
      * @var array
      */
-    protected $data = [];
+    protected array $data = [];
 
     /**
      * Create a new rule instance.
@@ -28,8 +27,7 @@ class CompetitorEnrolled implements Rule, DataAwareRule
      */
     public function __construct(
         CheckCompetitorIsEnrolledService $checkCompetitorIsEnrolledService
-    )
-    {
+    ) {
         $this->checkCompetitorIsEnrolledService = $checkCompetitorIsEnrolledService;
     }
 
@@ -39,7 +37,7 @@ class CompetitorEnrolled implements Rule, DataAwareRule
      * @param  array  $data
      * @return $this
      */
-    public function setData($data)
+    public function setData($data): self
     {
         $this->data = $data;
 
@@ -53,9 +51,10 @@ class CompetitorEnrolled implements Rule, DataAwareRule
      * @param  mixed  $value
      * @return bool
      */
-    public function passes($attribute, $value)
+    public function passes($attribute, $value): bool
     {
         $tournament = request()->route('tournament');
+
         return !($this->checkCompetitorIsEnrolledService)(
             $tournament->id,
             $value
@@ -67,7 +66,7 @@ class CompetitorEnrolled implements Rule, DataAwareRule
      *
      * @return string
      */
-    public function message()
+    public function message(): string
     {
         return trans('validation.competitor_enrolled');
     }

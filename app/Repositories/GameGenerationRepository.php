@@ -5,38 +5,40 @@ namespace App\Repositories;
 use App\Contracts\Repositories\GameGenerationRepository as GameGenerationRepositoryContract;
 use App\Models\GameGeneration;
 use App\Traits\Repositories\CommonMethods;
+use Illuminate\Database\Eloquent\Collection;
 
 final class GameGenerationRepository implements GameGenerationRepositoryContract
 {
     use CommonMethods;
 
     /**
-     * Retrieves all models
+     * Retrieves all models.
      *
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection<GameGeneration>|GameGeneration[]
      */
-    public function getAll()
+    public function getAll(): Collection
     {
         return GameGeneration::all();
     }
 
     /**
-     * Find one model by id
+     * Find one model by id.
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @param string $id
+     * @return GameGeneration
      */
-    public function findOne(string &$id)
+    public function findOne(string &$id): GameGeneration
     {
         return GameGeneration::find($id);
     }
 
     /**
-     * Find many models by ids
+     * Find many models by ids.
      *
      * @param  array $ids
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection<GameGeneration>|GameGeneration[]
      */
-    public function findMany(array $ids)
+    public function findMany(array $ids): Collection
     {
         return GameGeneration::findMany($ids);
     }

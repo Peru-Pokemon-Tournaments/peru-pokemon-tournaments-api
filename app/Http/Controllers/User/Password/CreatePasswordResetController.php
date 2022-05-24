@@ -11,26 +11,32 @@ use Illuminate\Http\Response;
 class CreatePasswordResetController extends Controller
 {
     /**
-     * @var \App\Services\User\Password\CreatePasswordResetService
+     * The CreateOrUpdatePasswordResetService.
+     *
+     * @var CreateOrUpdatePasswordResetService
      */
     private CreateOrUpdatePasswordResetService $createOrUpdatePasswordResetService;
 
     /**
-     * Create a new CreatePasswordResetController instance
+     * Create a new CreatePasswordResetController instance.
      *
-     * @param \App\Services\User\Password\CreateOrUpdatePasswordResetService
+     * @param CreateOrUpdatePasswordResetService $createOrUpdatePasswordResetService
      * @return void
      */
     public function __construct(
         CreateOrUpdatePasswordResetService $createOrUpdatePasswordResetService
-    )
-    {
+    ) {
         $this->createOrUpdatePasswordResetService = $createOrUpdatePasswordResetService;
     }
 
-    public function __invoke(CreatePasswordResetRequest $request)
+    /**
+     * Create a new password reset entry and send email to related user.
+     *
+     * @param CreatePasswordResetRequest $request
+     * @return Response
+     */
+    public function __invoke(CreatePasswordResetRequest $request): Response
     {
-
         $passwordReset = ($this->createOrUpdatePasswordResetService)($request->input('email'));
 
         PasswordResetCreated::dispatch($passwordReset);

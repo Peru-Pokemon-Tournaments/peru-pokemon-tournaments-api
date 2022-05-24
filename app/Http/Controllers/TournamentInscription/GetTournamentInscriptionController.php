@@ -10,15 +10,14 @@ use Illuminate\Http\Response;
 class GetTournamentInscriptionController extends Controller
 {
     /**
-     * Retrieve tournament inscription
+     * Retrieve tournament inscription.
      *
-     * @param  \App\Models\TournamentInscription $tournamentInscription
-     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Routing\ResponseFactory
+     * @param TournamentInscription $tournamentInscription
+     * @return Response
      */
     public function __invoke(
         TournamentInscription $tournamentInscription
-    )
-    {
+    ): Response {
         return response(
             [
                 'message' => 'Inscripción encontrada',

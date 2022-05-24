@@ -3,20 +3,21 @@
 namespace App\Services\User;
 
 use App\Contracts\Repositories\UserRepository;
+use App\Models\User;
 
 class GetUserByEmailService
 {
     /**
-     * User Repository
+     * User Repository.
      *
-     * @var App\Contracts\Repositories\UserRepository
+     * @var UserRepository
      */
     private UserRepository $userRepository;
 
     /**
      * Create a new LoginUserService instance.
      *
-     * @param  UserRepository $userRepository
+     * @param UserRepository $userRepository
      * @return void
      */
     public function __construct(UserRepository $userRepository)
@@ -25,12 +26,12 @@ class GetUserByEmailService
     }
 
     /**
-     * Check if the user has valid password
+     * Check if the user has valid password.
      *
      * @param string $email
-     * @return \App\Models\User
+     * @return User
      */
-    public function __invoke(string $email)
+    public function __invoke(string $email): User
     {
         return $this->userRepository->findOneByEmail($email, ['person']);
     }

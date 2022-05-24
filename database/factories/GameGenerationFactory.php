@@ -19,7 +19,7 @@ class GameGenerationFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'generation' => $this->faker->randomNumber(),

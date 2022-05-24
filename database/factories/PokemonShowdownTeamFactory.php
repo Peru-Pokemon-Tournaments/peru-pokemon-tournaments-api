@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Device;
 use App\Models\PokemonShowdownTeam;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,7 +19,7 @@ class PokemonShowdownTeamFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'team' => $this->faker->text(100),

@@ -11,37 +11,35 @@ use Illuminate\Http\Response;
 class IsCompetitorEnrolledToTournamentController extends Controller
 {
     /**
-     * The CheckCompetitorIsEnrolledService
+     * The CheckCompetitorIsEnrolledService.
      *
      * @var CheckCompetitorIsEnrolledService
      */
     private CheckCompetitorIsEnrolledService $checkCompetitorIsEnrolledService;
 
     /**
-     * Create a new instance of IsCompetitorEnrolledToTournamentController
+     * Create a new instance of IsCompetitorEnrolledToTournamentController.
      *
      * @param   CheckCompetitorIsEnrolledService $checkCompetitorIsEnrolledService
      * @return  void
      */
     public function __construct(
         CheckCompetitorIsEnrolledService $checkCompetitorIsEnrolledService
-    )
-    {
+    ) {
         $this->checkCompetitorIsEnrolledService = $checkCompetitorIsEnrolledService;
     }
 
     /**
-     * Retrieve tournament inscription
+     * Retrieve tournament inscription.
      *
-     * @param  \App\Models\Tournament $tournament
-     * @param  \App\Models\Competitor $competitor
-     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Routing\ResponseFactory
+     * @param Tournament $tournament
+     * @param Competitor $competitor
+     * @return Response
      */
     public function __invoke(
         Tournament $tournament,
         Competitor $competitor
-    )
-    {
+    ): Response {
         $isEnrolled = ($this->checkCompetitorIsEnrolledService)(
             $tournament->id,
             $competitor->id
@@ -50,7 +48,7 @@ class IsCompetitorEnrolledToTournamentController extends Controller
         return response(
             [
                 'message' => ($isEnrolled
-                    ?  'El competidor está inscrito'
+                    ? 'El competidor está inscrito'
                     : 'El competidor no está inscrito'),
                 'is_enrolled' => $isEnrolled,
             ],

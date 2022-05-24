@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('tournaments')->group(function () {
-
     Route::get('/', GetTournamentsController::class);
 
     Route::prefix('{tournament}')->group(function () {
@@ -35,5 +34,4 @@ Route::prefix('tournaments')->group(function () {
             Route::get('/', GetTournamentCompetitorsController::class);
         });
     });
-
 });

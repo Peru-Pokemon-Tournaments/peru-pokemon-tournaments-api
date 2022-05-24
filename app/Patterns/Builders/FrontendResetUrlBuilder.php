@@ -7,26 +7,26 @@ use App\Contracts\Patterns\Builders\ResetUrlBuilder;
 class FrontendResetUrlBuilder implements ResetUrlBuilder
 {
     /**
-     * The token of the reset url
+     * The token of the reset url.
      *
      * @var string
      */
     private string $token;
 
     /**
-     * The email of the reset url
+     * The email of the reset url.
      *
      * @var string
      */
     private string $email;
 
     /**
-     * Set token of the reset url
+     * Set token of the reset url.
      *
      * @param string $token
      * @return $this
      */
-    public function setToken(string $token)
+    public function setToken(string $token): self
     {
         $this->token = $token;
 
@@ -34,12 +34,12 @@ class FrontendResetUrlBuilder implements ResetUrlBuilder
     }
 
     /**
-     * Set email of the reset url
+     * Set email of the reset url.
      *
-     * @param string $token
+     * @param string $email
      * @return $this
      */
-    public function setEmail(string $email)
+    public function setEmail(string $email): self
     {
         $this->email = $email;
 
@@ -47,21 +47,19 @@ class FrontendResetUrlBuilder implements ResetUrlBuilder
     }
 
     /**
-     * Retrieve the reset url
+     * Retrieve the reset url.
      *
      * @return string
      */
-    public function get()
+    public function get(): string
     {
         $parts = [];
 
-        if ($this->token)
-        {
+        if ($this->token) {
             $parts[] = 'token=' . $this->token;
         }
 
-        if ($this->email)
-        {
+        if ($this->email) {
             $parts[] = 'email=' . $this->email;
         }
 

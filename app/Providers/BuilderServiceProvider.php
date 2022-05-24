@@ -15,7 +15,8 @@ class BuilderServiceProvider extends ServiceProvider
     {
         $this->app->bind(
             \App\Contracts\Patterns\Builders\ResetUrlBuilder::class,
-            \App\Patterns\Builders\FrontendResetUrlBuilder::class);
+            \App\Patterns\Builders\FrontendResetUrlBuilder::class
+        );
     }
 
     /**

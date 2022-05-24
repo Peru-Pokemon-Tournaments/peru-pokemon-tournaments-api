@@ -19,7 +19,7 @@ class ExternalBracketFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'reference' => $this->faker->text(10),

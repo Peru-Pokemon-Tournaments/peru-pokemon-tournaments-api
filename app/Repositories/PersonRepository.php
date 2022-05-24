@@ -5,39 +5,41 @@ namespace App\Repositories;
 use App\Contracts\Repositories\PersonRepository as PersonRepositoryContract;
 use App\Models\Person;
 use App\Traits\Repositories\CommonMethods;
+use Illuminate\Database\Eloquent\Collection;
 
 final class PersonRepository implements PersonRepositoryContract
 {
     use CommonMethods;
 
     /**
-     * Retrieves all models
+     * Retrieves all models.
      *
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection<Person>|Person[]
      */
-    public function getAll()
+    public function getAll(): Collection
     {
         return Person::all();
     }
 
     /**
-     * Find one model by id
+     * Find one model by id.
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @param string $id
+     * @return Person
      */
-    public function findOne(string &$id)
+    public function findOne(string &$id): Person
     {
         return Person::find($id);
     }
 
     /**
-     * Find many models by ids
+     * Find many models by ids.
      *
      * @param  array $ids
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection<Person>|Person[]
      */
-    public function findMany(array $ids)
+    public function findMany(array $ids): Collection
     {
-        return PersonRepository::findMany($ids);
+        return self::findMany($ids);
     }
 }

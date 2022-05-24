@@ -4,13 +4,34 @@ namespace App\Models;
 
 use App\Traits\Uuid;
 use Database\Factories\TournamentFormatFactory;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
+/**
+ * @mixin Builder
+ * @property string $id
+ * @property string $name
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property Collection|Tournament[] $tournaments
+ */
 class TournamentFormat extends Model
 {
     use HasFactory;
     use Uuid;
+
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'tournament_formats';
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -39,19 +60,19 @@ class TournamentFormat extends Model
     /**
      * Create a new factory instance for the model.
      *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     * @return Factory
      */
-    protected static function newFactory()
+    protected static function newFactory(): Factory
     {
         return TournamentFormatFactory::new();
     }
 
     /**
-     * The tournaments of the tournament format
+     * The tournaments of the tournament format.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function tournaments()
+    public function tournaments(): HasMany
     {
         return $this->hasMany(Tournament::class, 'tournament_format_id', 'id');
     }

@@ -5,38 +5,40 @@ namespace App\Repositories;
 use App\Contracts\Repositories\PokemonShowdownTeamRepository as PokemonShowdownTeamRepositoryContract;
 use App\Models\PokemonShowdownTeam;
 use App\Traits\Repositories\CommonMethods;
+use Illuminate\Database\Eloquent\Collection;
 
 final class PokemonShowdownTeamRepository implements PokemonShowdownTeamRepositoryContract
 {
     use CommonMethods;
 
     /**
-     * Retrieves all models
+     * Retrieves all models.
      *
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection<PokemonShowdownTeam>|PokemonShowdownTeam[]
      */
-    public function getAll()
+    public function getAll(): Collection
     {
         return PokemonShowdownTeam::all();
     }
 
     /**
-     * Find one model by id
+     * Find one model by id.
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @param string $id
+     * @return PokemonShowdownTeam
      */
-    public function findOne(string &$id)
+    public function findOne(string &$id): PokemonShowdownTeam
     {
         return PokemonShowdownTeam::find($id);
     }
 
     /**
-     * Find many models by ids
+     * Find many models by ids.
      *
      * @param  array $ids
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection<PokemonShowdownTeam>|PokemonShowdownTeam[]
      */
-    public function findMany(array $ids)
+    public function findMany(array $ids): Collection
     {
         return PokemonShowdownTeam::findMany($ids);
     }

@@ -14,30 +14,30 @@ use Illuminate\Support\Facades\Hash;
 class CreateCompleteUserService
 {
     /**
-     * User Repository
+     * User Repository.
      *
-     * @var App\Contracts\Repositories\UserRepository
+     * @var UserRepository
      */
     private UserRepository $userRepository;
 
     /**
-     * Competitor Repository
+     * Competitor Repository.
      *
-     * @var App\Contracts\Repositories\CompetitorRepository
+     * @var CompetitorRepository
      */
     private CompetitorRepository $competitorRepository;
 
     /**
-     * Person Repository
+     * Person Repository.
      *
-     * @var App\Contracts\Repositories\PersonRepository
+     * @var PersonRepository
      */
     private PersonRepository $personRepository;
 
     /**
-     * Role Repository
+     * Role Repository.
      *
-     * @var App\Contracts\Repositories\RoleRepository
+     * @var RoleRepository
      */
     private RoleRepository $roleRepository;
 
@@ -55,8 +55,7 @@ class CreateCompleteUserService
         PersonRepository $personRepository,
         UserRepository $userRepository,
         RoleRepository $roleRepository
-    )
-    {
+    ) {
         $this->competitorRepository = $competitorRepository;
         $this->personRepository = $personRepository;
         $this->userRepository = $userRepository;
@@ -64,12 +63,12 @@ class CreateCompleteUserService
     }
 
     /**
-     * Creates a new user
+     * Creates a new user.
      *
-     * @param   array $data
-     * @return  User $user
+     * @param array $data
+     * @return User $user
      */
-    public function __invoke(array $data)
+    public function __invoke(array $data): User
     {
         $person = $this->createPerson($data);
 
@@ -83,11 +82,12 @@ class CreateCompleteUserService
     }
 
     /**
-     * Create a new Person
+     * Create a new Person.
      *
-     * @return \App\Models\Person
+     * @param array $data
+     * @return Person
      */
-    private function createPerson($data)
+    private function createPerson(array $data): Person
     {
         $person = new Person();
 
@@ -100,13 +100,13 @@ class CreateCompleteUserService
     }
 
     /**
-     * Create a new User
+     * Create a new User.
      *
-     * @param   array $data
-     * @param   \App\Models\Person
-     * @return  \App\Models\User
+     * @param array $data
+     * @param Person $person
+     * @return User
      */
-    private function createUser($data, $person)
+    private function createUser(array $data, Person $person): User
     {
         $user = new User();
 
@@ -121,13 +121,13 @@ class CreateCompleteUserService
     }
 
     /**
-     * Create a new Competitor
+     * Create a new Competitor.
      *
-     * @param   array $data
-     * @param   \App\Models\User
-     * @return  void
+     * @param array $data
+     * @param User $user
+     * @return void
      */
-    private function createCompetitor($data, $user)
+    private function createCompetitor(array $data, User $user): void
     {
         $competitor = new Competitor();
 

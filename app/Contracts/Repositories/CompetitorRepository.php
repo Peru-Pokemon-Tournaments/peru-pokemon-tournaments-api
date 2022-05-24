@@ -2,12 +2,15 @@
 
 namespace App\Contracts\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
+
 interface CompetitorRepository extends Repository
 {
     /**
-     * Retrieves all competitors enrolled in that tournament
+     * Retrieves all competitors enrolled in that tournament.
      *
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @param string $tournamentId
+     * @return Collection
      */
-    public function findManyEnrolledToTournament(string $tournamentId);
+    public function findManyEnrolledToTournament(string $tournamentId): Collection;
 }

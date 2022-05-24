@@ -10,43 +10,43 @@ use Illuminate\Support\Facades\Hash;
 class ResetPasswordService
 {
     /**
-     * User Repository
+     * User Repository.
      *
-     * @var \App\Contracts\Repositories\UserRepository
+     * @var UserRepository
      */
     private UserRepository $userRepository;
 
     /**
-     * Password Reset Repository
+     * Password Reset Repository.
      *
-     * @var \App\Contracts\Repositories\PasswordResetRepository
+     * @var PasswordResetRepository
      */
     private PasswordResetRepository $passwordResetRepository;
 
     /**
      * Create a new class ResetPasswordService instance.
      *
-     * @param  \App\Contracts\Repositories\UserRepository $userRepository
-     * @param  \App\Contracts\Repositories\PasswordResetRepository $passwordResetRepository
+     * @param UserRepository $userRepository
+     * @param PasswordResetRepository $passwordResetRepository
      * @return void
      */
     public function __construct(
         UserRepository $userRepository,
         PasswordResetRepository $passwordResetRepository
-    )
-    {
+    ) {
         $this->passwordResetRepository = $passwordResetRepository;
         $this->userRepository = $userRepository;
     }
 
     /**
-     * Reset password of a user
+     * Reset password of a user.
      *
-     * @param   string $email
-     * @param   string $token
-     * @return  bool
+     * @param string $email
+     * @param string $token
+     * @param string $newPassword
+     * @return bool
      */
-    public function __invoke(string $email, string $token, string $newPassword)
+    public function __invoke(string $email, string $token, string $newPassword): bool
     {
         $user = $this->userRepository->findOneByEmail($email);
 
@@ -54,14 +54,12 @@ class ResetPasswordService
 
         $passwordReset = $this->passwordResetRepository->findOne($userId);
 
-        if (!$passwordReset)
-        {
+        if (!$passwordReset) {
             return false;
         }
 
         if (Carbon::now()->gt($passwordReset->expires_at) ||
-            $passwordReset->token != $token)
-        {
+            $passwordReset->token != $token) {
             return false;
         }
 

@@ -5,38 +5,40 @@ namespace App\Repositories;
 use App\Contracts\Repositories\DeviceRepository as DeviceRepositoryContract;
 use App\Models\Device;
 use App\Traits\Repositories\CommonMethods;
+use Illuminate\Database\Eloquent\Collection;
 
 final class DeviceRepository implements DeviceRepositoryContract
 {
     use CommonMethods;
 
     /**
-     * Retrieves all models
+     * Retrieves all models.
      *
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection<Device>|Device[]
      */
-    public function getAll()
+    public function getAll(): Collection
     {
         return Device::all();
     }
 
     /**
-     * Find one model by id
+     * Find one model by id.
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @param string $id
+     * @return Device
      */
-    public function findOne(string &$id)
+    public function findOne(string &$id): Device
     {
         return Device::find($id);
     }
 
     /**
-     * Find many models by ids
+     * Find many models by ids.
      *
      * @param  array $ids
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection<Device>|Device[]
      */
-    public function findMany(array $ids)
+    public function findMany(array $ids): Collection
     {
         return Device::findMany($ids);
     }

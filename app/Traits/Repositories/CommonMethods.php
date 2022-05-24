@@ -7,24 +7,24 @@ use Illuminate\Database\Eloquent\Model;
 trait CommonMethods
 {
     /**
-     * Save the model
+     * Save the model.
      *
-     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param Model $model
      * @return bool
      */
-    public function save(Model &$model)
+    public function save(Model &$model): bool
     {
         return $model->save();
     }
 
     /**
-     * Update the model
+     * Update the model.
      *
      * @param string $id
      * @param array $attributes
      * @return bool
      */
-    public function update(string &$id, array &$attributes)
+    public function update(string &$id, array &$attributes): bool
     {
         $model = $this->findOne($id);
 
@@ -32,12 +32,12 @@ trait CommonMethods
     }
 
     /**
-     * Delete the model
+     * Delete the model.
      *
      * @param string $id
      * @return bool
      */
-    public function delete(string &$id)
+    public function delete(string &$id): bool
     {
         $model = $this->findOne($id);
 
