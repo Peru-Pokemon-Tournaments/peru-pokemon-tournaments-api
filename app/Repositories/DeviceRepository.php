@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Contracts\Repositories\DeviceRepository as DeviceRepositoryContract;
 use App\Models\Device;
 use App\Traits\Repositories\CommonMethods;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 
 final class DeviceRepository implements DeviceRepositoryContract
@@ -41,5 +42,17 @@ final class DeviceRepository implements DeviceRepositoryContract
     public function findMany(array $ids): Collection
     {
         return Device::findMany($ids);
+    }
+
+    /**
+     * Retrieve all devices paginated.
+     *
+     * @param int $page
+     * @param int|null $pageSize
+     * @return LengthAwarePaginator
+     */
+    public function getPaginated(int $page = 1, ?int $pageSize = null): LengthAwarePaginator
+    {
+        return Device::paginate($pageSize, ['*'], 'page', $page);
     }
 }

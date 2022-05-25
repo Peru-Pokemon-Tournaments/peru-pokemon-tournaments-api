@@ -11,6 +11,7 @@
 */
 
 include 'auth/auth.php';
+include 'devices/auth.php';
 include 'inscriptions/auth.php';
 include 'options/auth.php';
 include 'roles/auth.php';

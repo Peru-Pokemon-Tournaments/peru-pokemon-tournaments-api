@@ -2,6 +2,6 @@
 
 namespace App\Contracts\Repositories;
 
-interface DeviceRepository extends Repository
+interface DeviceRepository extends Repository, PaginatedRepository
 {
 }
