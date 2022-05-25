@@ -4,7 +4,7 @@ namespace App\Contracts\Repositories;
 
 use App\Models\User;
 
-interface UserRepository extends Repository
+interface UserRepository extends Repository, PaginatedRepository
 {
     /**
      * Find one user by email.
