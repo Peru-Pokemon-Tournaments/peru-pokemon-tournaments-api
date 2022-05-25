@@ -12,6 +12,7 @@
 
 include 'auth/auth.php';
 include 'inscriptions/auth.php';
+include 'options/auth.php';
 include 'roles/auth.php';
 include 'tournaments/auth.php';
 include 'users/auth.php';
