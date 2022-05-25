@@ -12,5 +12,6 @@
 
 include 'auth/no-auth.php';
 include 'inscriptions/no-auth.php';
+include 'roles/no-auth.php';
 include 'tournaments/no-auth.php';
 include 'users/no-auth.php';
