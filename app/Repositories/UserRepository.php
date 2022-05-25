@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Contracts\Repositories\UserRepository as UserRepositoryContract;
 use App\Models\User;
 use App\Traits\Repositories\CommonMethods;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 
 final class UserRepository implements UserRepositoryContract
@@ -53,5 +54,17 @@ final class UserRepository implements UserRepositoryContract
     public function findOneByEmail(string &$email, array $relationships = []): ?User
     {
         return User::with($relationships)->where('email', '=', $email)->first();
+    }
+
+    /**
+     * Retrieve all users paginated.
+     *
+     * @param int $page
+     * @param int|null $pageSize
+     * @return LengthAwarePaginator
+     */
+    public function getPaginated(int $page = 1, ?int $pageSize = null): LengthAwarePaginator
+    {
+        return User::paginate($pageSize, ['*'], 'page', $page);
     }
 }
