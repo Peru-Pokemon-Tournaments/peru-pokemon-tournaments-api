@@ -12,6 +12,7 @@
 
 include 'auth/no-auth.php';
 include 'devices/no-auth.php';
+include 'games/no-auth.php';
 include 'inscriptions/no-auth.php';
 include 'options/no-auth.php';
 include 'roles/no-auth.php';
