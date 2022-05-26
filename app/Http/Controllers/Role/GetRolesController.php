@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Role;
 
+use App\Http\Controllers\Controller;
 use App\Http\Resources\Role\RoleResource;
 use App\Services\Role\GetRolesService;
 use Illuminate\Http\Response;
 
-class GetRolesController
+class GetRolesController extends Controller
 {
     /**
      * The get roles service.

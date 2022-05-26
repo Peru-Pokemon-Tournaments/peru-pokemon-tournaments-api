@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Game;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Game\FetchGamesRequest;
 use App\Http\Resources\Game\GameResource;
 use App\Services\Game\FetchGamesService;
 use Illuminate\Http\Response;
 
-class FetchGamesController
+class FetchGamesController extends Controller
 {
     /**
      * The fetch games service.

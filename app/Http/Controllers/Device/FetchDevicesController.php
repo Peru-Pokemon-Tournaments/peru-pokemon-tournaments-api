@@ -43,7 +43,7 @@ class FetchDevicesController extends Controller
         return response(
             [
                 'message' => 'Dispositivos encontrados',
-                'users' => DeviceResource::collection($devicesPaginated),
+                'devices' => DeviceResource::collection($devicesPaginated),
                 'total' => $devicesPaginated->total(),
                 'per_page' => $devicesPaginated->perPage(),
                 'current_page' => $devicesPaginated->currentPage(),
