@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\Patterns\Builders\PaginatedResponseBuilder;
-use App\Contracts\Patterns\Builders\ResponseBuilder;
 
 class PaginatedController extends Controller
 {
