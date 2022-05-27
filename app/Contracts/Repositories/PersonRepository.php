@@ -2,6 +2,6 @@
 
 namespace App\Contracts\Repositories;
 
-interface PersonRepository extends Repository
+interface PersonRepository extends Repository, PaginatedRepository
 {
 }

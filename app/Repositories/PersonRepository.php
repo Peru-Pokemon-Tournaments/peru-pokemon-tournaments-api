@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Contracts\Repositories\PersonRepository as PersonRepositoryContract;
 use App\Models\Person;
 use App\Traits\Repositories\CommonMethods;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 
 final class PersonRepository implements PersonRepositoryContract
@@ -41,5 +42,17 @@ final class PersonRepository implements PersonRepositoryContract
     public function findMany(array $ids): Collection
     {
         return self::findMany($ids);
+    }
+
+    /**
+     * Retrieve all people paginated.
+     *
+     * @param int $page
+     * @param int|null $pageSize
+     * @return LengthAwarePaginator
+     */
+    public function getPaginated(int $page = 1, ?int $pageSize = null): LengthAwarePaginator
+    {
+        return Person::with('users')->paginate($pageSize, ['*'], 'page', $page);
     }
 }

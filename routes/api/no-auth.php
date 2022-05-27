@@ -16,6 +16,7 @@ include 'game-generations/no-auth.php';
 include 'games/no-auth.php';
 include 'inscriptions/no-auth.php';
 include 'options/no-auth.php';
+include 'people/no-auth.php';
 include 'roles/no-auth.php';
 include 'tournaments/no-auth.php';
 include 'users/no-auth.php';

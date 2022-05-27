@@ -16,6 +16,7 @@ include 'game-generations/auth.php';
 include 'games/auth.php';
 include 'inscriptions/auth.php';
 include 'options/auth.php';
+include 'people/auth.php';
 include 'roles/auth.php';
 include 'tournaments/auth.php';
 include 'users/auth.php';
