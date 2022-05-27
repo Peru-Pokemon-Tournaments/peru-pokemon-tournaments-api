@@ -12,6 +12,7 @@
 
 include 'auth/auth.php';
 include 'devices/auth.php';
+include 'game-generations/auth.php';
 include 'games/auth.php';
 include 'inscriptions/auth.php';
 include 'options/auth.php';

@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Contracts\Repositories\GameGenerationRepository as GameGenerationRepositoryContract;
 use App\Models\GameGeneration;
 use App\Traits\Repositories\CommonMethods;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 
 final class GameGenerationRepository implements GameGenerationRepositoryContract
@@ -41,5 +42,17 @@ final class GameGenerationRepository implements GameGenerationRepositoryContract
     public function findMany(array $ids): Collection
     {
         return GameGeneration::findMany($ids);
+    }
+
+    /**
+     * Retrieve all game generations paginated.
+     *
+     * @param int $page
+     * @param int|null $pageSize
+     * @return LengthAwarePaginator
+     */
+    public function getPaginated(int $page = 1, ?int $pageSize = null): LengthAwarePaginator
+    {
+        return GameGeneration::paginate($pageSize, ['*'], 'page', $page);
     }
 }
