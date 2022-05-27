@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Auth;
 
 use App\Contracts\Patterns\Builders\ResponseBuilder;
 use App\Http\Controllers\BasicController;

@@ -1,9 +1,9 @@
 <?php
 
+use App\Http\Controllers\Tournament\Competitor\Inscription\DeleteCompetitorTournamentInscriptionController;
+use App\Http\Controllers\Tournament\Competitor\IsCompetitorEnrolledToTournamentController;
 use App\Http\Controllers\Tournament\CreateCompleteTournamentController;
-use App\Http\Controllers\TournamentInscription\CreateCompleteTournamentInscriptionController;
-use App\Http\Controllers\TournamentInscription\DeleteCompetitorTournamentInscriptionController;
-use App\Http\Controllers\TournamentInscription\IsCompetitorEnrolledToTournamentController;
+use App\Http\Controllers\Tournament\Inscription\CreateCompleteTournamentInscriptionController;
 use Illuminate\Support\Facades\Route;
 
 /*

@@ -1,9 +1,9 @@
 <?php
 
+use App\Http\Controllers\Tournament\Competitor\Inscription\GetCompetitorTournamentInscriptionController;
 use App\Http\Controllers\Tournament\GetCompleteTournamentController;
-use App\Http\Controllers\Tournament\GetTournamentCompetitorsController;
 use App\Http\Controllers\Tournament\GetTournamentsController;
-use App\Http\Controllers\TournamentInscription\GetCompetitorTournamentInscriptionController;
+use App\Http\Controllers\Tournament\Inscription\GetTournamentCompetitorsController;
 use Illuminate\Support\Facades\Route;
 
 /*

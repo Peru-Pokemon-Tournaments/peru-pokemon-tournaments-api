@@ -1,24 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\TournamentInscription;
+namespace App\Http\Controllers\Tournament\Competitor\Inscription;
 
 use App\Contracts\Patterns\Builders\ResponseBuilder;
 use App\Http\Controllers\BasicController;
+use App\Http\Resources\TournamentInscriptionResource;
 use App\Models\Competitor;
 use App\Models\Tournament;
-use App\Services\TournamentInscription\DeleteTournamentInscriptionService;
 use App\Services\TournamentInscription\GetTournamentInscriptionByCompetitorTournamentService;
 use Illuminate\Http\Response;
 
-class DeleteCompetitorTournamentInscriptionController extends BasicController
+class GetCompetitorTournamentInscriptionController extends BasicController
 {
-    /**
-     * The DeleteTournamentInscriptionService.
-     *
-     * @var DeleteTournamentInscriptionService
-     */
-    private DeleteTournamentInscriptionService $deleteInscriptionService;
-
     /**
      * The GetCompetitorTournamentInscriptionController.
      *
@@ -27,24 +20,21 @@ class DeleteCompetitorTournamentInscriptionController extends BasicController
     private GetTournamentInscriptionByCompetitorTournamentService $getInscriptionService;
 
     /**
-     * Create a new instance of DeleteTournamentInscriptionController.
+     * Create a new instance of GetCompetitorTournamentInscriptionController.
      *
-     * @param DeleteTournamentInscriptionService $deleteInscriptionService
      * @param GetTournamentInscriptionByCompetitorTournamentService $getInscriptionService
      * @param ResponseBuilder $responseBuilder
      */
     public function __construct(
-        DeleteTournamentInscriptionService $deleteInscriptionService,
         GetTournamentInscriptionByCompetitorTournamentService $getInscriptionService,
         ResponseBuilder $responseBuilder
     ) {
         parent::__construct($responseBuilder);
-        $this->deleteInscriptionService = $deleteInscriptionService;
         $this->getInscriptionService = $getInscriptionService;
     }
 
     /**
-     * Delete tournament inscription.
+     * Get tournament inscription.
      *
      * @param Tournament $tournament
      * @param Competitor $competitor
@@ -59,16 +49,9 @@ class DeleteCompetitorTournamentInscriptionController extends BasicController
             $tournament->id
         );
 
-        $isDeleted = ($this->deleteInscriptionService)(
-            $tournamentInscription->id
-        );
-
         return $this->responseBuilder
-            ->when(
-                $isDeleted,
-                fn (ResponseBuilder $builder) => $builder->setMessage('Se eliminó la inscripción'),
-                fn (ResponseBuilder $builder) => $builder->setMessage('No se eliminó la inscripción')
-            )
+            ->setMessage('Inscripción encontrada')
+            ->setResource('tournament_inscription', TournamentInscriptionResource::make($tournamentInscription))
             ->setStatusCode(Response::HTTP_OK)
             ->get();
     }

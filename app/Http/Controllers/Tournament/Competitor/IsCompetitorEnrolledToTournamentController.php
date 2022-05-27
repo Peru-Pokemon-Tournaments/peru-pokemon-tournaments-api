@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\TournamentInscription;
+namespace App\Http\Controllers\Tournament\Competitor;
 
 use App\Contracts\Patterns\Builders\ResponseBuilder;
 use App\Http\Controllers\BasicController;

@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Auth;
 
 use App\Contracts\Patterns\Builders\ResponseBuilder;
 use App\Http\Controllers\BasicController;
 use App\Http\Requests\LoginUserRequest;
-use App\Http\Resources\User\UserResource;
 use App\Services\User\GetUserByEmailService;
 use App\Services\User\LoginUserService;
 use Illuminate\Http\Response;
 
-class LoginUserController extends BasicController
+class AdminLoginUserController extends BasicController
 {
     /**
      * Login user service.
@@ -44,7 +43,7 @@ class LoginUserController extends BasicController
     }
 
     /**
-     * Login user.
+     * Admin login user.
      *
      * @param LoginUserRequest $request
      * @return Response
@@ -56,22 +55,19 @@ class LoginUserController extends BasicController
             $request->input('password')
         );
 
+        $user = ($this->getUserByEmailService)($request->input('email'));
+
         return $this->responseBuilder
             ->when(
-                !$tokenOrFalse,
-                fn (ResponseBuilder & $builder) => $builder
+                (!$tokenOrFalse || !$user->hasRole('super admin')),
+                fn (ResponseBuilder $builder) => $builder
                         ->setMessage('No se pudo autenticar')
                         ->setStatusCode(Response::HTTP_UNAUTHORIZED),
-                function (ResponseBuilder &$builder) use ($tokenOrFalse, $request) {
-                    $user = ($this->getUserByEmailService)($request->input('email'));
-                    $user->load(['person', 'competitor']);
-
-                    $builder
-                        ->setMessage('Has ingresado a Perú Pokémon Tournaments')
+                fn (ResponseBuilder $builder) => $builder
+                        ->setMessage('Has ingresado a Perú Pokémon Tournaments Admin')
                         ->setResource('token', $tokenOrFalse)
-                        ->setResource('user', UserResource::make($user))
-                        ->setStatusCode(Response::HTTP_OK);
-                }
+                        ->setResource('user', $user->load(['person', 'competitor']))
+                        ->setStatusCode(Response::HTTP_OK)
             )
             ->get();
     }

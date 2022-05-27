@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\TournamentInscription;
+namespace App\Http\Controllers\Tournament\Inscription;
 
 use App\Contracts\Patterns\Builders\ResponseBuilder;
 use App\Events\TournamentInscriptionCreated;
