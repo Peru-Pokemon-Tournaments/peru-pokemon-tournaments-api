@@ -62,6 +62,8 @@ class LoginUserController extends Controller
 
         $user = ($this->getUserByEmailService)($request->input('email'));
 
+        $user->load(['person', 'competitor']);
+
         return response(
             SuccessAuthResource::make([
                 'token' => $tokenOrFalse,

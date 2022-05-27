@@ -62,6 +62,8 @@ class AdminLoginUserController extends Controller
             );
         }
 
+        $user->load(['person', 'competitor']);
+
         return response(
             SuccessAuthResource::make([
                 'token' => $tokenOrFalse,

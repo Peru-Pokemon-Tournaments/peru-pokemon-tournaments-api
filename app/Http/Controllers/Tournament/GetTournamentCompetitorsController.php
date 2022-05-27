@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Tournament;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\CompetitorResource;
+use App\Http\Resources\Competitor\CompetitorResource;
 use App\Models\Tournament;
 use App\Services\Tournament\GetTournamentCompetitorsService;
 use Illuminate\Http\Response;
