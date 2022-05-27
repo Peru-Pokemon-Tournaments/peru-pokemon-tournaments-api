@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Contracts\Repositories\TournamentRuleRepository as TournamentRuleRepositoryContract;
 use App\Models\TournamentRule;
 use App\Traits\Repositories\CommonMethods;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 
 final class TournamentRuleRepository implements TournamentRuleRepositoryContract
@@ -41,5 +42,17 @@ final class TournamentRuleRepository implements TournamentRuleRepositoryContract
     public function findMany(array $ids): Collection
     {
         return TournamentRule::findMany($ids);
+    }
+
+    /**
+     * Retrieve all tournament rules paginated.
+     *
+     * @param int $page
+     * @param int|null $pageSize
+     * @return LengthAwarePaginator
+     */
+    public function getPaginated(int $page = 1, ?int $pageSize = null): LengthAwarePaginator
+    {
+        return TournamentRule::paginate($pageSize, ['*'], 'page', $page);
     }
 }
