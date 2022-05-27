@@ -41,6 +41,16 @@ interface ResponseBuilder
     public function setResources(string $name, iterable $resources): self;
 
     /**
+     * Use callback when condition is true or else.
+     *
+     * @param bool $condition
+     * @param callable $callback
+     * @param callable|null $orElse
+     * @return $this
+     */
+    public function when(bool $condition, callable $callback, ?callable $orElse = null): self;
+
+    /**
      * Retrieve the built response.
      *
      * @return Response

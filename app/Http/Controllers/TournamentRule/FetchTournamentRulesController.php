@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\TournamentRule;
 
-use App\Http\Controllers\Controller;
+use App\Contracts\Patterns\Builders\PaginatedResponseBuilder;
+use App\Http\Controllers\PaginatedController;
 use App\Http\Requests\TournamentRule\FetchTournamentRulesRequest;
 use App\Http\Resources\TournamentRule\TournamentRuleResource;
 use App\Services\TournamentRule\FetchTournamentRulesService;
 use Illuminate\Http\Response;
 
-class FetchTournamentRulesController extends Controller
+class FetchTournamentRulesController extends PaginatedController
 {
     /**
      * The fetch tournament rules service.
@@ -21,9 +22,13 @@ class FetchTournamentRulesController extends Controller
      * Creates a new FetchTournamentRulesController instance.
      *
      * @param FetchTournamentRulesService $fetchTournamentRulesService
+     * @param PaginatedResponseBuilder $paginatedResponseBuilder
      */
-    public function __construct(FetchTournamentRulesService $fetchTournamentRulesService)
-    {
+    public function __construct(
+        FetchTournamentRulesService $fetchTournamentRulesService,
+        PaginatedResponseBuilder $paginatedResponseBuilder
+    ) {
+        parent::__construct($paginatedResponseBuilder);
         $this->fetchTournamentRulesService = $fetchTournamentRulesService;
     }
 
@@ -40,17 +45,11 @@ class FetchTournamentRulesController extends Controller
             $request->query('pageSize', 15)
         );
 
-        return response(
-            [
-                'message' => 'Reglas de Torneos encontrados',
-                'tournament_rules' => TournamentRuleResource::collection($tournamentRulesPaginated),
-                'total' => $tournamentRulesPaginated->total(),
-                'per_page' => $tournamentRulesPaginated->perPage(),
-                'current_page' => $tournamentRulesPaginated->currentPage(),
-                'last_page' => $tournamentRulesPaginated->lastPage(),
-                'total_pages' => ceil($tournamentRulesPaginated->total() / $tournamentRulesPaginated->perPage()),
-            ],
-            Response::HTTP_OK
-        );
+        return $this->paginatedResponseBuilder
+            ->setMessage('Reglas de Torneos encontrados')
+            ->setResources('tournament_rules', TournamentRuleResource::collection($tournamentRulesPaginated))
+            ->setLengthAwarePaginator($tournamentRulesPaginated)
+            ->setStatusCode(Response::HTTP_OK)
+            ->get();
     }
 }

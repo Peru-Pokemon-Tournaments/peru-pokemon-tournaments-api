@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Role;
 
-use App\Http\Controllers\Controller;
+use App\Contracts\Patterns\Builders\ResponseBuilder;
+use App\Http\Controllers\BasicController;
 use App\Http\Resources\Role\RoleResource;
 use App\Services\Role\GetRolesService;
 use Illuminate\Http\Response;
 
-class GetRolesController extends Controller
+class GetRolesController extends BasicController
 {
     /**
      * The get roles service.
@@ -20,9 +21,13 @@ class GetRolesController extends Controller
      * Create a new GetRolesController instance.
      *
      * @param GetRolesService $getRolesService
+     * @param ResponseBuilder $responseBuilder
      */
-    public function __construct(GetRolesService $getRolesService)
-    {
+    public function __construct(
+        GetRolesService $getRolesService,
+        ResponseBuilder $responseBuilder
+    ) {
+        parent::__construct($responseBuilder);
         $this->getRolesService = $getRolesService;
     }
 
@@ -35,12 +40,10 @@ class GetRolesController extends Controller
     {
         $roles = ($this->getRolesService)();
 
-        return response(
-            [
-                'message' => 'Roles encontrados',
-                'roles' => RoleResource::collection($roles),
-            ],
-            Response::HTTP_OK
-        );
+        return $this->responseBuilder
+            ->setMessage('Roles encontrados')
+            ->setResources('roles', RoleResource::collection($roles))
+            ->setStatusCode(Response::HTTP_OK)
+            ->get();
     }
 }

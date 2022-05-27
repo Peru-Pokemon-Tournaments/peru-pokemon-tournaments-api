@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\GameGeneration;
 
-use App\Http\Controllers\Controller;
+use App\Contracts\Patterns\Builders\PaginatedResponseBuilder;
+use App\Http\Controllers\PaginatedController;
 use App\Http\Requests\GameGeneration\FetchGameGenerationsRequest;
 use App\Http\Resources\GameGeneration\GameGenerationResource;
 use App\Services\GameGeneration\FetchGameGenerationsService;
 use Illuminate\Http\Response;
 
-class FetchGameGenerationsController extends Controller
+class FetchGameGenerationsController extends PaginatedController
 {
     /**
      * The fetch game generations service.
@@ -21,9 +22,13 @@ class FetchGameGenerationsController extends Controller
      * Creates a new FetchGameGenerationsController instance.
      *
      * @param FetchGameGenerationsService $fetchGameGenerationsService
+     * @param PaginatedResponseBuilder $paginatedResponseBuilder
      */
-    public function __construct(FetchGameGenerationsService $fetchGameGenerationsService)
-    {
+    public function __construct(
+        FetchGameGenerationsService $fetchGameGenerationsService,
+        PaginatedResponseBuilder $paginatedResponseBuilder
+    ) {
+        parent::__construct($paginatedResponseBuilder);
         $this->fetchGameGenerationsService = $fetchGameGenerationsService;
     }
 
@@ -40,17 +45,11 @@ class FetchGameGenerationsController extends Controller
             $request->query('pageSize', 15)
         );
 
-        return response(
-            [
-                'message' => 'Generaciones de Juegos encontrados',
-                'game_generations' => GameGenerationResource::collection($gameGenerationsPaginated),
-                'total' => $gameGenerationsPaginated->total(),
-                'per_page' => $gameGenerationsPaginated->perPage(),
-                'current_page' => $gameGenerationsPaginated->currentPage(),
-                'last_page' => $gameGenerationsPaginated->lastPage(),
-                'total_pages' => ceil($gameGenerationsPaginated->total() / $gameGenerationsPaginated->perPage()),
-            ],
-            Response::HTTP_OK
-        );
+        return $this->paginatedResponseBuilder
+            ->setMessage('Generaciones de Juegos encontrados')
+            ->setResources('game_generations', GameGenerationResource::collection($gameGenerationsPaginated))
+            ->setLengthAwarePaginator($gameGenerationsPaginated)
+            ->setStatusCode(Response::HTTP_OK)
+            ->get();
     }
 }

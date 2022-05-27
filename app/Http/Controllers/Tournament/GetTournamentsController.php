@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Tournament;
 
-use App\Http\Controllers\Controller;
+use App\Contracts\Patterns\Builders\ResponseBuilder;
+use App\Http\Controllers\BasicController;
 use App\Http\Resources\TournamentResource;
 use App\Services\Tournament\GetTournamentsService;
 use Illuminate\Http\Response;
 
-class GetTournamentsController extends Controller
+class GetTournamentsController extends BasicController
 {
     /**
      * The GetTournamentsService.
@@ -20,10 +21,13 @@ class GetTournamentsController extends Controller
      * Creates a new GetTournamentsController.
      *
      * @param GetTournamentsService $getTournamentsService
+     * @param ResponseBuilder $responseBuilder
      */
     public function __construct(
-        GetTournamentsService $getTournamentsService
+        GetTournamentsService $getTournamentsService,
+        ResponseBuilder $responseBuilder
     ) {
+        parent::__construct($responseBuilder);
         $this->getTournamentsService = $getTournamentsService;
     }
 
@@ -36,14 +40,10 @@ class GetTournamentsController extends Controller
     {
         $tournaments = ($this->getTournamentsService)();
 
-        return response(
-            [
-                'message' => 'Torneos encontrados',
-                'tournaments' => $tournaments->map(function ($tournament) {
-                    return TournamentResource::make($tournament);
-                }),
-            ],
-            Response::HTTP_OK,
-        );
+        return $this->responseBuilder
+            ->setMessage('Torneos encontrados')
+            ->setResource('tournaments', TournamentResource::collection($tournaments))
+            ->setStatusCode(Response::HTTP_OK)
+            ->get();
     }
 }

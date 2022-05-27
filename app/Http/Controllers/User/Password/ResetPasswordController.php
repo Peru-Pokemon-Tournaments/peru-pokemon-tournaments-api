@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\User\Password;
 
-use App\Http\Controllers\Controller;
+use App\Contracts\Patterns\Builders\ResponseBuilder;
+use App\Http\Controllers\BasicController;
 use App\Http\Requests\ResetPasswordRequest;
 use App\Services\User\Password\ResetPasswordService;
 use Illuminate\Http\Response;
 
-class ResetPasswordController extends Controller
+class ResetPasswordController extends BasicController
 {
     /**
      * The ResetPasswordService.
@@ -20,11 +21,13 @@ class ResetPasswordController extends Controller
      * Create a new ResetPasswordController instance.
      *
      * @param ResetPasswordService $resetPasswordService
-     * @return void
+     * @param ResponseBuilder $responseBuilder
      */
     public function __construct(
-        ResetPasswordService $resetPasswordService
+        ResetPasswordService $resetPasswordService,
+        ResponseBuilder $responseBuilder
     ) {
+        parent::__construct($responseBuilder);
         $this->resetPasswordService = $resetPasswordService;
     }
 
@@ -36,26 +39,22 @@ class ResetPasswordController extends Controller
      */
     public function __invoke(ResetPasswordRequest $request): Response
     {
-        $isResseted = ($this->resetPasswordService)(
+        $isReset = ($this->resetPasswordService)(
             $request->input('email'),
             $request->input('token'),
             $request->input('new_password'),
         );
 
-        if (!$isResseted) {
-            return response(
-                [
-                    'message' => 'No se pudo actualizar la contraseña',
-                ],
-                Response::HTTP_FORBIDDEN,
-            );
-        }
-
-        return response(
-            [
-                'message' => 'Se actualizó la contraseña',
-            ],
-            Response::HTTP_OK,
-        );
+        return $this->responseBuilder
+            ->when(
+                $isReset,
+                fn (ResponseBuilder $builder) => $builder
+                        ->setMessage('Se actualizó la contraseña')
+                        ->setStatusCode(Response::HTTP_OK),
+                fn (ResponseBuilder $builder) => $builder
+                        ->setMessage('No se pudo actualizar la contraseña')
+                        ->setStatusCode(Response::HTTP_FORBIDDEN)
+            )
+            ->get();
     }
 }

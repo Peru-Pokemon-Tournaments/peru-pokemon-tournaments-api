@@ -92,6 +92,25 @@ class ApiResponseBuilder implements ResponseBuilder
     }
 
     /**
+     * Use callback when condition is true or else.
+     *
+     * @param bool $condition
+     * @param callable $callback
+     * @param callable|null $orElse
+     * @return $this
+     */
+    public function when(bool $condition, callable $callback, ?callable $orElse = null): self
+    {
+        if ($condition) {
+            $callback($this);
+        } elseif ($orElse) {
+            $orElse($this);
+        }
+
+        return $this;
+    }
+
+    /**
      * Retrieve the built response.
      *
      * @return Response

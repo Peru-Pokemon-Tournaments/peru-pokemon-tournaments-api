@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Game;
 
-use App\Http\Controllers\Controller;
+use App\Contracts\Patterns\Builders\PaginatedResponseBuilder;
+use App\Http\Controllers\PaginatedController;
 use App\Http\Requests\Game\FetchGamesRequest;
 use App\Http\Resources\Game\GameResource;
 use App\Services\Game\FetchGamesService;
 use Illuminate\Http\Response;
 
-class FetchGamesController extends Controller
+class FetchGamesController extends PaginatedController
 {
     /**
      * The fetch games service.
@@ -21,9 +22,13 @@ class FetchGamesController extends Controller
      * Creates a new FetchGamesController instance.
      *
      * @param FetchGamesService $fetchGamesService
+     * @param PaginatedResponseBuilder $paginatedResponseBuilder
      */
-    public function __construct(FetchGamesService $fetchGamesService)
-    {
+    public function __construct(
+        FetchGamesService $fetchGamesService,
+        PaginatedResponseBuilder $paginatedResponseBuilder
+    ) {
+        parent::__construct($paginatedResponseBuilder);
         $this->fetchGamesService = $fetchGamesService;
     }
 
@@ -40,17 +45,11 @@ class FetchGamesController extends Controller
             $request->query('pageSize', 15)
         );
 
-        return response(
-            [
-                'message' => 'Juegos encontrados',
-                'games' => GameResource::collection($gamesPaginated),
-                'total' => $gamesPaginated->total(),
-                'per_page' => $gamesPaginated->perPage(),
-                'current_page' => $gamesPaginated->currentPage(),
-                'last_page' => $gamesPaginated->lastPage(),
-                'total_pages' => ceil($gamesPaginated->total() / $gamesPaginated->perPage()),
-            ],
-            Response::HTTP_OK
-        );
+        return $this->paginatedResponseBuilder
+            ->setMessage('Juegos encontrados')
+            ->setResources('games', GameResource::collection($gamesPaginated))
+            ->setLengthAwarePaginator($gamesPaginated)
+            ->setStatusCode(Response::HTTP_OK)
+            ->get();
     }
 }

@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\Controller;
+use App\Contracts\Patterns\Builders\ResponseBuilder;
+use App\Http\Controllers\BasicController;
 use App\Http\Requests\LoginUserRequest;
-use App\Http\Resources\FailedAuthResource;
-use App\Http\Resources\SuccessAuthResource;
 use App\Services\User\GetUserByEmailService;
 use App\Services\User\LoginUserService;
 use Illuminate\Http\Response;
 
-class AdminLoginUserController extends Controller
+class AdminLoginUserController extends BasicController
 {
     /**
      * Login user service.
@@ -31,11 +30,14 @@ class AdminLoginUserController extends Controller
      *
      * @param LoginUserService $loginUserService
      * @param GetUserByEmailService $getUserByEmailService
+     * @param ResponseBuilder $responseBuilder
      */
     public function __construct(
         LoginUserService $loginUserService,
-        GetUserByEmailService $getUserByEmailService
+        GetUserByEmailService $getUserByEmailService,
+        ResponseBuilder $responseBuilder
     ) {
+        parent::__construct($responseBuilder);
         $this->loginUserService = $loginUserService;
         $this->getUserByEmailService = $getUserByEmailService;
     }
@@ -55,21 +57,18 @@ class AdminLoginUserController extends Controller
 
         $user = ($this->getUserByEmailService)($request->input('email'));
 
-        if (!$tokenOrFalse || !$user->hasRole('super admin')) {
-            return response(
-                FailedAuthResource::make($request),
-                Response::HTTP_UNAUTHORIZED
-            );
-        }
-
-        $user->load(['person', 'competitor']);
-
-        return response(
-            SuccessAuthResource::make([
-                'token' => $tokenOrFalse,
-                'user' => $user,
-            ]),
-            Response::HTTP_OK
-        );
+        return $this->responseBuilder
+            ->when(
+                (!$tokenOrFalse || !$user->hasRole('super admin')),
+                fn (ResponseBuilder $builder) => $builder
+                        ->setMessage('No se pudo autenticar')
+                        ->setStatusCode(Response::HTTP_UNAUTHORIZED),
+                fn (ResponseBuilder $builder) => $builder
+                        ->setMessage('Has ingresado a Perú Pokémon Tournaments Admin')
+                        ->setResource('token', $tokenOrFalse)
+                        ->setResource('user', $user->load(['person', 'competitor']))
+                        ->setStatusCode(Response::HTTP_OK)
+            )
+            ->get();
     }
 }

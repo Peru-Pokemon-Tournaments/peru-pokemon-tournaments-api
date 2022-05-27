@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\TournamentInscription;
 
-use App\Http\Controllers\Controller;
+use App\Contracts\Patterns\Builders\ResponseBuilder;
+use App\Http\Controllers\BasicController;
 use App\Models\TournamentInscription;
 use App\Services\TournamentInscription\DeleteTournamentInscriptionService;
-use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Response;
 
-class DeleteTournamentInscriptionController extends Controller
+class DeleteTournamentInscriptionController extends BasicController
 {
     /**
      * The DeleteTournamentInscriptionService.
@@ -21,11 +21,13 @@ class DeleteTournamentInscriptionController extends Controller
      * Create a new instance of DeleteTournamentInscriptionController.
      *
      * @param DeleteTournamentInscriptionService $deleteTournamentInscriptionService
-     * @return void
+     * @param ResponseBuilder $responseBuilder
      */
     public function __construct(
-        DeleteTournamentInscriptionService $deleteTournamentInscriptionService
+        DeleteTournamentInscriptionService $deleteTournamentInscriptionService,
+        ResponseBuilder $responseBuilder
     ) {
+        parent::__construct($responseBuilder);
         $this->deleteTournamentInscriptionService = $deleteTournamentInscriptionService;
     }
 
@@ -33,22 +35,23 @@ class DeleteTournamentInscriptionController extends Controller
      * Delete tournament inscription.
      *
      * @param TournamentInscription $tournamentInscription
-     * @return Response|ResponseFactory
+     * @return Response
      */
     public function __invoke(
         TournamentInscription $tournamentInscription
-    ) {
+    ): Response {
         $isDeleted = ($this->deleteTournamentInscriptionService)(
             $tournamentInscription->id
         );
 
-        return response(
-            [
-                'message' => ($isDeleted
-                    ? 'Se eliminó la inscripción'
-                    : 'No se eliminó la inscripción'),
-            ],
-            Response::HTTP_OK,
-        );
+        return $this->responseBuilder
+            ->when(
+                $isDeleted,
+                fn (ResponseBuilder $builder) => $builder->setMessage('Se eliminó la inscripción')
+                        ->setStatusCode(Response::HTTP_OK),
+                fn (ResponseBuilder $builder) => $builder->setMessage('No se eliminó la inscripción')
+                        ->setStatusCode(Response::HTTP_NOT_FOUND)
+            )
+            ->get();
     }
 }

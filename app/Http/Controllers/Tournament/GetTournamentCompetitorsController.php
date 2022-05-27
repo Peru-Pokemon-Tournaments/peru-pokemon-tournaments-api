@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Tournament;
 
-use App\Http\Controllers\Controller;
+use App\Contracts\Patterns\Builders\ResponseBuilder;
+use App\Http\Controllers\BasicController;
 use App\Http\Resources\Competitor\CompetitorResource;
 use App\Models\Tournament;
 use App\Services\Tournament\GetTournamentCompetitorsService;
 use Illuminate\Http\Response;
 
-class GetTournamentCompetitorsController extends Controller
+class GetTournamentCompetitorsController extends BasicController
 {
     /**
      * The GetTournamentCompetitorsService.
@@ -21,11 +22,13 @@ class GetTournamentCompetitorsController extends Controller
      * Create a new instance of GetTournamentCompetitors.
      *
      * @param GetTournamentCompetitorsService $getTournamentCompetitorsService
-     * @return void
+     * @param ResponseBuilder $responseBuilder
      */
     public function __construct(
-        GetTournamentCompetitorsService $getTournamentCompetitorsService
+        GetTournamentCompetitorsService $getTournamentCompetitorsService,
+        ResponseBuilder $responseBuilder
     ) {
+        parent::__construct($responseBuilder);
         $this->getTournamentCompetitorsService = $getTournamentCompetitorsService;
     }
 
@@ -39,14 +42,10 @@ class GetTournamentCompetitorsController extends Controller
     {
         $competitors = ($this->getTournamentCompetitorsService)($tournament->id);
 
-        return response(
-            [
-                'message' => 'Competidores encontrados',
-                'competitors' => $competitors->map(function ($competitor) {
-                    return CompetitorResource::make($competitor);
-                }),
-            ],
-            Response::HTTP_OK,
-        );
+        return $this->responseBuilder
+            ->setMessage('Competidores encontrados')
+            ->setResources('competitors', CompetitorResource::collection($competitors))
+            ->setStatusCode(Response::HTTP_OK)
+            ->get();
     }
 }

@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\People;
 
-use App\Http\Controllers\Controller;
+use App\Contracts\Patterns\Builders\PaginatedResponseBuilder;
+use App\Http\Controllers\PaginatedController;
 use App\Http\Requests\Person\FetchPeopleRequest;
 use App\Http\Resources\Person\PersonResource;
 use App\Services\People\FetchPeopleService;
 use Illuminate\Http\Response;
 
-class FetchPeopleController extends Controller
+class FetchPeopleController extends PaginatedController
 {
     /**
      * The fetch people service.
@@ -21,9 +22,13 @@ class FetchPeopleController extends Controller
      * Creates a new FetchPeopleController instance.
      *
      * @param FetchPeopleService $fetchPeopleService
+     * @param PaginatedResponseBuilder $paginatedResponseBuilder
      */
-    public function __construct(FetchPeopleService $fetchPeopleService)
-    {
+    public function __construct(
+        FetchPeopleService $fetchPeopleService,
+        PaginatedResponseBuilder $paginatedResponseBuilder
+    ) {
+        parent::__construct($paginatedResponseBuilder);
         $this->fetchPeopleService = $fetchPeopleService;
     }
 
@@ -40,17 +45,11 @@ class FetchPeopleController extends Controller
             $request->query('pageSize', 15)
         );
 
-        return response(
-            [
-                'message' => 'Personas encontrados',
-                'people' => PersonResource::collection($peoplePaginated),
-                'total' => $peoplePaginated->total(),
-                'per_page' => $peoplePaginated->perPage(),
-                'current_page' => $peoplePaginated->currentPage(),
-                'last_page' => $peoplePaginated->lastPage(),
-                'total_pages' => ceil($peoplePaginated->total() / $peoplePaginated->perPage()),
-            ],
-            Response::HTTP_OK
-        );
+        return $this->paginatedResponseBuilder
+            ->setMessage('Personas encontradas')
+            ->setResources('people', PersonResource::collection($peoplePaginated))
+            ->setLengthAwarePaginator($peoplePaginated)
+            ->setStatusCode(Response::HTTP_OK)
+            ->get();
     }
 }

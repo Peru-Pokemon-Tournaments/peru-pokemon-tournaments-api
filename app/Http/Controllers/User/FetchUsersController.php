@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\Controller;
+use App\Contracts\Patterns\Builders\PaginatedResponseBuilder;
+use App\Http\Controllers\PaginatedController;
 use App\Http\Requests\User\FetchUsersRequest;
 use App\Http\Resources\User\UserResource;
 use App\Services\User\FetchUsersService;
 use Illuminate\Http\Response;
 
-class FetchUsersController extends Controller
+class FetchUsersController extends PaginatedController
 {
     /**
      * The FetchUsersService.
@@ -21,9 +22,13 @@ class FetchUsersController extends Controller
      * Creates a new FetchUsersController instance.
      *
      * @param FetchUsersService $getUsersService
+     * @param PaginatedResponseBuilder $paginatedResponseBuilder
      */
-    public function __construct(FetchUsersService $getUsersService)
-    {
+    public function __construct(
+        FetchUsersService $getUsersService,
+        PaginatedResponseBuilder $paginatedResponseBuilder
+    ) {
+        parent::__construct($paginatedResponseBuilder);
         $this->getUsersService = $getUsersService;
     }
 
@@ -40,17 +45,11 @@ class FetchUsersController extends Controller
             $request->query('pageSize', 15)
         );
 
-        return response(
-            [
-                'message' => 'Usuarios encontrados',
-                'users' => UserResource::collection($usersPaginated),
-                'total' => $usersPaginated->total(),
-                'per_page' => $usersPaginated->perPage(),
-                'current_page' => $usersPaginated->currentPage(),
-                'last_page' => $usersPaginated->lastPage(),
-                'total_pages' => ceil($usersPaginated->total() / $usersPaginated->perPage()),
-            ],
-            Response::HTTP_OK
-        );
+        return $this->paginatedResponseBuilder
+            ->setMessage('Usuarios encontrados')
+            ->setResources('users', UserResource::collection($usersPaginated))
+            ->setLengthAwarePaginator($usersPaginated)
+            ->setStatusCode(Response::HTTP_OK)
+            ->get();
     }
 }

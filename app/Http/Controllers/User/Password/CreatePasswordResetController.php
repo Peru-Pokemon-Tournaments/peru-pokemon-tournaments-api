@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\User\Password;
 
+use App\Contracts\Patterns\Builders\ResponseBuilder;
 use App\Events\PasswordResetCreated;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BasicController;
 use App\Http\Requests\CreatePasswordResetRequest;
 use App\Services\User\Password\CreateOrUpdatePasswordResetService;
 use Illuminate\Http\Response;
 
-class CreatePasswordResetController extends Controller
+class CreatePasswordResetController extends BasicController
 {
     /**
      * The CreateOrUpdatePasswordResetService.
@@ -21,11 +22,13 @@ class CreatePasswordResetController extends Controller
      * Create a new CreatePasswordResetController instance.
      *
      * @param CreateOrUpdatePasswordResetService $createOrUpdatePasswordResetService
-     * @return void
+     * @param ResponseBuilder $responseBuilder
      */
     public function __construct(
-        CreateOrUpdatePasswordResetService $createOrUpdatePasswordResetService
+        CreateOrUpdatePasswordResetService $createOrUpdatePasswordResetService,
+        ResponseBuilder $responseBuilder
     ) {
+        parent::__construct($responseBuilder);
         $this->createOrUpdatePasswordResetService = $createOrUpdatePasswordResetService;
     }
 
@@ -41,11 +44,9 @@ class CreatePasswordResetController extends Controller
 
         PasswordResetCreated::dispatch($passwordReset);
 
-        return response(
-            [
-                'message' => 'Enlace de cambio de contraseña enviado a su correo electrónico',
-            ],
-            Response::HTTP_ACCEPTED
-        );
+        return $this->responseBuilder
+            ->setMessage('Enlace de cambio de contraseña enviado a su correo electrónico')
+            ->setStatusCode(Response::HTTP_ACCEPTED)
+            ->get();
     }
 }

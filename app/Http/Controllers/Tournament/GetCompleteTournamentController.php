@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Tournament;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BasicController;
 use App\Http\Resources\CompleteTournamentResource;
 use App\Models\Tournament;
 use Illuminate\Http\Response;
 
-class GetCompleteTournamentController extends Controller
+class GetCompleteTournamentController extends BasicController
 {
     /**
      * Get complete tournament.
@@ -17,12 +17,10 @@ class GetCompleteTournamentController extends Controller
      */
     public function __invoke(Tournament $tournament): Response
     {
-        return response(
-            [
-                'message' => 'Torneo encontrado',
-                'tournament' => CompleteTournamentResource::make($tournament),
-            ],
-            Response::HTTP_OK,
-        );
+        return $this->responseBuilder
+            ->setMessage('Torneo encontrado')
+            ->setResource('tournament', CompleteTournamentResource::make($tournament))
+            ->setStatusCode(Response::HTTP_OK)
+            ->get();
     }
 }

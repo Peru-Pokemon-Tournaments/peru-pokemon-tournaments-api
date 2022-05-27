@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\Controller;
+use App\Contracts\Patterns\Builders\ResponseBuilder;
+use App\Http\Controllers\BasicController;
 use App\Http\Requests\RegisterUserRequest;
 use App\Http\Resources\User\UserResource;
 use App\Services\User\CreateCompleteUserService;
 use Illuminate\Http\Response;
 
-class RegisterUserController extends Controller
+class RegisterUserController extends BasicController
 {
     /**
      * Create complete user service.
@@ -21,10 +22,13 @@ class RegisterUserController extends Controller
      * Create a new instance of RegisterUserController.
      *
      * @param CreateCompleteUserService $createCompleteUserService
+     * @param ResponseBuilder $responseBuilder
      */
     public function __construct(
-        CreateCompleteUserService $createCompleteUserService
+        CreateCompleteUserService $createCompleteUserService,
+        ResponseBuilder $responseBuilder
     ) {
+        parent::__construct($responseBuilder);
         $this->createCompleteUserService = $createCompleteUserService;
     }
 
@@ -38,12 +42,10 @@ class RegisterUserController extends Controller
     {
         $user = ($this->createCompleteUserService)($request->input());
 
-        return response(
-            [
-                'message' => 'Registrado satisfactoriamente',
-                'user' => UserResource::make($user),
-            ],
-            Response::HTTP_CREATED
-        );
+        return $this->responseBuilder
+            ->setMessage('Registrado satisfactoriamente')
+            ->setResource('user', UserResource::make($user))
+            ->setStatusCode(Response::HTTP_CREATED)
+            ->get();
     }
 }

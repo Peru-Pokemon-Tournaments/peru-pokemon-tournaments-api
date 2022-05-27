@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Game;
 
-use App\Http\Controllers\Controller;
+use App\Contracts\Patterns\Builders\ResponseBuilder;
+use App\Http\Controllers\BasicController;
 use App\Http\Resources\Game\GameResource;
 use App\Services\Game\GetGamesService;
 use Illuminate\Http\Response;
 
-class GetGamesController extends Controller
+class GetGamesController extends BasicController
 {
     /**
      * The get roles service.
@@ -20,9 +21,13 @@ class GetGamesController extends Controller
      * Create a new GetRolesController instance.
      *
      * @param GetGamesService $getGamesService
+     * @param ResponseBuilder $responseBuilder
      */
-    public function __construct(GetGamesService $getGamesService)
-    {
+    public function __construct(
+        GetGamesService $getGamesService,
+        ResponseBuilder $responseBuilder
+    ) {
+        parent::__construct($responseBuilder);
         $this->getGamesService = $getGamesService;
     }
 
@@ -35,12 +40,10 @@ class GetGamesController extends Controller
     {
         $games = ($this->getGamesService)();
 
-        return response(
-            [
-                'message' => 'Juegos encontrados',
-                'games' => GameResource::collection($games),
-            ],
-            Response::HTTP_OK
-        );
+        return $this->responseBuilder
+            ->setMessage('Juegos encontrados')
+            ->setResources('games', GameResource::collection($games))
+            ->setStatusCode(Response::HTTP_OK)
+            ->get();
     }
 }

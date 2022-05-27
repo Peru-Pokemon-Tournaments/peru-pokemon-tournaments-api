@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\TournamentInscription;
 
+use App\Contracts\Patterns\Builders\ResponseBuilder;
 use App\Events\TournamentInscriptionUpdated;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BasicController;
 use App\Http\Requests\UpdateTournamentInscriptionRequest;
 use App\Http\Resources\TournamentInscriptionResource;
-use App\Models\Tournament;
 use App\Models\TournamentInscription;
 use App\Services\TournamentInscription\UpdateTournamentInscriptionService;
 use Illuminate\Http\Response;
 
-class UpdateTournamentInscriptionController extends Controller
+class UpdateTournamentInscriptionController extends BasicController
 {
     /**
      * The CreateCompleteTournamentInscriptionService.
@@ -24,11 +24,13 @@ class UpdateTournamentInscriptionController extends Controller
      * Create a new instance of UpdateTournamentInscriptionController.
      *
      * @param UpdateTournamentInscriptionService $updateTournamentInscriptionService
-     * @return void
+     * @param ResponseBuilder $responseBuilder
      */
     public function __construct(
-        UpdateTournamentInscriptionService $updateTournamentInscriptionService
+        UpdateTournamentInscriptionService $updateTournamentInscriptionService,
+        ResponseBuilder $responseBuilder
     ) {
+        parent::__construct($responseBuilder);
         $this->updateTournamentInscriptionService = $updateTournamentInscriptionService;
     }
 
@@ -50,12 +52,10 @@ class UpdateTournamentInscriptionController extends Controller
 
         TournamentInscriptionUpdated::dispatch($tournamentInscription);
 
-        return response(
-            [
-                'message' => 'Inscripción actualizada',
-                'tournament_inscription' => TournamentInscriptionResource::make($tournamentInscription),
-            ],
-            Response::HTTP_OK,
-        );
+        return $this->responseBuilder
+            ->setMessage('Inscripción actualizada')
+            ->setResource('tournament_inscription', TournamentInscriptionResource::make($tournamentInscription))
+            ->setStatusCode(Response::HTTP_OK)
+            ->get();
     }
 }

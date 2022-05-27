@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\TournamentInscription;
 
-use App\Http\Controllers\Controller;
+use App\Contracts\Patterns\Builders\ResponseBuilder;
+use App\Http\Controllers\BasicController;
 use App\Http\Resources\TournamentInscriptionResource;
 use App\Models\Competitor;
 use App\Models\Tournament;
 use App\Services\TournamentInscription\GetTournamentInscriptionByCompetitorTournamentService;
 use Illuminate\Http\Response;
 
-class GetCompetitorTournamentInscriptionController extends Controller
+class GetCompetitorTournamentInscriptionController extends BasicController
 {
     /**
      * The GetCompetitorTournamentInscriptionController.
@@ -22,11 +23,13 @@ class GetCompetitorTournamentInscriptionController extends Controller
      * Create a new instance of GetCompetitorTournamentInscriptionController.
      *
      * @param GetTournamentInscriptionByCompetitorTournamentService $getInscriptionService
-     * @return void
+     * @param ResponseBuilder $responseBuilder
      */
     public function __construct(
-        GetTournamentInscriptionByCompetitorTournamentService $getInscriptionService
+        GetTournamentInscriptionByCompetitorTournamentService $getInscriptionService,
+        ResponseBuilder $responseBuilder
     ) {
+        parent::__construct($responseBuilder);
         $this->getInscriptionService = $getInscriptionService;
     }
 
@@ -46,12 +49,10 @@ class GetCompetitorTournamentInscriptionController extends Controller
             $tournament->id
         );
 
-        return response(
-            [
-                'message' => 'Inscripción encontrada',
-                'tournament_inscription' => TournamentInscriptionResource::make($tournamentInscription),
-            ],
-            Response::HTTP_OK,
-        );
+        return $this->responseBuilder
+            ->setMessage('Inscripción encontrada')
+            ->setResource('tournament_inscription', TournamentInscriptionResource::make($tournamentInscription))
+            ->setStatusCode(Response::HTTP_OK)
+            ->get();
     }
 }

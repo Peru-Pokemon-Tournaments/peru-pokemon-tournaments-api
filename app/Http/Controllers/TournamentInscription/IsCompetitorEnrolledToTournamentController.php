@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\TournamentInscription;
 
-use App\Http\Controllers\Controller;
+use App\Contracts\Patterns\Builders\ResponseBuilder;
+use App\Http\Controllers\BasicController;
 use App\Models\Competitor;
 use App\Models\Tournament;
 use App\Services\TournamentInscription\CheckCompetitorIsEnrolledService;
 use Illuminate\Http\Response;
 
-class IsCompetitorEnrolledToTournamentController extends Controller
+class IsCompetitorEnrolledToTournamentController extends BasicController
 {
     /**
      * The CheckCompetitorIsEnrolledService.
@@ -20,12 +21,14 @@ class IsCompetitorEnrolledToTournamentController extends Controller
     /**
      * Create a new instance of IsCompetitorEnrolledToTournamentController.
      *
-     * @param   CheckCompetitorIsEnrolledService $checkCompetitorIsEnrolledService
-     * @return  void
+     * @param CheckCompetitorIsEnrolledService $checkCompetitorIsEnrolledService
+     * @param ResponseBuilder $responseBuilder
      */
     public function __construct(
-        CheckCompetitorIsEnrolledService $checkCompetitorIsEnrolledService
+        CheckCompetitorIsEnrolledService $checkCompetitorIsEnrolledService,
+        ResponseBuilder $responseBuilder
     ) {
+        parent::__construct($responseBuilder);
         $this->checkCompetitorIsEnrolledService = $checkCompetitorIsEnrolledService;
     }
 
@@ -45,14 +48,14 @@ class IsCompetitorEnrolledToTournamentController extends Controller
             $competitor->id
         );
 
-        return response(
-            [
-                'message' => ($isEnrolled
-                    ? 'El competidor está inscrito'
-                    : 'El competidor no está inscrito'),
-                'is_enrolled' => $isEnrolled,
-            ],
-            Response::HTTP_OK,
-        );
+        return $this->responseBuilder
+            ->when(
+                $isEnrolled,
+                fn (ResponseBuilder $builder) => $builder->setMessage('El competidor está incrito'),
+                fn (ResponseBuilder $builder) => $builder->setMessage('El competidor no está inscrito')
+            )
+            ->setResource('is_enrolled', $isEnrolled)
+            ->setStatusCode(Response::HTTP_OK)
+            ->get();
     }
 }

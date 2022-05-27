@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\Controller;
+use App\Contracts\Patterns\Builders\ResponseBuilder;
+use App\Http\Controllers\BasicController;
 use App\Http\Requests\LoginUserRequest;
-use App\Http\Resources\FailedAuthResource;
-use App\Http\Resources\SuccessAuthResource;
+use App\Http\Resources\User\UserResource;
 use App\Services\User\GetUserByEmailService;
 use App\Services\User\LoginUserService;
 use Illuminate\Http\Response;
 
-class LoginUserController extends Controller
+class LoginUserController extends BasicController
 {
     /**
      * Login user service.
@@ -31,11 +31,14 @@ class LoginUserController extends Controller
      *
      * @param LoginUserService $loginUserService
      * @param GetUserByEmailService $getUserByEmailService
+     * @param ResponseBuilder $responseBuilder
      */
     public function __construct(
         LoginUserService $loginUserService,
-        GetUserByEmailService $getUserByEmailService
+        GetUserByEmailService $getUserByEmailService,
+        ResponseBuilder $responseBuilder
     ) {
+        parent::__construct($responseBuilder);
         $this->loginUserService = $loginUserService;
         $this->getUserByEmailService = $getUserByEmailService;
     }
@@ -53,23 +56,23 @@ class LoginUserController extends Controller
             $request->input('password')
         );
 
-        if (!$tokenOrFalse) {
-            return response(
-                FailedAuthResource::make($request),
-                Response::HTTP_UNAUTHORIZED
-            );
-        }
+        return $this->responseBuilder
+            ->when(
+                !$tokenOrFalse,
+                fn (ResponseBuilder & $builder) => $builder
+                        ->setMessage('No se pudo autenticar')
+                        ->setStatusCode(Response::HTTP_UNAUTHORIZED),
+                function (ResponseBuilder &$builder) use ($tokenOrFalse, $request) {
+                    $user = ($this->getUserByEmailService)($request->input('email'));
+                    $user->load(['person', 'competitor']);
 
-        $user = ($this->getUserByEmailService)($request->input('email'));
-
-        $user->load(['person', 'competitor']);
-
-        return response(
-            SuccessAuthResource::make([
-                'token' => $tokenOrFalse,
-                'user' => $user,
-            ]),
-            Response::HTTP_OK
-        );
+                    $builder
+                        ->setMessage('Has ingresado a Perú Pokémon Tournaments')
+                        ->setResource('token', $tokenOrFalse)
+                        ->setResource('user', UserResource::make($user))
+                        ->setStatusCode(Response::HTTP_OK);
+                }
+            )
+            ->get();
     }
 }

@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Device;
 
-use App\Http\Controllers\Controller;
+use App\Contracts\Patterns\Builders\PaginatedResponseBuilder;
+use App\Http\Controllers\PaginatedController;
 use App\Http\Requests\Device\FetchDevicesRequest;
 use App\Http\Resources\Device\DeviceResource;
 use App\Services\Device\FetchDevicesService;
 use Illuminate\Http\Response;
 
-class FetchDevicesController extends Controller
+class FetchDevicesController extends PaginatedController
 {
     /**
      * The fetch device service.
@@ -21,9 +22,13 @@ class FetchDevicesController extends Controller
      * Creates a new FetchDevicesController instance.
      *
      * @param FetchDevicesService $fetchDevicesService
+     * @param PaginatedResponseBuilder $paginatedResponseBuilder
      */
-    public function __construct(FetchDevicesService $fetchDevicesService)
-    {
+    public function __construct(
+        FetchDevicesService $fetchDevicesService,
+        PaginatedResponseBuilder $paginatedResponseBuilder
+    ) {
+        parent::__construct($paginatedResponseBuilder);
         $this->fetchDevicesService = $fetchDevicesService;
     }
 
@@ -40,7 +45,14 @@ class FetchDevicesController extends Controller
             $request->query('pageSize', 15)
         );
 
-        return response(
+        return $this->paginatedResponseBuilder
+            ->setMessage('Dispositivos encontrados')
+            ->setResources('devices', DeviceResource::collection($devicesPaginated))
+            ->setLengthAwarePaginator($devicesPaginated)
+            ->setStatusCode(Response::HTTP_OK)
+            ->get();
+
+        /*return response(
             [
                 'message' => 'Dispositivos encontrados',
                 'devices' => DeviceResource::collection($devicesPaginated),
@@ -51,6 +63,6 @@ class FetchDevicesController extends Controller
                 'total_pages' => ceil($devicesPaginated->total() / $devicesPaginated->perPage()),
             ],
             Response::HTTP_OK
-        );
+        );*/
     }
 }

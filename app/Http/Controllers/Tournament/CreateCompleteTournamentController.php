@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Tournament;
 
-use App\Http\Controllers\Controller;
+use App\Contracts\Patterns\Builders\ResponseBuilder;
+use App\Http\Controllers\BasicController;
 use App\Http\Requests\CreateCompleteTournamentRequest;
 use App\Http\Resources\CompleteTournamentResource;
 use App\Services\Tournament\CreateCompleteTournamentService;
 use Illuminate\Http\Response;
 
-class CreateCompleteTournamentController extends Controller
+class CreateCompleteTournamentController extends BasicController
 {
     /**
      * The CreateCompleteTournamentService.
@@ -20,12 +21,14 @@ class CreateCompleteTournamentController extends Controller
     /**
      * Create a new instance of CreateCompleteTournamentController.
      *
-     * @param   CreateCompleteTournamentService $createCompleteTournamentService
-     * @return  void
+     * @param CreateCompleteTournamentService $createCompleteTournamentService
+     * @param ResponseBuilder $responseBuilder
      */
     public function __construct(
-        CreateCompleteTournamentService $createCompleteTournamentService
+        CreateCompleteTournamentService $createCompleteTournamentService,
+        ResponseBuilder $responseBuilder
     ) {
+        parent::__construct($responseBuilder);
         $this->createCompleteTournamentService = $createCompleteTournamentService;
     }
 
@@ -45,12 +48,10 @@ class CreateCompleteTournamentController extends Controller
 
         $tournament = ($this->createCompleteTournamentService)($data);
 
-        return response(
-            [
-                'message' => 'Torneo creado',
-                'tournament' => CompleteTournamentResource::make($tournament),
-            ],
-            Response::HTTP_CREATED,
-        );
+        return $this->responseBuilder
+            ->setMessage('Torneo creado')
+            ->setResource('tournament', CompleteTournamentResource::make($tournament))
+            ->setStatusCode(Response::HTTP_CREATED)
+            ->get();
     }
 }
