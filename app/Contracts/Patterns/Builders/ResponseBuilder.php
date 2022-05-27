@@ -26,10 +26,10 @@ interface ResponseBuilder
      * Set single resource.
      *
      * @param string $name
-     * @param object $resource
+     * @param mixed $resource
      * @return $this
      */
-    public function setResource(string $name, object $resource): self;
+    public function setResource(string $name, $resource): self;
 
     /**
      * Set iterable resource.
