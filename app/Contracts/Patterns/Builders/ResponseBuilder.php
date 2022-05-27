@@ -32,7 +32,7 @@ interface ResponseBuilder
     public function setResource(string $name, object $resource): self;
 
     /**
-     * Set iterable resource
+     * Set iterable resource.
      *
      * @param string $name
      * @param iterable $resources
@@ -41,7 +41,7 @@ interface ResponseBuilder
     public function setResources(string $name, iterable $resources): self;
 
     /**
-     * Retrieve the built response
+     * Retrieve the built response.
      *
      * @return Response
      */

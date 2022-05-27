@@ -78,7 +78,7 @@ class ApiResponseBuilder implements ResponseBuilder
     }
 
     /**
-     * Set iterable resource
+     * Set iterable resource.
      *
      * @param string $name
      * @param iterable $resources
@@ -92,7 +92,7 @@ class ApiResponseBuilder implements ResponseBuilder
     }
 
     /**
-     * Retrieve the built response
+     * Retrieve the built response.
      *
      * @return Response
      */
