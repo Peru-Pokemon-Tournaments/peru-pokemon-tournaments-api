@@ -43,7 +43,7 @@ class RegisterUserController extends BasicController
         $user = ($this->createCompleteUserService)($request->input());
 
         return $this->responseBuilder
-            ->setMessage('Registrado satisfactoriamente')
+            ->setMessage(trans('endpoints.auth.register_user.created'))
             ->setResource('user', UserResource::make($user))
             ->setStatusCode(Response::HTTP_CREATED)
             ->get();

@@ -46,7 +46,7 @@ class FetchGamesController extends PaginatedController
         );
 
         return $this->paginatedResponseBuilder
-            ->setMessage('Juegos encontrados')
+            ->setMessage(trans('endpoints.game.fetch_games.ok'))
             ->setResources('games', GameResource::collection($gamesPaginated))
             ->setLengthAwarePaginator($gamesPaginated)
             ->setStatusCode(Response::HTTP_OK)

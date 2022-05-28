@@ -43,7 +43,7 @@ class GetTournamentCompetitorsController extends BasicController
         $competitors = ($this->getTournamentCompetitorsService)($tournament->id);
 
         return $this->responseBuilder
-            ->setMessage('Competidores encontrados')
+            ->setMessage(trans('endpoints.tournament.inscription.get_tournament_competitors.ok'))
             ->setResources('competitors', CompetitorResource::collection($competitors))
             ->setStatusCode(Response::HTTP_OK)
             ->get();

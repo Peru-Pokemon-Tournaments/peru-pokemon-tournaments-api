@@ -19,7 +19,7 @@ class GetTournamentInscriptionController extends BasicController
         TournamentInscription $tournamentInscription
     ): Response {
         return $this->responseBuilder
-            ->setMessage('Inscripción encontrada')
+            ->setMessage(trans('endpoints.tournament_inscription.get_tournament_inscription.ok'))
             ->setResource('tournament_inscription', TournamentInscriptionResource::make($tournamentInscription))
             ->setStatusCode(Response::HTTP_OK)
             ->get();

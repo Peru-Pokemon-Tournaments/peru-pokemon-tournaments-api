@@ -46,7 +46,7 @@ class FetchTournamentRulesController extends PaginatedController
         );
 
         return $this->paginatedResponseBuilder
-            ->setMessage('Reglas de Torneos encontrados')
+            ->setMessage(trans('endpoints.tournament_rule.fetch_tournament_rules.ok'))
             ->setResources('tournament_rules', TournamentRuleResource::collection($tournamentRulesPaginated))
             ->setLengthAwarePaginator($tournamentRulesPaginated)
             ->setStatusCode(Response::HTTP_OK)

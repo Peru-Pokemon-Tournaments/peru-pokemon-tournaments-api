@@ -18,7 +18,7 @@ class GetCompleteTournamentController extends BasicController
     public function __invoke(Tournament $tournament): Response
     {
         return $this->responseBuilder
-            ->setMessage('Torneo encontrado')
+            ->setMessage(trans('endpoints.tournament.get_complete_tournament.ok'))
             ->setResource('tournament', CompleteTournamentResource::make($tournament))
             ->setStatusCode(Response::HTTP_OK)
             ->get();

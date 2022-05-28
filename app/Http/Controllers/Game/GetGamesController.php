@@ -41,7 +41,7 @@ class GetGamesController extends BasicController
         $games = ($this->getGamesService)();
 
         return $this->responseBuilder
-            ->setMessage('Juegos encontrados')
+            ->setMessage(trans('endpoints.game.get_games.ok'))
             ->setResources('games', GameResource::collection($games))
             ->setStatusCode(Response::HTTP_OK)
             ->get();

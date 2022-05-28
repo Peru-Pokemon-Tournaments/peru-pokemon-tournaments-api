@@ -49,7 +49,7 @@ class CreateCompleteTournamentController extends BasicController
         $tournament = ($this->createCompleteTournamentService)($data);
 
         return $this->responseBuilder
-            ->setMessage('Torneo creado')
+            ->setMessage(trans('endpoints.tournament.create_complete_tournament.created'))
             ->setResource('tournament', CompleteTournamentResource::make($tournament))
             ->setStatusCode(Response::HTTP_CREATED)
             ->get();

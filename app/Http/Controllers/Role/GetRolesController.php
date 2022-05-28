@@ -41,7 +41,7 @@ class GetRolesController extends BasicController
         $roles = ($this->getRolesService)();
 
         return $this->responseBuilder
-            ->setMessage('Roles encontrados')
+            ->setMessage(trans('endpoints.role.get_roles.ok'))
             ->setResources('roles', RoleResource::collection($roles))
             ->setStatusCode(Response::HTTP_OK)
             ->get();

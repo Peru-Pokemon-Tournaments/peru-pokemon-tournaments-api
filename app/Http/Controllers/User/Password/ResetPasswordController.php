@@ -49,10 +49,10 @@ class ResetPasswordController extends BasicController
             ->when(
                 $isReset,
                 fn (ResponseBuilder $builder) => $builder
-                        ->setMessage('Se actualizó la contraseña')
+                        ->setMessage(trans('endpoints.user.password.reset_password.ok'))
                         ->setStatusCode(Response::HTTP_OK),
                 fn (ResponseBuilder $builder) => $builder
-                        ->setMessage('No se pudo actualizar la contraseña')
+                        ->setMessage(trans('endpoints.user.password.reset_password.forbidden'))
                         ->setStatusCode(Response::HTTP_FORBIDDEN)
             )
             ->get();

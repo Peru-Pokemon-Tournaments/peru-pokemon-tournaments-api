@@ -46,7 +46,7 @@ class FetchUsersController extends PaginatedController
         );
 
         return $this->paginatedResponseBuilder
-            ->setMessage('Usuarios encontrados')
+            ->setMessage(trans('endpoints.user.fetch_users.ok'))
             ->setResources('users', UserResource::collection($usersPaginated))
             ->setLengthAwarePaginator($usersPaginated)
             ->setStatusCode(Response::HTTP_OK)

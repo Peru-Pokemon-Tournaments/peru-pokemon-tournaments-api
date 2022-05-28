@@ -53,7 +53,7 @@ class UpdateTournamentInscriptionController extends BasicController
         TournamentInscriptionUpdated::dispatch($tournamentInscription);
 
         return $this->responseBuilder
-            ->setMessage('Inscripción actualizada')
+            ->setMessage(trans('endpoints.tournament_inscription.update_tournament_inscription.ok'))
             ->setResource('tournament_inscription', TournamentInscriptionResource::make($tournamentInscription))
             ->setStatusCode(Response::HTTP_OK)
             ->get();

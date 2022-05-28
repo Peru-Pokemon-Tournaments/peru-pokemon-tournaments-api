@@ -51,8 +51,12 @@ class IsCompetitorEnrolledToTournamentController extends BasicController
         return $this->responseBuilder
             ->when(
                 $isEnrolled,
-                fn (ResponseBuilder $builder) => $builder->setMessage('El competidor está incrito'),
-                fn (ResponseBuilder $builder) => $builder->setMessage('El competidor no está inscrito')
+                fn (ResponseBuilder $builder) => $builder->setMessage(
+                    trans('endpoints.tournament.competitor.is_competitor_enrolled_to_tournament.ok')
+                ),
+                fn (ResponseBuilder $builder) => $builder->setMessage(
+                    trans('endpoints.tournament.competitor.is_competitor_enrolled_to_tournament.not_found')
+                )
             )
             ->setResource('is_enrolled', $isEnrolled)
             ->setStatusCode(Response::HTTP_OK)

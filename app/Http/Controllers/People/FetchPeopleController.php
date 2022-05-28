@@ -46,7 +46,7 @@ class FetchPeopleController extends PaginatedController
         );
 
         return $this->paginatedResponseBuilder
-            ->setMessage('Personas encontradas')
+            ->setMessage(trans('endpoints.people.fetch_people.ok'))
             ->setResources('people', PersonResource::collection($peoplePaginated))
             ->setLengthAwarePaginator($peoplePaginated)
             ->setStatusCode(Response::HTTP_OK)

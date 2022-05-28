@@ -47,10 +47,12 @@ class DeleteTournamentInscriptionController extends BasicController
         return $this->responseBuilder
             ->when(
                 $isDeleted,
-                fn (ResponseBuilder $builder) => $builder->setMessage('Se eliminó la inscripción')
-                        ->setStatusCode(Response::HTTP_OK),
-                fn (ResponseBuilder $builder) => $builder->setMessage('No se eliminó la inscripción')
-                        ->setStatusCode(Response::HTTP_NOT_FOUND)
+                fn (ResponseBuilder $builder) => $builder->setMessage(
+                    trans('endpoints.tournament_inscription.delete_tournament_inscription.ok')
+                )->setStatusCode(Response::HTTP_OK),
+                fn (ResponseBuilder $builder) => $builder->setMessage(
+                    trans('endpoints.tournament_inscription.delete_tournament_inscription.not_found')
+                )->setStatusCode(Response::HTTP_NOT_FOUND)
             )
             ->get();
     }

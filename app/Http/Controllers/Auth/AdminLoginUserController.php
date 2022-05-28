@@ -61,10 +61,10 @@ class AdminLoginUserController extends BasicController
             ->when(
                 (!$tokenOrFalse || !$user->hasRole('super admin')),
                 fn (ResponseBuilder $builder) => $builder
-                        ->setMessage('No se pudo autenticar')
+                        ->setMessage(trans('endpoints.auth.admin_login_user.unauthorized'))
                         ->setStatusCode(Response::HTTP_UNAUTHORIZED),
                 fn (ResponseBuilder $builder) => $builder
-                        ->setMessage('Has ingresado a Perú Pokémon Tournaments Admin')
+                        ->setMessage(trans('endpoints.auth.admin_login_user.ok'))
                         ->setResource('token', $tokenOrFalse)
                         ->setResource('user', $user->load(['person', 'competitor']))
                         ->setStatusCode(Response::HTTP_OK)

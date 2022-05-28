@@ -46,23 +46,10 @@ class FetchDevicesController extends PaginatedController
         );
 
         return $this->paginatedResponseBuilder
-            ->setMessage('Dispositivos encontrados')
+            ->setMessage(trans('endpoints.device.fetch_devices.ok'))
             ->setResources('devices', DeviceResource::collection($devicesPaginated))
             ->setLengthAwarePaginator($devicesPaginated)
             ->setStatusCode(Response::HTTP_OK)
             ->get();
-
-        /*return response(
-            [
-                'message' => 'Dispositivos encontrados',
-                'devices' => DeviceResource::collection($devicesPaginated),
-                'total' => $devicesPaginated->total(),
-                'per_page' => $devicesPaginated->perPage(),
-                'current_page' => $devicesPaginated->currentPage(),
-                'last_page' => $devicesPaginated->lastPage(),
-                'total_pages' => ceil($devicesPaginated->total() / $devicesPaginated->perPage()),
-            ],
-            Response::HTTP_OK
-        );*/
     }
 }

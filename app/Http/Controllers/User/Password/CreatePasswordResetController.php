@@ -45,7 +45,7 @@ class CreatePasswordResetController extends BasicController
         PasswordResetCreated::dispatch($passwordReset);
 
         return $this->responseBuilder
-            ->setMessage('Enlace de cambio de contraseña enviado a su correo electrónico')
+            ->setMessage(trans('endpoints.user.password.create_password_reset.ok'))
             ->setStatusCode(Response::HTTP_ACCEPTED)
             ->get();
     }

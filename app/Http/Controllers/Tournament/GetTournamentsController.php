@@ -41,7 +41,7 @@ class GetTournamentsController extends BasicController
         $tournaments = ($this->getTournamentsService)();
 
         return $this->responseBuilder
-            ->setMessage('Torneos encontrados')
+            ->setMessage(trans('endpoints.tournament.get_tournaments.ok'))
             ->setResource('tournaments', TournamentResource::collection($tournaments))
             ->setStatusCode(Response::HTTP_OK)
             ->get();

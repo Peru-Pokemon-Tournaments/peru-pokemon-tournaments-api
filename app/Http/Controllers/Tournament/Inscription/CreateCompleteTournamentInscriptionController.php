@@ -54,7 +54,7 @@ class CreateCompleteTournamentInscriptionController extends BasicController
         TournamentInscriptionCreated::dispatch($tournamentInscription);
 
         return $this->responseBuilder
-            ->setMessage('Inscripción creada')
+            ->setMessage(trans('endpoints.tournament.inscription.create_complete_tournament_inscription.created'))
             ->setResource('tournament_inscription', TournamentInscriptionResource::make($tournamentInscription))
             ->setStatusCode(Response::HTTP_CREATED)
             ->get();
