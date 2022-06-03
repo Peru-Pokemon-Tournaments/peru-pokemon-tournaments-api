@@ -60,14 +60,14 @@ class LoginUserController extends BasicController
             ->when(
                 !$tokenOrFalse,
                 fn (ResponseBuilder & $builder) => $builder
-                        ->setMessage(trans('endpoints.auth.admin_login_user.unauthorized'))
+                        ->setMessage(trans('endpoints.auth.login_user.unauthorized'))
                         ->setStatusCode(Response::HTTP_UNAUTHORIZED),
                 function (ResponseBuilder &$builder) use ($tokenOrFalse, $request) {
                     $user = ($this->getUserByEmailService)($request->input('email'));
                     $user->load(['person', 'competitor']);
 
                     $builder
-                        ->setMessage(trans('endpoints.auth.admin_login_user.ok'))
+                        ->setMessage(trans('endpoints.auth.login_user.ok'))
                         ->setResource('token', $tokenOrFalse)
                         ->setResource('user', UserResource::make($user))
                         ->setStatusCode(Response::HTTP_OK);
