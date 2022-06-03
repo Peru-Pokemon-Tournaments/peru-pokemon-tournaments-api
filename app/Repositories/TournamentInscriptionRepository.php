@@ -44,13 +44,13 @@ final class TournamentInscriptionRepository implements TournamentInscriptionRepo
     }
 
     /**
-     * Find one model by tournamenId and competitorId.
+     * Find one model by tournamentId and competitorId.
      *
      * @param string $tournamentId
      * @param string $competitorId
-     * @return TournamentInscription
+     * @return TournamentInscription|null
      */
-    public function findOneByTournamentAndCompetitor(string $tournamentId, string $competitorId): TournamentInscription
+    public function findOneByTournamentAndCompetitor(string $tournamentId, string $competitorId): ?TournamentInscription
     {
         return TournamentInscription::where('tournament_id', $tournamentId)
             ->where('competitor_id', $competitorId)
