@@ -29,9 +29,9 @@ class GetUserByEmailService
      * Check if the user has valid password.
      *
      * @param string $email
-     * @return User
+     * @return User|null
      */
-    public function __invoke(string $email): User
+    public function __invoke(string $email): ?User
     {
         return $this->userRepository->findOneByEmail($email, ['person']);
     }
