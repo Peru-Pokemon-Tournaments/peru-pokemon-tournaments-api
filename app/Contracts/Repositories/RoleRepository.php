@@ -4,7 +4,7 @@ namespace App\Contracts\Repositories;
 
 use App\Models\Role;
 
-interface RoleRepository extends Repository
+interface RoleRepository extends Repository, PaginatedRepository
 {
     /**
      * Find super admin role.
