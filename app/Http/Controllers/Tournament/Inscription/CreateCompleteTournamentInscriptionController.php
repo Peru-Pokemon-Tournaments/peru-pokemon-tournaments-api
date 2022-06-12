@@ -6,7 +6,7 @@ use App\Contracts\Patterns\Builders\ResponseBuilder;
 use App\Events\TournamentInscriptionCreated;
 use App\Http\Controllers\BasicController;
 use App\Http\Requests\CreateCompleteTournamentInscriptionRequest;
-use App\Http\Resources\TournamentInscriptionResource;
+use App\Http\Resources\TournamentInscription\TournamentInscriptionResource;
 use App\Models\Tournament;
 use App\Services\TournamentInscription\CreateCompleteTournamentInscriptionService;
 use Illuminate\Http\Response;

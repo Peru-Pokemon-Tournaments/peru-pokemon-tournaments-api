@@ -17,7 +17,7 @@ use App\Models\Tournament;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CompleteTournamentResource extends JsonResource
+class TournamentResource extends JsonResource
 {
     /**
      * The resource instance.

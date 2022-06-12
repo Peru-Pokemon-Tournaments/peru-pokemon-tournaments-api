@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\Device;
 
-use App\Http\Resources\TournamentResource;
+use App\Http\Resources\Tournament\TournamentResource;
 use App\Models\Device;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;

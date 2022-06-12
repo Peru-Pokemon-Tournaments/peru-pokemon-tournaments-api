@@ -6,7 +6,7 @@ use App\Contracts\Patterns\Builders\ResponseBuilder;
 use App\Events\TournamentInscriptionStatusUpdated;
 use App\Http\Controllers\BasicController;
 use App\Http\Requests\UpdateTournamentInscriptionStatusRequest;
-use App\Http\Resources\TournamentInscriptionResource;
+use App\Http\Resources\TournamentInscription\TournamentInscriptionResource;
 use App\Models\TournamentInscription;
 use App\Services\TournamentInscription\UpdateTournamentInscriptionStatusService;
 use Illuminate\Http\Response;
