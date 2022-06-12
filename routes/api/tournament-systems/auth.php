@@ -16,4 +16,3 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('/tournament-systems')->group(function () {
     Route::get('/', FetchTournamentSystemsController::class);
 });
-
