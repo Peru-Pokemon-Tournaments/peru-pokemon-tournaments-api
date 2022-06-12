@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\TournamentInscription;
 
 use App\Models\TournamentInscription;
 use Illuminate\Http\Request;
@@ -23,13 +23,12 @@ class TournamentInscriptionResource extends JsonResource
      */
     public function toArray($request): array
     {
-        return array_merge(
-            $this->resource->toArray(),
-            [
-                'tournament' => $this->resource->tournament,
-                'competitor' => $this->resource->competitor,
-                'pokemon_showdown_team' => $this->resource->pokemonShowdownTeam,
-            ],
-        );
+        return [
+            'id' => $this->resource->id,
+            'status' => $this->resource->status,
+            'tournament' => $this->resource->tournament,
+            'competitor' => $this->resource->competitor,
+            'pokemon_showdown_team' => $this->resource->pokemonShowdownTeam,
+        ];
     }
 }

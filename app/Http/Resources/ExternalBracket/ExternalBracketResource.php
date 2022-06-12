@@ -1,34 +1,35 @@
 <?php
 
-namespace App\Http\Resources\Device;
+namespace App\Http\Resources\ExternalBracket;
 
 use App\Http\Resources\Tournament\TournamentResource;
-use App\Models\Device;
+use App\Models\ExternalBracket;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class DeviceResource extends JsonResource
+class ExternalBracketResource extends JsonResource
 {
     /**
      * The resource instance.
      *
-     * @var Device
+     * @var ExternalBracket
      */
     public $resource;
 
     /**
      * Transform the resource into an array.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @return array
      */
     public function toArray($request): array
     {
         return [
             'id' => $this->resource->id,
-            'name' => $this->resource->name,
-            'tournaments' => $this->whenLoaded('tournaments', function () {
-                return TournamentResource::collection($this->resource->tournaments);
+            'reference' => $this->resource->reference,
+            'url' => $this->resource->url,
+            'tournament' => $this->whenLoaded('tournament', function () {
+                return TournamentResource::make($this->resource->tournament);
             }),
         ];
     }

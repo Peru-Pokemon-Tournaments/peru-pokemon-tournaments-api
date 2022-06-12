@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Tournament;
 use App\Contracts\Patterns\Builders\ResponseBuilder;
 use App\Http\Controllers\BasicController;
 use App\Http\Requests\CreateCompleteTournamentRequest;
-use App\Http\Resources\CompleteTournamentResource;
+use App\Http\Resources\Tournament\TournamentResource;
 use App\Services\Tournament\CreateCompleteTournamentService;
 use Illuminate\Http\Response;
 
@@ -50,7 +50,7 @@ class CreateCompleteTournamentController extends BasicController
 
         return $this->responseBuilder
             ->setMessage(trans('endpoints.tournament.create_complete_tournament.created'))
-            ->setResource('tournament', CompleteTournamentResource::make($tournament))
+            ->setResource('tournament', TournamentResource::make($tournament))
             ->setStatusCode(Response::HTTP_CREATED)
             ->get();
     }

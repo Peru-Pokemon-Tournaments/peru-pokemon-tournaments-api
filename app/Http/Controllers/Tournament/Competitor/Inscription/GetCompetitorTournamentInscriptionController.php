@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Tournament\Competitor\Inscription;
 
 use App\Contracts\Patterns\Builders\ResponseBuilder;
 use App\Http\Controllers\BasicController;
-use App\Http\Resources\TournamentInscriptionResource;
+use App\Http\Resources\TournamentInscription\TournamentInscriptionResource;
 use App\Models\Competitor;
 use App\Models\Tournament;
 use App\Services\TournamentInscription\GetTournamentInscriptionByCompetitorTournamentService;

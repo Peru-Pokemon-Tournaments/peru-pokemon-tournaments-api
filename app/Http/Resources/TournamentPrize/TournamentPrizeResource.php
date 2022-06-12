@@ -1,35 +1,34 @@
 <?php
 
-namespace App\Http\Resources\TournamentSystem;
+namespace App\Http\Resources\TournamentPrize;
 
-use App\Http\Resources\Tournament\TournamentResource;
-use App\Models\TournamentSystem;
+use App\Models\TournamentPrize;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class TournamentSystemResource extends JsonResource
+class TournamentPrizeResource extends JsonResource
 {
     /**
      * The resource instance.
      *
-     * @var TournamentSystem
+     * @var TournamentPrize
      */
     public $resource;
 
     /**
      * Transform the resource into an array.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @return array
      */
     public function toArray($request): array
     {
         return [
             'id' => $this->resource->id,
-            'name' => $this->resource->name,
+            'title' => $this->resource->title,
             'description' => $this->resource->description,
-            'tournaments' => $this->whenLoaded('tournaments', function () {
-                return TournamentResource::collection($this->resource->tournaments);
+            'tournament' => $this->whenLoaded('tournament_prize', function () {
+                return self::make($this->resource->tournament);
             }),
         ];
     }

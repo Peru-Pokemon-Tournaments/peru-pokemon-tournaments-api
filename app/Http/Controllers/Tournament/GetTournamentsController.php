@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Tournament;
 
 use App\Contracts\Patterns\Builders\ResponseBuilder;
 use App\Http\Controllers\BasicController;
-use App\Http\Resources\TournamentResource;
+use App\Http\Resources\Tournament\TournamentResource;
 use App\Services\Tournament\GetTournamentsService;
 use Illuminate\Http\Response;
 
@@ -39,6 +39,17 @@ class GetTournamentsController extends BasicController
     public function __invoke(): Response
     {
         $tournaments = ($this->getTournamentsService)();
+
+        $tournaments->each(fn ($tournament) => $tournament->load([
+            'image',
+            'tournamentType',
+            'devices',
+            'games',
+            'tournamentFormat',
+            'tournamentPrice',
+            'tournamentSystems',
+            'externalBracket',
+        ]));
 
         return $this->responseBuilder
             ->setMessage(trans('endpoints.tournament.get_tournaments.ok'))

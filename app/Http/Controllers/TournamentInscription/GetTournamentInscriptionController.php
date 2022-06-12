@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\TournamentInscription;
 
 use App\Http\Controllers\BasicController;
-use App\Http\Resources\TournamentInscriptionResource;
+use App\Http\Resources\TournamentInscription\TournamentInscriptionResource;
 use App\Models\TournamentInscription;
 use Illuminate\Http\Response;
 

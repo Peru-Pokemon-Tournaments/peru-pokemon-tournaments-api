@@ -1,25 +1,24 @@
 <?php
 
-namespace App\Http\Resources\Device;
+namespace App\Http\Resources\TournamentFormat;
 
-use App\Http\Resources\Tournament\TournamentResource;
-use App\Models\Device;
+use App\Models\TournamentFormat;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class DeviceResource extends JsonResource
+class TournamentFormatResource extends JsonResource
 {
     /**
      * The resource instance.
      *
-     * @var Device
+     * @var TournamentFormat
      */
     public $resource;
 
     /**
      * Transform the resource into an array.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @return array
      */
     public function toArray($request): array
@@ -27,9 +26,6 @@ class DeviceResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'name' => $this->resource->name,
-            'tournaments' => $this->whenLoaded('tournaments', function () {
-                return TournamentResource::collection($this->resource->tournaments);
-            }),
         ];
     }
 }
