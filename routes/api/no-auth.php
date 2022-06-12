@@ -19,5 +19,6 @@ include 'options/no-auth.php';
 include 'people/no-auth.php';
 include 'roles/no-auth.php';
 include 'tournament-rules/no-auth.php';
+include 'tournament-systems/no-auth.php';
 include 'tournaments/no-auth.php';
 include 'users/no-auth.php';

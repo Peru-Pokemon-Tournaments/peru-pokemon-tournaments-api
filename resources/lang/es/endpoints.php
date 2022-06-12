@@ -108,6 +108,11 @@ return [
             'ok' => 'Reglas de Torneos encontradas',
         ],
     ],
+    'tournament_system' => [
+        'fetch_tournament_systems' => [
+            'ok' => 'Sistemas de Torneos encontrados',
+        ],
+    ],
     'user' => [
         'password' => [
             'create_password_reset' => [
