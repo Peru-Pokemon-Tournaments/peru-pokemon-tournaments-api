@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\Tournament\Competitor\Inscription\GetCompetitorTournamentInscriptionController;
+use App\Http\Controllers\Tournament\FetchTournamentsController;
 use App\Http\Controllers\Tournament\GetCompleteTournamentController;
-use App\Http\Controllers\Tournament\GetTournamentsController;
 use App\Http\Controllers\Tournament\Inscription\GetTournamentCompetitorsController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +17,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('tournaments')->group(function () {
-    Route::get('/', GetTournamentsController::class);
+    // Route::get('/', GetTournamentsController::class);
+    Route::get('/', FetchTournamentsController::class);
 
     Route::prefix('{tournament}')->group(function () {
         Route::get('/', GetCompleteTournamentController::class);

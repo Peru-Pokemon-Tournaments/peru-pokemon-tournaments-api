@@ -8,6 +8,9 @@ use App\Http\Resources\Tournament\TournamentResource;
 use App\Services\Tournament\GetTournamentsService;
 use Illuminate\Http\Response;
 
+/**
+ * @deprecated
+ */
 class GetTournamentsController extends BasicController
 {
     /**

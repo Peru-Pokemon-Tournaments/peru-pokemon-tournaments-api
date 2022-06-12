@@ -3,7 +3,6 @@
 use App\Http\Controllers\Tournament\Competitor\Inscription\DeleteCompetitorTournamentInscriptionController;
 use App\Http\Controllers\Tournament\Competitor\IsCompetitorEnrolledToTournamentController;
 use App\Http\Controllers\Tournament\CreateCompleteTournamentController;
-use App\Http\Controllers\Tournament\FetchTournamentsController;
 use App\Http\Controllers\Tournament\Inscription\CreateCompleteTournamentInscriptionController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,7 +17,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('tournaments')->group(function () {
-    Route::get('/', FetchTournamentsController::class);
     Route::post('/', CreateCompleteTournamentController::class);
 
     Route::prefix('{tournament}')->group(function () {
