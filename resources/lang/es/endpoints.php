@@ -81,6 +81,9 @@ return [
         'create_complete_tournament' => [
             'created' => 'Torneo creado',
         ],
+        'fetch_tournaments' => [
+            'ok' => 'Torneos encontrados',
+        ],
         'get_complete_tournament' => [
             'ok' => 'Torneo encontrado',
         ],
