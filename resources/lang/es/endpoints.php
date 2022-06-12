@@ -113,6 +113,11 @@ return [
             'ok' => 'Sistemas de Torneos encontrados',
         ],
     ],
+    'tournament_type' => [
+        'fetch_tournament_types' => [
+            'ok' => 'Tipos de Torneos encontrados',
+        ],
+    ],
     'user' => [
         'password' => [
             'create_password_reset' => [

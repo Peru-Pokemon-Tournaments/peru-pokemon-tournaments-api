@@ -20,5 +20,6 @@ include 'people/auth.php';
 include 'roles/auth.php';
 include 'tournament-rules/auth.php';
 include 'tournament-systems/auth.php';
+include 'tournament-types/auth.php';
 include 'tournaments/auth.php';
 include 'users/auth.php';

@@ -2,6 +2,6 @@
 
 namespace App\Contracts\Repositories;
 
-interface TournamentTypeRepository extends Repository
+interface TournamentTypeRepository extends Repository, PaginatedRepository
 {
 }
