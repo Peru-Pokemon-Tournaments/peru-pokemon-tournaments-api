@@ -47,6 +47,9 @@ return [
         ],
     ],
     'role' => [
+        'create_role' => [
+            'created' => 'Rol creado',
+        ],
         'fetch_roles' => [
             'ok' => 'Roles encontrados',
         ],
