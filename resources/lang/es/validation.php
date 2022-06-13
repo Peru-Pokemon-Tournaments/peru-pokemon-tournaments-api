@@ -137,4 +137,5 @@ return [
         ],
     ],
     'competitor_enrolled' => 'El competidor ya está registrado en el torneo',
+    'unique_field_except_current' => 'El campo :attribute ya ha sido registrado.',
 ];
