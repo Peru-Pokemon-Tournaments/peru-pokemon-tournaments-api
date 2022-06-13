@@ -56,6 +56,9 @@ return [
         'get_roles' => [
             'ok' => 'Roles encontrados',
         ],
+        'update_role' => [
+            'ok' => 'Rol actualizado',
+        ],
     ],
     'tournament' => [
         'competitor' => [
