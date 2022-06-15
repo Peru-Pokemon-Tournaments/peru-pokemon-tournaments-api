@@ -35,6 +35,9 @@ return [
         ],
     ],
     'game' => [
+        'create_game' => [
+            'created' => 'Juego creado',
+        ],
         'fetch_games' => [
             'ok' => 'Juegos encontrados',
         ],
