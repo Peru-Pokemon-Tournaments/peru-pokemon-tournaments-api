@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Device\CreateDeviceController;
 use App\Http\Controllers\Device\FetchDevicesController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,4 +16,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('/devices')->group(function () {
     Route::get('/', FetchDevicesController::class);
+    Route::post('/', CreateDeviceController::class);
 });
