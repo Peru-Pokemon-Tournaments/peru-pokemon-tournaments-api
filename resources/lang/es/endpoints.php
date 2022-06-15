@@ -49,6 +49,9 @@ return [
         'fetch_game_generations' => [
             'ok' => 'Generaciones de Juegos encontradas',
         ],
+        'update_game_generation' => [
+            'ok' => 'Generación de Juego actualizada',
+        ],
     ],
     'people' => [
         'fetch_people' => [
