@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GameGeneration\CreateGameGenerationController;
 use App\Http\Controllers\GameGeneration\FetchGameGenerationsController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,4 +16,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('/game-generations')->group(function () {
     Route::get('/', FetchGameGenerationsController::class);
+    Route::post('/', CreateGameGenerationController::class);
 });

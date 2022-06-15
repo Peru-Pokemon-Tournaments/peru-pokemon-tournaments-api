@@ -43,6 +43,9 @@ return [
         ],
     ],
     'game_generation' => [
+        'create_game_generation' => [
+            'created' => 'Generación de Juego creada',
+        ],
         'fetch_game_generations' => [
             'ok' => 'Generaciones de Juegos encontradas',
         ],
