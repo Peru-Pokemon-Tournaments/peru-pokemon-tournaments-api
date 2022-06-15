@@ -30,6 +30,9 @@ return [
         'fetch_devices' => [
             'ok' => 'Dispositivos encontrados',
         ],
+        'update_device' => [
+            'ok' => 'Dispositivo actualizado',
+        ],
     ],
     'game' => [
         'fetch_games' => [
