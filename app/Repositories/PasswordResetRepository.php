@@ -63,9 +63,9 @@ final class PasswordResetRepository implements PasswordResetRepositoryContract
      * Find one model by id.
      *
      * @param string $id
-     * @return PasswordReset
+     * @return PasswordReset|null
      */
-    public function findOne(string &$id): PasswordReset
+    public function findOne(string &$id): ?PasswordReset
     {
         return PasswordReset::where('user_id', $id)->first();
     }

@@ -43,9 +43,9 @@ interface Repository
      * Find one model by id.
      *
      * @param string $id
-     * @return Model
+     * @return Model|null
      */
-    public function findOne(string &$id): Model;
+    public function findOne(string &$id): ?Model;
 
     /**
      * Find many models by ids.
