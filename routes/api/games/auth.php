@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Game\CreateGameController;
 use App\Http\Controllers\Game\FetchGamesController;
+use App\Http\Controllers\Game\UpdateGameController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,4 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('/games')->group(function () {
     Route::get('/', FetchGamesController::class);
     Route::post('/', CreateGameController::class);
+
+    Route::prefix('{game}')->group(function () {
+        Route::patch('/', UpdateGameController::class);
+    });
 });

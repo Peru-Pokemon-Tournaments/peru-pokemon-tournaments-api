@@ -44,6 +44,9 @@ return [
         'get_games' => [
             'ok' => 'Juegos encontrados',
         ],
+        'update_game' => [
+            'ok' => 'Juego actualizado',
+        ],
     ],
     'game_generation' => [
         'create_game_generation' => [
