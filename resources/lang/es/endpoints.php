@@ -131,6 +131,9 @@ return [
         ],
     ],
     'tournament_rule' => [
+        'create_tournament_rule' => [
+            'created' => 'Regla de Torneo creada',
+        ],
         'fetch_tournament_rules' => [
             'ok' => 'Reglas de Torneos encontradas',
         ],
