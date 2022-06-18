@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\TournamentType\CreateTournamentTypeController;
 use App\Http\Controllers\TournamentType\FetchTournamentTypesController;
+use App\Http\Controllers\TournamentType\UpdateTournamentTypeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,4 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('/tournament-types')->group(function () {
     Route::get('/', FetchTournamentTypesController::class);
     Route::post('/', CreateTournamentTypeController::class);
+
+    Route::prefix('{tournamentType}')->group(function () {
+        Route::patch('/', UpdateTournamentTypeController::class);
+    });
 });

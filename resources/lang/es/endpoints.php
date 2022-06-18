@@ -159,6 +159,9 @@ return [
         'fetch_tournament_types' => [
             'ok' => 'Tipos de Torneos encontrados',
         ],
+        'update_tournament_type' => [
+            'ok' => 'Tipo de Torneo actualizado',
+        ],
     ],
     'user' => [
         'password' => [
