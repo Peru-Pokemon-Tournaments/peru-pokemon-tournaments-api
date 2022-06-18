@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Game\GetGamesController;
+use App\Http\Controllers\GameGeneration\GetGameGenerationsController;
 use App\Http\Controllers\Role\GetRolesController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('options')->group(function () {
-    Route::get('/roles', GetRolesController::class);
     Route::get('/games', GetGamesController::class);
+    Route::get('/game-generations', GetGameGenerationsController::class);
+    Route::get('/roles', GetRolesController::class);
 });
