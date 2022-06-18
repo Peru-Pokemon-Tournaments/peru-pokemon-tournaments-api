@@ -148,6 +148,9 @@ return [
         'fetch_tournament_systems' => [
             'ok' => 'Sistemas de Torneos encontrados',
         ],
+        'update_tournament_system' => [
+            'ok' => 'Sistema de Torneo actualizada',
+        ],
     ],
     'tournament_type' => [
         'fetch_tournament_types' => [
