@@ -142,6 +142,9 @@ return [
         ],
     ],
     'tournament_system' => [
+        'create_tournament_system' => [
+            'created' => 'Sistema de Torneo creada',
+        ],
         'fetch_tournament_systems' => [
             'ok' => 'Sistemas de Torneos encontrados',
         ],

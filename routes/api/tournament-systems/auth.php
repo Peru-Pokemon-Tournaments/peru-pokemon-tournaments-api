@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TournamentSystem\CreateTournamentSystemController;
 use App\Http\Controllers\TournamentSystem\FetchTournamentSystemsController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,4 +16,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('/tournament-systems')->group(function () {
     Route::get('/', FetchTournamentSystemsController::class);
+    Route::post('/', CreateTournamentSystemController::class);
 });
