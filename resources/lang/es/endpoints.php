@@ -137,6 +137,9 @@ return [
         'fetch_tournament_rules' => [
             'ok' => 'Reglas de Torneos encontradas',
         ],
+        'update_tournament_rule' => [
+            'ok' => 'Regla de Torneo actualizada',
+        ],
     ],
     'tournament_system' => [
         'fetch_tournament_systems' => [
