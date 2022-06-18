@@ -153,6 +153,9 @@ return [
         ],
     ],
     'tournament_type' => [
+        'create_tournament_type' => [
+            'created' => 'Tipo de Torneo creado',
+        ],
         'fetch_tournament_types' => [
             'ok' => 'Tipos de Torneos encontrados',
         ],
