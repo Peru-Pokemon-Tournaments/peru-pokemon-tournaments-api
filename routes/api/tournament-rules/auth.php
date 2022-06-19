@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\TournamentRule\CreateTournamentRuleController;
 use App\Http\Controllers\TournamentRule\FetchTournamentRulesController;
+use App\Http\Controllers\TournamentRule\GetTournamentRuleController;
 use App\Http\Controllers\TournamentRule\UpdateTournamentRuleController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,7 @@ Route::prefix('/tournament-rules')->group(function () {
     Route::post('/', CreateTournamentRuleController::class);
 
     Route::prefix('{tournamentRule}')->group(function () {
+        Route::get('/', GetTournamentRuleController::class);
         Route::patch('/', UpdateTournamentRuleController::class);
     });
 });
