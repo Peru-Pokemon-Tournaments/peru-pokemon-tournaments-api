@@ -46,7 +46,7 @@ class FetchGameGenerationsController extends PaginatedController
         );
 
         return $this->paginatedResponseBuilder
-            ->setMessage(trans('endpoints.game_generations.fetch_game_generations.ok'))
+            ->setMessage(trans('endpoints.game_generation.fetch_game_generations.ok'))
             ->setResources('game_generations', GameGenerationResource::collection($gameGenerationsPaginated))
             ->setLengthAwarePaginator($gameGenerationsPaginated)
             ->setStatusCode(Response::HTTP_OK)
