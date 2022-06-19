@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\GameGeneration\CreateGameGenerationController;
 use App\Http\Controllers\GameGeneration\FetchGameGenerationsController;
+use App\Http\Controllers\GameGeneration\GetGameGenerationController;
 use App\Http\Controllers\GameGeneration\UpdateGameGenerationController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,7 @@ Route::prefix('/game-generations')->group(function () {
     Route::post('/', CreateGameGenerationController::class);
 
     Route::prefix('{gameGeneration}')->group(function () {
+        Route::get('/', GetGameGenerationController::class);
         Route::patch('/', UpdateGameGenerationController::class);
     });
 });
