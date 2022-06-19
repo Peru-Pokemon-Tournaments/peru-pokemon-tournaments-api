@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Role\CreateRoleController;
 use App\Http\Controllers\Role\FetchRolesController;
+use App\Http\Controllers\Role\GetRoleController;
 use App\Http\Controllers\Role\UpdateRoleController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,7 @@ Route::prefix('roles')->group(function () {
     Route::post('/', CreateRoleController::class);
 
     Route::prefix('{role}')->group(function () {
+        Route::get('/', GetRoleController::class);
         Route::patch('/', UpdateRoleController::class);
     });
 });
