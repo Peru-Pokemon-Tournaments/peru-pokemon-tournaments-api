@@ -27,6 +27,9 @@ return [
         'create_device' => [
             'created' => 'Dispositivo creado',
         ],
+        'get_device' => [
+            'ok' => 'Dispositivo encontrado',
+        ],
         'fetch_devices' => [
             'ok' => 'Dispositivos encontrados',
         ],
