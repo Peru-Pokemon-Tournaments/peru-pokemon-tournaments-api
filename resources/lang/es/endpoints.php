@@ -44,6 +44,9 @@ return [
         'fetch_games' => [
             'ok' => 'Juegos encontrados',
         ],
+        'get_game' => [
+            'ok' => 'Juego encontrado',
+        ],
         'get_games' => [
             'ok' => 'Juegos encontrados',
         ],
