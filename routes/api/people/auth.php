@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\People\CreatePersonController;
 use App\Http\Controllers\People\FetchPeopleController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,4 +16,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('/people')->group(function () {
     Route::get('/', FetchPeopleController::class);
+    Route::post('/', CreatePersonController::class);
 });

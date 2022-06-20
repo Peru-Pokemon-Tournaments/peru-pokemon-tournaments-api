@@ -72,6 +72,9 @@ return [
         ],
     ],
     'people' => [
+        'create_person' => [
+            'created' => 'Persona creada',
+        ],
         'fetch_people' => [
             'ok' => 'Personas encontradas',
         ],
