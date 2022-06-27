@@ -78,6 +78,9 @@ return [
         'fetch_people' => [
             'ok' => 'Personas encontradas',
         ],
+        'update_person' => [
+            'ok' => 'Persona actualizada',
+        ],
     ],
     'role' => [
         'create_role' => [
