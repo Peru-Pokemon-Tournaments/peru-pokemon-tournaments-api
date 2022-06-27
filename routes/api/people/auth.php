@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\People\CreatePersonController;
 use App\Http\Controllers\People\FetchPeopleController;
+use App\Http\Controllers\People\GetPersonController;
 use App\Http\Controllers\People\UpdatePersonController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,5 +22,6 @@ Route::prefix('/people')->group(function () {
 
     Route::prefix('{person}')->group(function () {
         Route::patch('/', UpdatePersonController::class);
+        Route::get('/', GetPersonController::class);
     });
 });

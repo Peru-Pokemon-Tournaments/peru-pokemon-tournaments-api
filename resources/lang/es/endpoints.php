@@ -78,6 +78,9 @@ return [
         'fetch_people' => [
             'ok' => 'Personas encontradas',
         ],
+        'get_person' => [
+            'ok' => 'Persona encontrada',
+        ],
         'update_person' => [
             'ok' => 'Persona actualizada',
         ],
