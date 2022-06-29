@@ -40,6 +40,8 @@ class GetGamesController extends BasicController
     {
         $games = ($this->getGamesService)();
 
+        $games->each(fn ($game) => $game->load(['gameGeneration']));
+
         return $this->responseBuilder
             ->setMessage(trans('endpoints.game.get_games.ok'))
             ->setResources('games', GameResource::collection($games))
