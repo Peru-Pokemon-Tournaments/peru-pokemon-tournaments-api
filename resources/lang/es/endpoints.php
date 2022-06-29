@@ -142,6 +142,11 @@ return [
             'ok' => 'Torneos encontrados',
         ],
     ],
+    'tournament_format' => [
+        'get_tournament_formats' => [
+            'ok' => 'Formatos de Torneos encontrados',
+        ],
+    ],
     'tournament_inscription' => [
         'delete_tournament_inscription' => [
             'ok' => 'Se eliminó la inscripción',

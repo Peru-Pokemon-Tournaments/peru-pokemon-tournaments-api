@@ -4,6 +4,7 @@ use App\Http\Controllers\Device\GetDevicesController;
 use App\Http\Controllers\Game\GetGamesController;
 use App\Http\Controllers\GameGeneration\GetGameGenerationsController;
 use App\Http\Controllers\Role\GetRolesController;
+use App\Http\Controllers\TournamentFormat\GetTournamentFormatsController;
 use App\Http\Controllers\TournamentRule\GetTournamentRulesController;
 use App\Http\Controllers\TournamentSystem\GetTournamentSystemsController;
 use App\Http\Controllers\TournamentType\GetTournamentTypesController;
@@ -24,6 +25,7 @@ Route::prefix('options')->group(function () {
     Route::get('/games', GetGamesController::class);
     Route::get('/game-generations', GetGameGenerationsController::class);
     Route::get('/roles', GetRolesController::class);
+    Route::get('/tournament-formats', GetTournamentFormatsController::class);
     Route::get('/tournament-rules', GetTournamentRulesController::class);
     Route::get('/tournament-systems', GetTournamentSystemsController::class);
     Route::get('/tournament-types', GetTournamentTypesController::class);
