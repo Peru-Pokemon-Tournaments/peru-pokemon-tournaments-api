@@ -30,6 +30,9 @@ return [
         'get_device' => [
             'ok' => 'Dispositivo encontrado',
         ],
+        'get_devices' => [
+            'ok' => 'Dispositivos encontrados',
+        ],
         'fetch_devices' => [
             'ok' => 'Dispositivos encontrados',
         ],
