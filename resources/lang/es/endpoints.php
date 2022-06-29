@@ -164,6 +164,9 @@ return [
         'get_tournament_rule' => [
             'ok' => 'Regla de Torneo encontrada',
         ],
+        'get_tournament_rules' => [
+            'ok' => 'Reglas de Torneos encontradas',
+        ],
         'fetch_tournament_rules' => [
             'ok' => 'Reglas de Torneos encontradas',
         ],
