@@ -5,6 +5,7 @@ use App\Http\Controllers\Game\GetGamesController;
 use App\Http\Controllers\GameGeneration\GetGameGenerationsController;
 use App\Http\Controllers\Role\GetRolesController;
 use App\Http\Controllers\TournamentRule\GetTournamentRulesController;
+use App\Http\Controllers\TournamentSystem\GetTournamentSystemsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,4 +24,5 @@ Route::prefix('options')->group(function () {
     Route::get('/game-generations', GetGameGenerationsController::class);
     Route::get('/roles', GetRolesController::class);
     Route::get('/tournament-rules', GetTournamentRulesController::class);
+    Route::get('/tournament-systems', GetTournamentSystemsController::class);
 });

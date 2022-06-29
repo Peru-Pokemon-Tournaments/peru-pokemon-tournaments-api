@@ -181,6 +181,9 @@ return [
         'get_tournament_system' => [
             'ok' => 'Sistema de Torneo encontrado',
         ],
+        'get_tournament_systems' => [
+            'ok' => 'Sistemas de Torneos encontrados',
+        ],
         'fetch_tournament_systems' => [
             'ok' => 'Sistemas de Torneos encontrados',
         ],
