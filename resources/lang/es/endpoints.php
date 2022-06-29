@@ -198,6 +198,9 @@ return [
         'get_tournament_type' => [
             'ok' => 'Tipo de Torneo encontrado',
         ],
+        'get_tournament_types' => [
+            'ok' => 'Tipos de Torneos encontrados',
+        ],
         'fetch_tournament_types' => [
             'ok' => 'Tipos de Torneos encontrados',
         ],
