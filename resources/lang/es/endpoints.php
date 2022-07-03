@@ -152,6 +152,9 @@ return [
             'ok' => 'Se eliminó la inscripción',
             'not_found' => 'No se eliminó la inscripción',
         ],
+        'fetch_tournament_inscriptions' => [
+            'ok' => 'Inscripciones encontradas',
+        ],
         'get_tournament_inscription' => [
             'ok' => 'Inscripción encontrada',
         ],
