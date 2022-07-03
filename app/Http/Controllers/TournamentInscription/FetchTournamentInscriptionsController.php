@@ -46,6 +46,14 @@ class FetchTournamentInscriptionsController extends PaginatedController
             $request->query('filters'),
         );
 
+        foreach ($tournamentInscriptionsPaginated->items() as $tournamentInscription) {
+            $tournamentInscription->load([
+                'competitor',
+                'pokemonShowdownTeam',
+                'tournament',
+            ]);
+        }
+
         return $this->paginatedResponseBuilder
             ->setMessage(trans('endpoints.tournament_inscription.fetch_tournament_inscriptions.ok'))
             ->setResources('tournament_inscriptions', TournamentInscriptionResource::collection($tournamentInscriptionsPaginated))
