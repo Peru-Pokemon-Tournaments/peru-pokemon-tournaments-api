@@ -51,6 +51,11 @@ class CreateCompleteTournamentInscriptionController extends BasicController
             $request->input('pokemon_showdown_team_export'),
         );
 
+        $tournamentInscription->load([
+            'competitor',
+            'pokemonShowdownTeam',
+        ]);
+
         TournamentInscriptionCreated::dispatch($tournamentInscription);
 
         return $this->responseBuilder

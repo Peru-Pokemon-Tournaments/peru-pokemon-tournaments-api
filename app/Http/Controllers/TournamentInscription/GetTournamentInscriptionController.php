@@ -18,6 +18,12 @@ class GetTournamentInscriptionController extends BasicController
     public function __invoke(
         TournamentInscription $tournamentInscription
     ): Response {
+        $tournamentInscription->load([
+            'competitor',
+            'pokemonShowdownTeam',
+            'tournament',
+        ]);
+
         return $this->responseBuilder
             ->setMessage(trans('endpoints.tournament_inscription.get_tournament_inscription.ok'))
             ->setResource('tournament_inscription', TournamentInscriptionResource::make($tournamentInscription))

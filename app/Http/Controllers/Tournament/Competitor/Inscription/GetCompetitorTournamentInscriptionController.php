@@ -49,6 +49,10 @@ class GetCompetitorTournamentInscriptionController extends BasicController
             $tournament->id
         );
 
+        $tournamentInscription->load([
+            'competitor',
+        ]);
+
         return $this->responseBuilder
             ->setMessage(
                 trans('endpoints.tournament.competitor.inscription.get_competitor_tournament_inscription.ok')
