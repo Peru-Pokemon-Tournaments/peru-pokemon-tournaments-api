@@ -23,7 +23,7 @@ class GetCompleteTournamentController extends BasicController
                     'image',
                     'tournamentType',
                     'devices',
-                    'games',
+                    'games.gameGeneration',
                     'tournamentFormat',
                     'tournamentPrice',
                     'tournamentPrizes',
