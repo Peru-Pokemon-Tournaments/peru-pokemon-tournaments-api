@@ -4,7 +4,7 @@ namespace App\Contracts\Repositories;
 
 use App\Models\TournamentInscription;
 
-interface TournamentInscriptionRepository extends Repository
+interface TournamentInscriptionRepository extends Repository, PaginatedFilteredRepository
 {
     /**
      * Find one model by tournamentId and competitorId.

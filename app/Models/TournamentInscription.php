@@ -139,4 +139,14 @@ class TournamentInscription extends Model
     {
         return $this->hasOne(TournamentResult::class, 'tournament_inscription_id', 'id');
     }
+
+    /**
+     * @param Builder $builder
+     * @param string $tournamentId
+     * @return Builder
+     */
+    public function scopeFilterByTournament(Builder $builder, string $tournamentId): Builder
+    {
+        return $builder->where('tournament_id', '=', $tournamentId);
+    }
 }

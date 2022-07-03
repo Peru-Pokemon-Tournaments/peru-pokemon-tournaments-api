@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\TournamentInscription\DeleteTournamentInscriptionController;
+use App\Http\Controllers\TournamentInscription\FetchTournamentInscriptionsController;
 use App\Http\Controllers\TournamentInscription\GetTournamentInscriptionController;
 use App\Http\Controllers\TournamentInscription\UpdateTournamentInscriptionController;
 use App\Http\Controllers\TournamentInscription\UpdateTournamentInscriptionStatusController;
@@ -17,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('inscriptions')->group(function () {
+    Route::get('/', FetchTournamentInscriptionsController::class);
+
     Route::prefix('{tournamentInscription}')->group(function () {
         Route::get('/', GetTournamentInscriptionController::class);
         Route::delete('/', DeleteTournamentInscriptionController::class);

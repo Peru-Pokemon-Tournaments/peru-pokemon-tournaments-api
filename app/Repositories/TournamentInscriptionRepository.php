@@ -5,7 +5,9 @@ namespace App\Repositories;
 use App\Contracts\Repositories\TournamentInscriptionRepository as TournamentInscriptionRepositoryContract;
 use App\Models\TournamentInscription;
 use App\Traits\Repositories\CommonMethods;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Arr;
 
 final class TournamentInscriptionRepository implements TournamentInscriptionRepositoryContract
 {
@@ -56,5 +58,27 @@ final class TournamentInscriptionRepository implements TournamentInscriptionRepo
             ->where('competitor_id', $competitorId)
             ->get()
             ->first();
+    }
+
+    /**
+     * Retrieve tournament inscriptions paginated and filtered.
+     *
+     * @param int $page
+     * @param int|null $pageSize
+     * @param array $filters
+     * @return LengthAwarePaginator
+     */
+    public function getPaginatedFiltered(
+        int $page = 1,
+        ?int $pageSize = null,
+        array $filters = []
+    ): LengthAwarePaginator {
+        $builder = TournamentInscription::query();
+
+        if (Arr::has($filters, 'tournament.id')) {
+            $builder->filterByTournament(Arr::get($filters, 'tournament.id'));
+        }
+
+        return $builder->paginate($pageSize, ['*'], 'page', $page);
     }
 }
