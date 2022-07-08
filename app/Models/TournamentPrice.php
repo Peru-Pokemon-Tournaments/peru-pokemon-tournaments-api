@@ -61,6 +61,15 @@ class TournamentPrice extends Model
     ];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'amount' => 'float',
+    ];
+
+    /**
      * Create a new factory instance for the model.
      *
      * @return Factory
