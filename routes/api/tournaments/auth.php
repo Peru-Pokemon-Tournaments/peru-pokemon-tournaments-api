@@ -4,6 +4,7 @@ use App\Http\Controllers\Tournament\Competitor\Inscription\DeleteCompetitorTourn
 use App\Http\Controllers\Tournament\Competitor\IsCompetitorEnrolledToTournamentController;
 use App\Http\Controllers\Tournament\CreateCompleteTournamentController;
 use App\Http\Controllers\Tournament\Inscription\CreateCompleteTournamentInscriptionController;
+use App\Http\Controllers\Tournament\TournamentResult\CreateTournamentResultController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,6 +32,10 @@ Route::prefix('tournaments')->group(function () {
 
         Route::prefix('inscriptions')->group(function () {
             Route::post('/', CreateCompleteTournamentInscriptionController::class);
+        });
+
+        Route::prefix('/results')->group(function () {
+            Route::post('/', CreateTournamentResultController::class);
         });
     });
 });

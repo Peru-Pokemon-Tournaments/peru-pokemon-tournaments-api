@@ -51,7 +51,7 @@ class GetCompetitorTournamentInscriptionController extends BasicController
 
         $tournamentInscription->load([
             'competitor',
-            'pokemonShowdownTeam'
+            'pokemonShowdownTeam',
         ]);
 
         return $this->responseBuilder

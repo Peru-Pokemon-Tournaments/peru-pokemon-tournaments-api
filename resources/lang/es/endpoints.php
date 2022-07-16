@@ -129,6 +129,11 @@ return [
                 'ok' => 'Competidores encontrados',
             ],
         ],
+        'tournament_result' => [
+            'create_tournament_result' => [
+                'created' => 'Resultado de Torneo creado',
+            ],
+        ],
         'create_complete_tournament' => [
             'created' => 'Torneo creado',
         ],
