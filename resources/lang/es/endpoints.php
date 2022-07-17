@@ -133,6 +133,9 @@ return [
             'create_tournament_result' => [
                 'created' => 'Resultado de Torneo creado',
             ],
+            'fetch_tournament_results' => [
+                'ok' => 'Resultados de Torneos encontrados',
+            ],
         ],
         'create_complete_tournament' => [
             'created' => 'Torneo creado',

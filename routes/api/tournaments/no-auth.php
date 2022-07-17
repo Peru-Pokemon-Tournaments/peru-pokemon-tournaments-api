@@ -4,6 +4,7 @@ use App\Http\Controllers\Tournament\Competitor\Inscription\GetCompetitorTourname
 use App\Http\Controllers\Tournament\FetchTournamentsController;
 use App\Http\Controllers\Tournament\GetCompleteTournamentController;
 use App\Http\Controllers\Tournament\Inscription\GetTournamentCompetitorsController;
+use App\Http\Controllers\Tournament\TournamentResult\FetchTournamentResultsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +34,10 @@ Route::prefix('tournaments')->group(function () {
 
         Route::prefix('inscriptions')->group(function () {
             Route::get('/', GetTournamentCompetitorsController::class);
+        });
+
+        Route::prefix('/results')->group(function () {
+            Route::get('/', FetchTournamentResultsController::class);
         });
     });
 });
