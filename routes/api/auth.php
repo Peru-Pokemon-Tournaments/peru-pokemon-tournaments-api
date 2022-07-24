@@ -18,6 +18,7 @@ include 'inscriptions/auth.php';
 include 'options/auth.php';
 include 'people/auth.php';
 include 'roles/auth.php';
+include 'tournament-results/auth.php';
 include 'tournament-rules/auth.php';
 include 'tournament-systems/auth.php';
 include 'tournament-types/auth.php';
