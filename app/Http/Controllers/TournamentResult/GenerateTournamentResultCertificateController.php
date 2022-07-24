@@ -45,14 +45,14 @@ class GenerateTournamentResultCertificateController extends BasicController
         $gender = null;
         $item = null;
 
-        if (strpos($parts[0], "(") !== false) {
+        if (strpos($parts[0], '(') !== false) {
             if (substr_count($parts[0], '(') == 2) {
-                $specieAndGender = explode("(", $parts[0]);
+                $specieAndGender = explode('(', $parts[0]);
                 $name = trim($specieAndGender[0]);
                 $specie = trim($specieAndGender[1], ') ');
                 $gender = trim($specieAndGender[2], ') ');
             } else {
-                $specieAndGender = explode("(", $parts[0]);
+                $specieAndGender = explode('(', $parts[0]);
                 $name = trim($specieAndGender[0]);
 
                 if (strlen(trim($specieAndGender[1], ') '))) {
@@ -71,17 +71,17 @@ class GenerateTournamentResultCertificateController extends BasicController
         $item = trim($parts[1]);
 
         return [
-            "name" => $name,
-            "specie" => $specie,
-            "gender" => $gender,
-            "item" => $item
+            'name' => $name,
+            'specie' => $specie,
+            'gender' => $gender,
+            'item' => $item,
         ];
     }
 
     private function parseStats(string $exportLine): array
     {
-        $statsLine = explode(":", $exportLine);
-        $statsParts = explode("/", $statsLine[1]);
+        $statsLine = explode(':', $exportLine);
+        $statsParts = explode('/', $statsLine[1]);
 
         $stats = [
             'hp' => null,
@@ -93,18 +93,18 @@ class GenerateTournamentResultCertificateController extends BasicController
         ];
 
         foreach ($statsParts as $statsPart) {
-            if ($this->strContains(strtolower($statsPart), "spa")) {
-                $stats['spa'] = (int) trim(explode("spa", strtolower($statsPart))[0]);
-            } elseif ($this->strContains(strtolower($statsPart), "spd")) {
-                $stats['spd'] = (int) trim(explode("spd", strtolower($statsPart))[0]);
-            } elseif ($this->strContains(strtolower($statsPart), "spe")) {
-                $stats['spe'] = (int) trim(explode("spe", strtolower($statsPart))[0]);
-            } elseif ($this->strContains(strtolower($statsPart), "def")) {
-                $stats['def'] = (int) trim(explode("def", strtolower($statsPart))[0]);
-            } elseif ($this->strContains(strtolower($statsPart), "atk")) {
-                $stats['atk'] = (int) trim(explode("atk", strtolower($statsPart))[0]);
-            } elseif ($this->strContains(strtolower($statsPart), "hp")) {
-                $stats['hp'] = (int) trim(explode("hp", strtolower($statsPart))[0]);
+            if ($this->strContains(strtolower($statsPart), 'spa')) {
+                $stats['spa'] = (int) trim(explode('spa', strtolower($statsPart))[0]);
+            } elseif ($this->strContains(strtolower($statsPart), 'spd')) {
+                $stats['spd'] = (int) trim(explode('spd', strtolower($statsPart))[0]);
+            } elseif ($this->strContains(strtolower($statsPart), 'spe')) {
+                $stats['spe'] = (int) trim(explode('spe', strtolower($statsPart))[0]);
+            } elseif ($this->strContains(strtolower($statsPart), 'def')) {
+                $stats['def'] = (int) trim(explode('def', strtolower($statsPart))[0]);
+            } elseif ($this->strContains(strtolower($statsPart), 'atk')) {
+                $stats['atk'] = (int) trim(explode('atk', strtolower($statsPart))[0]);
+            } elseif ($this->strContains(strtolower($statsPart), 'hp')) {
+                $stats['hp'] = (int) trim(explode('hp', strtolower($statsPart))[0]);
             }
         }
 
@@ -114,6 +114,7 @@ class GenerateTournamentResultCertificateController extends BasicController
     private function parseOther(string $exportLine, string $separator, int $at): string
     {
         $line = explode($separator, $exportLine);
+
         return trim($line[$at], ' ');
     }
 
@@ -122,6 +123,7 @@ class GenerateTournamentResultCertificateController extends BasicController
         $url = 'https://pokeapi.co/api/v2/pokemon/' . Str::lower($specie);
         $url = Str::replace(' ', '-', $url);
         $response = Http::get($url);
+
         return $response->json('sprites.other.official-artwork.front_default');
     }
 
@@ -169,29 +171,29 @@ class GenerateTournamentResultCertificateController extends BasicController
                 $pokemon->item = $data['item'];
             }
 
-            if (strpos($exportLine, "Ability") !== false) {
-                $pokemon->ability = $this->parseOther($exportLine, ":", 1);
+            if (strpos($exportLine, 'Ability') !== false) {
+                $pokemon->ability = $this->parseOther($exportLine, ':', 1);
             }
 
-            if (strpos($exportLine, "Shiny") !== false) {
-                if (strtolower($this->parseOther($exportLine, ":", 1)) == 'yes') {
+            if (strpos($exportLine, 'Shiny') !== false) {
+                if (strtolower($this->parseOther($exportLine, ':', 1)) == 'yes') {
                     $pokemon->shiny = true;
                 }
             }
 
-            if (strpos($exportLine, "Hidden Power") !== false) {
-                $pokemon->hiddenPower = $this->parseOther($exportLine, ":", 1);
+            if (strpos($exportLine, 'Hidden Power') !== false) {
+                $pokemon->hiddenPower = $this->parseOther($exportLine, ':', 1);
             }
 
-            if (strpos($exportLine, "Nature") !== false) {
-                $pokemon->nature = $this->parseOther($exportLine, " ", 0);
+            if (strpos($exportLine, 'Nature') !== false) {
+                $pokemon->nature = $this->parseOther($exportLine, ' ', 0);
             }
 
-            if (strpos($exportLine, "-") !== false) {
-                $pokemon->movements[] = $this->parseOther($exportLine, "- ", 1);
+            if (strpos($exportLine, '-') !== false) {
+                $pokemon->movements[] = $this->parseOther($exportLine, '- ', 1);
             }
 
-            if (strpos($exportLine, "EVs") !== false) {
+            if (strpos($exportLine, 'EVs') !== false) {
                 $evs = $this->parseStats($exportLine, $evs);
                 if ($evs['hp']) {
                     $pokemon->evs->hp = $evs['hp'];
@@ -213,7 +215,7 @@ class GenerateTournamentResultCertificateController extends BasicController
                 }
             }
 
-            if (strpos($exportLine, "IVs") !== false) {
+            if (strpos($exportLine, 'IVs') !== false) {
                 $ivs = $this->parseStats($exportLine, $ivs);
                 if ($ivs['hp']) {
                     $pokemon->ivs->hp = $ivs['hp'];
