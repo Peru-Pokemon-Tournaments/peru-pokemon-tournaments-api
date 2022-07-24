@@ -5,6 +5,7 @@ use App\Http\Controllers\Tournament\Competitor\IsCompetitorEnrolledToTournamentC
 use App\Http\Controllers\Tournament\CreateCompleteTournamentController;
 use App\Http\Controllers\Tournament\Inscription\CreateCompleteTournamentInscriptionController;
 use App\Http\Controllers\Tournament\TournamentResult\CreateTournamentResultController;
+use App\Http\Middleware\Tournament\TournamentResult\TournamentResultNotCommitted;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,7 +36,9 @@ Route::prefix('tournaments')->group(function () {
         });
 
         Route::prefix('/results')->group(function () {
-            Route::post('/', CreateTournamentResultController::class);
+            Route::post('/', CreateTournamentResultController::class)->middleware([
+                TournamentResultNotCommitted::class,
+            ]);
         });
     });
 });
