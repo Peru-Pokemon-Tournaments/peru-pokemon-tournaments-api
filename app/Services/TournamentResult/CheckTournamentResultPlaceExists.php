@@ -52,10 +52,9 @@ class CheckTournamentResultPlaceExists
             $competitor
         );
 
-        return (
+        return
             $tournamentInscription &&
             $tournamentInscription->tournamentResult()->exists() &&
-            $tournamentInscription->tournamentResult->place != $place
-        );
+            $tournamentInscription->tournamentResult->place != $place;
     }
 }
