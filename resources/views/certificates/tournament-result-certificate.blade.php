@@ -11,7 +11,7 @@
             <figure class="logo-figure">
                 <img
                     class="logo-image"
-                    src="{{ env('FRONTEND_MAIN_APP_URL') . '/img/logo.91316086.png' }}"
+                    src="{{ asset('assets/img/peru-pokemon-tournaments-logo.png') }}"
                     alt="Logo"
                 />
             </figure>
