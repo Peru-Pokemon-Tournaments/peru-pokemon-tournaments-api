@@ -64,6 +64,9 @@ final class TournamentResultRepository implements TournamentResultRepositoryCont
             $builder->filterByTournament(Arr::get($filters, 'tournament.id'));
         }
 
-        return $builder->paginate($pageSize, ['*'], 'page', $page);
+        return $builder
+            ->orderBy('place', 'asc')
+            ->orderBy('score', 'asc')
+            ->paginate($pageSize, ['*'], 'page', $page);
     }
 }
