@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Str;
 
 /**
  * @mixin Builder
@@ -32,6 +33,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property Carbon|null $deleted_at
  * @property string $status
  * @property int $total_competitors
+ * @property string $formatted_locale_spanish_end_date
  * @property Person|null $createdBy
  * @property TournamentType|null $tournamentType
  * @property Collection|Device[] $devices
@@ -131,6 +133,22 @@ class Tournament extends Model
     public function getTotalCompetitorsAttribute(): int
     {
         return TournamentInscription::where('tournament_id', $this->id)->count();
+    }
+
+    /**
+     * Retrieve the formatted end date in spanish.
+     *
+     * @return string
+     */
+    public function getFormattedLocaleSpanishEndDateAttribute(): string
+    {
+        Carbon::setLocale('es');
+        $endDate = Carbon::parse($this->end_date);
+
+        return Str::ucfirst($endDate->dayName) . ' ' .
+            $endDate->day . ' de ' .
+            Str::ucfirst($endDate->monthName) . ' del ' .
+            $endDate->year;
     }
 
     /**
