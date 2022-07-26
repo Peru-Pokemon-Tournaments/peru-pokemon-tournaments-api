@@ -30,10 +30,17 @@
             @foreach($pokemons as $pokemon)
             <li>
                 <figure>
-                    <img
-                        src="{{ $pokemon->sprite }}"
-                        alt="{{ $pokemon->specie }}"
-                    />
+                    @if ($pokemon->sprite)
+                        <img
+                            src="{{ $pokemon->sprite }}"
+                            alt="{{ $pokemon->specie }}"
+                        />
+                    @else
+                        <img
+                            src="{{ asset('assets/img/missing-no.webp') }}"
+                            alt="{{ $pokemon->specie }}"
+                        />
+                    @endif
                     <figcaption>{{ $pokemon->specie }}</figcaption>
                 </figure>
             </li>

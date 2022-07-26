@@ -8,6 +8,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class GenerateTournamentResultCertificateController extends BasicController
@@ -118,13 +119,18 @@ class GenerateTournamentResultCertificateController extends BasicController
         return trim($line[$at], ' ');
     }
 
-    private function getSprite(string $specie): string
+    private function getSprite(string $specie): ?string
     {
-        $url = 'https://pokeapi.co/api/v2/pokemon/' . Str::lower($specie);
-        $url = Str::replace(' ', '-', $url);
-        $response = Http::get($url);
+        try {
+            $url = 'https://pokeapi.co/api/v2/pokemon/' . Str::lower($specie);
+            $url = Str::replace(' ', '-', $url);
+            $response = Http::get($url);
 
-        return $response->json('sprites.other.official-artwork.front_default');
+            return $response->json('sprites.other.official-artwork.front_default');
+        } catch (\Exception $exception) {
+            // TODO: Add Logger here for specie
+            return null;
+        }
     }
 
     private function parsePokemon(string $pokemonExport): \stdClass
