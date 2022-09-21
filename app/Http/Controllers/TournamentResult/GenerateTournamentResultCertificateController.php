@@ -116,7 +116,11 @@ class GenerateTournamentResultCertificateController extends BasicController
     {
         $line = explode($separator, $exportLine);
 
-        return trim($line[$at], ' ');
+        if ($at >= 0 && $at < count($line)) {
+            return trim($line[$at], ' ');
+        }
+
+        return trim($line[0], ' ');
     }
 
     private function getSprite(string $specie): ?string
@@ -252,6 +256,12 @@ class GenerateTournamentResultCertificateController extends BasicController
     private function parsePokemons(string $fullExport): array
     {
         $pokemonExports = explode("\n\n", trim($fullExport));
+
+        // Handle special breakline coding at some databases, like mysql
+        if (count($pokemonExports) == 1) {
+            $pokemonExports = explode("\r\n\r\n", trim($fullExport));
+        }
+
         $pokemons = [];
 
         foreach ($pokemonExports as $pokemonExport) {
