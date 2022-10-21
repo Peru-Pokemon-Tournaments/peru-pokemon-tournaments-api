@@ -53,6 +53,8 @@ final class TournamentRepository implements TournamentRepositoryContract
      */
     public function getPaginated(int $page = 1, ?int $pageSize = null): LengthAwarePaginator
     {
-        return Tournament::paginate($pageSize, ['*'], 'page', $page);
+        return Tournament::query()
+            ->orderByDesc('created_at')
+            ->paginate($pageSize, ['*'], 'page', $page);
     }
 }
