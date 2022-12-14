@@ -1,0 +1,342 @@
+#!/bin/bash
+
+#################################################
+# Easydock                                      #
+# https://github.com/andreapollastri/easydock/  #
+#################################################
+
+############################################################ COMMON VARS
+
+ed_portapp=$(APP_PORT-80)
+menu=$1
+action=$2
+reset=$(tput sgr0)
+br="\n"
+bold=$(tput bold)
+underline=$(tput smul)
+black=$(tput setaf 0)
+white=$(tput setaf 7)
+red=$(tput setaf 1)
+green=$(tput setaf 2)
+yellow=$(tput setaf 3)
+blue=$(tput setaf 4)
+purple=$(tput setaf 5)
+bgblack=$(tput setab 0)
+bgwhite=$(tput setab 7)
+bgred=$(tput setab 1)
+bggreen=$(tput setab 2)
+bgyellow=$(tput setab 3)
+bgblue=$(tput setab 4)
+bgpurple=$(tput setab 5)
+
+############################################################ LOGO
+
+ed_logo() {
+    echo "${yellow}${bold}"
+    echo "******************************************************"
+    echo "                           _            _      __   "
+    echo "   ___  __ _ ___ _   _  __| | ___   ___| | __  \ \  "
+    echo "  / _ \/ _' / __| | | |/ _' |/ _ \ / __| |/ / (_) | "
+    echo " |  __/ (_| \__ \ |_| | (_| | (_) | (__|   <   _| | "
+    echo "  \___|\__,_|___/\__, |\__,_|\___/ \___|_|\_\ ( ) | "
+    echo "                 |___/                        |/_/  "
+    echo ""
+    echo "******************************************************"
+    echo "${reset}${br}"
+}
+
+
+############################################################ DOCKER CHECK
+
+if !docker info >/dev/null 2>&1; then
+    echo "${bgwhite}${red}${bold} >>> ERROR! ${reset} To run easydock you have to install Docker and Docker Composer.${1}Find out more on: https://www.docker.com/products/docker-desktop ${reset}${br}"
+    exit
+fi
+
+
+############################################################ VENDOR EXPORT
+
+ed_export() {
+    clear
+    ed_logo
+    echo "${blue}Wait...${br}${reset} "
+    clear
+    ed_logo
+    unlink ./docker-compose.yml
+    unlink ./ed
+    rm -rf ./.easydock
+    mkdir ./.easydock
+    cp ./vendor/andreapollastri/easydock/src/nginx-root.conf ./.easydock/nginx-root.conf
+    cp ./vendor/andreapollastri/easydock/src/nginx-public.conf ./.easydock/nginx-public.conf
+    cp ./vendor/andreapollastri/easydock/src/nginx-build.conf ./.easydock/nginx-build.conf
+    cp ./vendor/andreapollastri/easydock/src/nginx-dist.conf ./.easydock/nginx-dist.conf
+    cp ./vendor/andreapollastri/easydock/src/mysql.cnf ./.easydock/mysql.cnf
+    cp ./vendor/andreapollastri/easydock/src/opcache.ini ./.easydock/opcache.ini
+    cp ./vendor/andreapollastri/easydock/src/php.ini ./.easydock/php.ini
+    cp ./vendor/andreapollastri/easydock/src/docker-compose.yml ./docker-compose.yml
+    cp ./vendor/andreapollastri/easydock/src/.easydock ./ed
+    sed -i -e 's/${APP_SID-easydock}/${APP_SID-easydock'$(((RANDOM%1000000000)+1))'}/g' ./docker-compose.yml
+    unlink ./docker-compose.yml-e
+    rm -rf ./.devcontainer
+    mkdir ./.devcontainer
+    cp ./vendor/andreapollastri/easydock/src/devcontainer.json ./.devcontainer/devcontainer.json
+    cp ./vendor/andreapollastri/easydock/src/devcontainer.yml ./.devcontainer/docker-compose.yml
+    clear
+    ed_logo
+    echo "${bgpurple}${white} easydock is ready! Use it as devcontainer or run ${bold}sh ed up${reset} "
+    exit
+}
+
+
+
+
+############################################################ LARAVEL ENV
+
+ed_laraenv() {
+    clear
+    ed_logo
+    echo "${blue}Wait...${br}${reset} "
+    clear
+    ed_logo
+    unlink ./.env
+    cp ./vendor/andreapollastri/easydock/src/laravel.env ./.env
+    php artisan key:generate
+    clear
+    ed_logo
+    echo "${bgpurple}${white} Laravel .env file has been updated!${reset} "
+    exit
+}
+
+
+############################################################ COMMON FUNCTIONS
+
+ed_welcome() {
+    command="$1"
+    clear
+    ed_logo
+    echo "${bgpurple}${white} easydock [DEVCONTAINER MODE] is ready!${reset} "
+}
+
+
+ed_notfound() {
+    command="$1"
+    clear
+    ed_logo
+    echo "${bgwhite}${red}${bold} >>> ERROR! ${reset} Command ${bgred}${white}${bold} sh ed $command ${reset} is not a valid option. Run ${bgred}${white}${bold} sh ed help ${reset} to obtain a list of valid options. ${reset}${br}"
+}
+
+ed_help() {
+    echo "${bgpurple}${white}${bold} Easydock options list (use just 'ed' in vscode devcontainers) ${reset}${br}${br}"
+    echo "${bgwhite}${black} sh ed up ${reset} "
+    echo "Useful to start easydock (do not use it in vscode devcontainers).${br}"
+    echo "${bgwhite}${black} sh ed down ${reset} "
+    echo "Useful to stop easydock (do not use it in vscode devcontainers).${br}"
+    echo "${bgwhite}${black} sh ed conn ${reset} "
+    echo "Useful to SSH into easydock (do not use it in vscode devcontainers).${br}"
+    echo "${bgwhite}${black} sh ed laraenv ${reset} "
+    echo "Useful to create a Laravel .env file optimized for easydock (this action will remove current .env file).${br}"
+    echo "${bgwhite}${black} sh ed reset ${reset} "
+    echo "Useful to reset easydock.${br}"
+    echo "${bgwhite}${black} sh ed csfix ${reset} "
+    echo "Useful to run a PHP CS Fix process on your codebase.${br}"
+    echo "${bgwhite}${black} sh ed phpstan ${reset} "
+    echo "Useful to run a PHP STAN process on your /app dir codebase (useful for Laravel).${br}"
+    echo "${bgwhite}${black} sh ed phpstandir {directory} ${reset} "
+    echo "Useful to run a PHP STAN process on your codebase dir.${br}"
+    echo "${bgwhite}${black} sh ed test ${reset} "
+    echo "Useful to run a all PHPUnit tests.${br}"
+    echo "${bgwhite}${black} sh ed testonly {filter} ${reset} "
+    echo "Useful to run a filtered PHPUnit test.${br}"
+}
+
+
+############################################################ EASYDOCK RESET
+
+ed_reset() {
+    read -r -p "Are you sure to reset easydock (this command will reset container and database)? (Y/n): " -n 1 -r
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        echo "${br}${br}${blue}Wait...${br}${reset} "
+        clear
+        ed_logo
+        docker-compose down -v
+        docker-compose rm
+        clear
+        ed_logo
+        rm -rf ./vendor/andreapollastri/easydock/data/*
+        cp ./vendor/andreapollastri/easydock/src/.gitignore.dist ./vendor/andreapollastri/easydock/data/.gitignore
+        ed_logo
+        echo "${bgpurple}${white} easydock has been reset! ${reset} "
+    fi
+    echo ${br}
+}
+
+
+ed_up() {
+    echo "${blue}Wait...${br}${reset} "
+    sleep 1s
+    clear
+    docker-compose down
+    clear
+    ed_logo
+    docker-compose up -d --force-recreate --build
+    clear
+    ed_logo
+    if [[ $ed_portapp == "80" ]]; then
+        echo "${bgpurple}${white} easydock has been started... visit ${bold}${underline}http://localhost${reset}${bgpurple}${white} ${reset}${br}"
+    else
+        echo "${bgpurple}${white} easydock has been started... visit ${bold}${underline}http://localhost:$ed_portapp${reset}${bgpurple}${white} ${reset}${br}"
+    fi
+}
+
+
+ed_down() {
+    read -r -p "Are you sure to stop easydock? (Y/n): " -n 1 -r
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        echo "${br}${br}${blue}Wait...${br}${reset} "
+        docker-compose down
+        clear
+        ed_logo
+        echo "${bgpurple}${white} easydock has been stopped! ${reset} "
+    fi
+    echo ${br}
+}
+
+
+ed_conn() {
+    echo "${blue}Wait... ${reset}${br}"
+    sleep 1s
+    clear
+    ed_logo
+    echo "${bgblue}${white} Container CLI ${reset}${br}"
+    echo "Run ${bgwhite}${black} exit ${reset} to return on your device CLI.${br}"
+    docker-compose exec app /bin/bash
+}
+
+
+ed_csfix() {
+    echo "${blue}Wait... ${reset}${br}"
+    sleep 1s
+    clear
+    ed_logo
+    echo "${bgblue}${white} PHP CS FIX ${reset}${br}"
+    ./vendor/bin/php-cs-fixer fix ./
+}
+
+
+ed_phpstan() {
+    echo "${blue}Wait... ${reset}${br}"
+    sleep 1s
+    clear
+    ed_logo
+    echo "${bgblue}${white} PHP STAN ${reset}${br}"
+    ./vendor/bin/phpstan analyse ./app
+}
+
+
+ed_phpstandir() {
+    echo "${blue}Wait... ${reset}${br}"
+    sleep 1s
+    clear
+    ed_logo
+    echo "${bgblue}${white} PHP STAN ${reset}${br}"
+    ./vendor/bin/phpstan analyse ./$action
+}
+
+
+ed_testall() {
+    echo "${blue}Wait... ${reset}${br}"
+    sleep 1s
+    clear
+    ed_logo
+    echo "${bgblue}${white} PHPUNIT TEST ${reset}${br}"
+    ./vendor/bin/phpunit
+}
+
+
+ed_test() {
+    echo "${blue}Wait... ${reset}${br}"
+    sleep 1s
+    clear
+    ed_logo
+    echo "${bgblue}${white} PHPUNIT TEST ${reset}${br}"
+    ./vendor/bin/phpunit --filter $action
+}
+
+
+############################################################ CLI MENU
+
+while [ -n "$menu" ]; do
+    case $menu in
+    reset)
+        shift
+        ed_reset
+        exit
+        ;;
+    up)
+        shift
+        ed_up
+        exit
+        ;;
+    down)
+        shift
+        ed_down
+        exit
+        ;;
+    conn)
+        shift
+        ed_conn
+        exit
+        ;;
+    help)
+        shift
+        ed_help
+        exit
+        ;;
+    welcome)
+        shift
+        ed_welcome
+        exit
+        ;;
+    csfix)
+        shift
+        ed_csfix
+        exit
+        ;;
+    phpstan)
+        shift
+        ed_phpstan
+        exit
+        ;;
+    phpstandir)
+        shift
+        ed_phpstandir $action
+        exit
+        ;;
+    test)
+        shift
+        ed_testall
+        exit
+        ;;
+    testonly)
+        shift
+        ed_test $action
+        exit
+        ;;
+    export)
+        shift
+        ed_export
+        exit
+        ;;
+    laraenv)
+        shift
+        ed_laraenv
+        exit
+        ;;
+    *)
+        shift
+        ed_notfound $menu
+        exit -1
+        ;;
+    esac
+    shift
+done

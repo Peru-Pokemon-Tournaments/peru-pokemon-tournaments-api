@@ -1,0 +1,55 @@
+{
+	"name": "easydock ;)",
+	"dockerComposeFile": [
+		"../docker-compose.yml",
+		"docker-compose.yml"
+	],
+	"service": "app",
+	"workspaceFolder": "/var/www",
+	"settings": {
+		"terminal.integrated.profiles.windows": {
+			"PowerShell -NoProfile": {
+				"source": "PowerShell",
+				"args": [
+					"-NoProfile"
+				]
+			}
+		},
+		"terminal.integrated.profiles.linux": {
+			"zsh (login)": {
+				"path": "zsh",
+				"args": [
+					"-l"
+				]
+			}
+		}
+	},
+	"extensions": [
+		"alexcvzz.vscode-sqlite",
+		"bmewburn.vscode-intelephense-client",
+		"cweijan.vscode-mysql-client2",
+		"cweijan.vscode-redis-client",
+		"eamodio.gitlens",
+		"felixfbecker.php-debug",
+		"felixfbecker.php-intellisense",
+		"felixfbecker.php-pack",
+		"jakewilson.vscode-cdnjs",
+		"junstyle.php-cs-fixer",
+		"mehedidracula.php-namespace-resolver",
+		"mikestead.dotenv",
+		"mrmlnc.vscode-duplicate",
+		"ms-azuretools.vscode-docker",
+		"ms-vscode-remote.remote-containers",
+		"onecentlin.laravel5-snippets",
+		"thekalinga.bootstrap4-vscode",
+		"wcwhitehead.bootstrap-3-snippets",
+		"hollowtree.vue-snippets",
+		"jcbuisson.vue",
+		"hookyqr.minify"
+	],
+	"forwardPorts": [],
+	"runServices": [],
+	"shutdownAction": "stopCompose",
+	"postCreateCommand": "sh ed welcome",
+	"remoteUser": "www"
+}
