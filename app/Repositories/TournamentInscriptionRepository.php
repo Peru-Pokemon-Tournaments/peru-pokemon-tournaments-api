@@ -73,7 +73,7 @@ final class TournamentInscriptionRepository implements TournamentInscriptionRepo
         ?int $pageSize = null,
         array $filters = []
     ): LengthAwarePaginator {
-        $builder = TournamentInscription::query();
+        $builder = TournamentInscription::query()->orderByDesc('created_at');
 
         if (Arr::has($filters, 'tournament.id')) {
             $builder->filterByTournament(Arr::get($filters, 'tournament.id'));
