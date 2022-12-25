@@ -21,6 +21,12 @@
                 <h2>Campeón del torneo</h2>
             @elseif ($tournamentResult->place == 2)
                 <h2>SubCampeón del torneo</h2>
+            @elseif ($tournamentResult->place == 3)
+                <h2>Tercer Puesto del torneo</h2>
+            @elseif ($tournamentResult->place == 4)
+                <h2>Cuarto Puesto del torneo</h2>
+            @elseif ($tournamentResult->place == 5)
+                <h2>Quinto Puesto del torneo</h2>
             @else
                 <h2>Participante del torneo</h2>
             @endif
