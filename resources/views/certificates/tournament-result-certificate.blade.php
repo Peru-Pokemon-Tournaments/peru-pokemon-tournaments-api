@@ -15,7 +15,7 @@
                     alt="Logo"
                 />
             </figure>
-            <span>Otorga este certificado a:</span>
+            <span id="pre-title">Otorga este certificado a:</span>
             <h1>{{ $tournamentResult->tournamentInscription->competitor->full_name }}</h1>
             @if ($tournamentResult->place == 1)
                 <h2>Campeón del torneo</h2>
@@ -105,6 +105,12 @@
     img {
         width: inherit;
         height: inherit;
+    }
+
+    #pre-title {
+        display: block;
+        text-align: center;
+        font-size: 20px;
     }
 
     #date {
