@@ -63,7 +63,7 @@
             @php
                 \Carbon\Carbon::setLocale('es');
             @endphp
-                <span>{{ $tournamentResult->tournamentInscription->tournament->place }},
+                <span id="date">{{ $tournamentResult->tournamentInscription->tournament->place }},
                     {{ $tournamentResult->tournamentInscription->tournament->formatted_locale_spanish_end_date }}
                 </span>
             <small>
@@ -107,7 +107,7 @@
         height: inherit;
     }
 
-    span {
+    #date {
         display: block;
         text-align: center;
         font-size: 20px;
@@ -145,6 +145,10 @@
 
     figcaption {
         text-align: center;
+    }
+
+    figcaption > span {
+        font-size: 15px;
     }
 
     footer {
