@@ -47,7 +47,14 @@
                             alt="{{ $pokemon->specie }}"
                         />
                     @endif
-                    <figcaption>{{ $pokemon->specie }}</figcaption>
+                    <figcaption>
+                        @if ($pokemon->name)
+                            <span>{{ $pokemon->name }}</span>
+                            <span>({{ $pokemon->specie }})</span>
+                        @else
+                            <span>{{ $pokemon->specie }}</span>
+                        @endif
+                    </figcaption>
                 </figure>
             </li>
             @endforeach
