@@ -39,44 +39,67 @@ class GenerateTournamentResultCertificateController extends BasicController
 
     private function nameSpeciesGenderAndItem(string $firstLine): array
     {
-        $parts = explode('@', $firstLine);
+        $results = [
+            'name' => null,
+            'specie' => null,
+            'gender' => 'M',
+            'item' => null,
+        ];
 
-        $name = null;
-        $specie = null;
-        $gender = null;
-        $item = null;
+        $hasFemaleGender = substr_count($firstLine, '(F)') >= 1;
+        $hasMaleGender = substr_count($firstLine, '(M)') >= 1;
+        $hasGender = $hasFemaleGender || $hasMaleGender;
 
-        if (strpos($parts[0], '(') !== false) {
-            if (substr_count($parts[0], '(') == 2) {
-                $specieAndGender = explode('(', $parts[0]);
-                $name = trim($specieAndGender[0]);
-                $specie = trim($specieAndGender[1], ') ');
-                $gender = trim($specieAndGender[2], ') ');
-            } else {
-                $specieAndGender = explode('(', $parts[0]);
-                $name = trim($specieAndGender[0]);
+        $parenthesisCount = 0;
 
-                if (strlen(trim($specieAndGender[1], ') '))) {
-                    $specie = trim($specieAndGender[0], ') ');
-                    $gender = trim($specieAndGender[1], ') ');
-                } else {
-                    $specie = trim($specieAndGender[1], ') ');
-                }
-            }
-        } else {
-            $name = trim($parts[0]);
-            $specie = $name;
-            $gender = 'M';
+        if ($hasFemaleGender || $hasMaleGender) {
+            $parenthesisCount += 1;
         }
 
-        $item = trim($parts[1]);
+        $hasName = substr_count($firstLine, '(') >= ($parenthesisCount + 1);
 
-        return [
-            'name' => $name,
-            'specie' => $specie,
-            'gender' => $gender,
-            'item' => $item,
-        ];
+        if ($hasMaleGender) {
+            $results['gender'] = 'M';
+        } elseif ($hasFemaleGender) {
+            $results['gender'] = 'F';
+        }
+
+        if (($hasName && $hasGender) || ($hasName && !$hasGender)) {
+            if (preg_match('/^([^(]*(?=\s*\())/', $firstLine, $matches)) {
+                $results['name'] = trim($matches[1]);
+            }
+
+            if (preg_match('/\(([^)]*)\)/', $firstLine, $matches)) {
+                $results['specie'] = trim($matches[1]);
+            }
+
+            if (preg_match('/@\s*(.*)$/', $firstLine, $matches)) {
+                $results['item'] = trim($matches[1]);
+            }
+        }
+
+        if (!$hasName && $hasGender) {
+            $specie = trim(explode($results['gender'], $firstLine)[0]);
+            $specie = trim(explode('(', $specie)[0]);
+
+            $results['specie'] = $specie;
+            $results['name'] = $specie;
+
+            if (preg_match('/@\s*(.*)$/', $firstLine, $matches)) {
+                $results['item'] = trim($matches[1]);
+            }
+        }
+
+        if (!$hasName && !$hasGender) {
+            $results['specie'] = trim(explode('@', $firstLine)[0]);
+            $results['name'] = $results['specie'];
+
+            if (preg_match('/@\s*(.*)$/', $firstLine, $matches)) {
+                $results['item'] = trim($matches[1]);
+            }
+        }
+
+        return $results;
     }
 
     private function parseStats(string $exportLine): array
