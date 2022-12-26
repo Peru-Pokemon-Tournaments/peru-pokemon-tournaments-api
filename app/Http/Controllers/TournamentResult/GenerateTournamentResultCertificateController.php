@@ -83,7 +83,6 @@ class GenerateTournamentResultCertificateController extends BasicController
             $specie = trim(explode('(', $specie)[0]);
 
             $results['specie'] = $specie;
-            $results['name'] = $specie;
 
             if (preg_match('/@\s*(.*)$/', $firstLine, $matches)) {
                 $results['item'] = trim($matches[1]);
@@ -92,7 +91,6 @@ class GenerateTournamentResultCertificateController extends BasicController
 
         if (!$hasName && !$hasGender) {
             $results['specie'] = trim(explode('@', $firstLine)[0]);
-            $results['name'] = $results['specie'];
 
             if (preg_match('/@\s*(.*)$/', $firstLine, $matches)) {
                 $results['item'] = trim($matches[1]);
